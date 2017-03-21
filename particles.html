@@ -1,0 +1,31 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>A-Frame Particle System Component Example</title>
+    <meta name="description" content="Hello, World!">
+    <script src="https://aframe.io/releases/0.4.0/aframe.min.js"></script>
+    <script src="https://rawgit.com/IdeaSpaceVR/aframe-particle-system-component/master/dist/aframe-particle-system-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-animation-component/dist/aframe-animation-component.min.js"></script>
+  </head>
+  <body>
+    <a-scene fog="type: linear; color: #AAA; far : 1; near : 30" animation__fog="property: fog.near; to: 500; dur: 2000">
+
+      <a-assets>
+        <img id="city" crossorigin="anonymous"
+        src="img/garibaldi1.jpg" >
+      </a-assets>
+
+
+      <!-- <a-entity position="0 2.25 -15" particle-system="preset: dust; particleCount: 10000; texture: ./img/pm25.png; opacity: 1;"></a-entity> -->
+
+      <!-- <a-entity position="0 2.25 -15" particle-system="preset: dust; particleCount: 5000; texture: ./img/star2.png; color: #0000FF,#00FF00,#FF0000"></a-entity> -->
+
+->
+
+      <a-sky id="image-360" radius="100" src="#city"></a-sky>
+
+    </a-scene>
+  </body>
+</html>
