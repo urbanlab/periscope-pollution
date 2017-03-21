@@ -11,8 +11,15 @@
 
 <body>
   <a-scene antialias="true">
-  <a-sphere position="0 0 0" radius="0.2" color="#F44336"></a-sphere>
-</a-scene>
+    <a-assets>
+      <img id="city" crossorigin="anonymous"
+      src="../img/parvis.jpg" >
+    </a-assets>
+
+    <a-sphere position="2 0 0" radius="0.2" color="#F44336"></a-sphere>
+    <a-sky id="image-360" radius="100" src="#city"></a-sky>
+
+  </a-scene>
   <script src='https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.16/d3.min.js'></script>
 
     <script src="js/index.js"></script>
