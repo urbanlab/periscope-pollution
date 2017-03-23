@@ -5,67 +5,97 @@
     <title>Periscope - Pollution de l'air - Urban LAB</title>
     <meta name="description" content="360&deg; Image Gallery - A-Frame">
     <script src="https://aframe.io/releases/0.4.0/aframe.min.js"></script>
-    <script src="https://npmcdn.com/aframe-animation-component@3.0.1"></script>
-    <script src="https://npmcdn.com/aframe-event-set-component@3.0.1"></script>
-    <script src="https://npmcdn.com/aframe-layout-component@3.0.1"></script>
-    <script src="https://npmcdn.com/aframe-template-component@3.1.1"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aframe-text-component/0.4.2/aframe-text-component.js"></script>
-    <script src="components/set-image.js"></script>
+    <script src="https://rawgit.com/squarefeet/ShaderParticleEngine/master/build/SPE.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.16/d3.min.js'></script>
+
+    <script src='./js/pollution.js'></script>
+
   </head>
   <body>
     <a-scene>
-
       <a-assets>
         <img id="city" crossorigin="anonymous" src="img/parvis.jpg" >
+        <img id="city2" crossorigin="anonymous" src="img/garibaldi1.jpg" >
+        <img id="cuisine" crossorigin="anonymous" src="img/360-cottage-interior-render-green.png" >
+        <img id="viseur" crossorigin="anonymous" src="./img/viseur-01.png">
 
-        <img id="city-thumb" crossorigin="anonymous" src="./img/viseur-01.png">
-        <img id="cubes-thumb" crossorigin="anonymous" src="./img/pm25.png">
-        <img id="sechelt-thumb" crossorigin="anonymous" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-sechelt.jpg">
-        <audio id="click-sound" crossorigin="anonymous" src="https://cdn.aframe.io/360-image-gallery-boilerplate/audio/click.ogg"></audio>
-        <img id="cubes" crossorigin="anonymous" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/cubes.jpg">
-        <img id="sechelt" crossorigin="anonymous" src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/sechelt.jpg">
+        <video id="video" src="./video/test.mp4" autoplay loop crossorigin></video>
 
-        <!-- Image link template to be reused. -->
-        <script id="link" type="text/html">
-          <a-entity class="link"
-            geometry="primitive: plane; height: 1; width: 1"
-            material="src: ${thumb}; transparent :true"
-            event-set__1="_event: mousedown; scale: 1 1 1"
-            event-set__2="_event: mouseup; scale: 1.2 1.2 1"
-            event-set__3="_event: mouseenter; scale: 1.2 1.2 1"
-            event-set__4="_event: mouseleave; scale: 1 1 1"
-            set-image="on: click; target: #image-360; src: ${src}"
-            sound="on: click; src: #click-sound"></a-entity>
-        </script>
       </a-assets>
 
+      <!-- CURSOR -->
+      <a-entity position="0 2.2 4">
+       <a-entity camera look-controls wasd-controls>
+         <a-entity position="0 0 -3"
+                   geometry="primitive: ring; radiusOuter: 0.20;
+                             radiusInner: 0.10;"
+                   material="color: cyan; shader: flat"
+                   cursor="maxDistance: 30; fuse: true">
+           <a-animation begin="click" easing="ease-in" attribute="scale"
+                fill="backwards" from="0.1 0.1 0.1" to="1 1 1" dur="150"></a-animation>
+           <a-animation begin="fusing" easing="ease-in" attribute="scale"
+                fill="forwards" from="1 1 1" to="0.1 0.1 0.1" dur="1500"></a-animation>
+         </a-entity>
+       </a-entity>
+     </a-entity>
+
+     <a-sphere position="-3 3.25 -1" radius="1.25" color="#EF2D5E" onclick="showSceneRue()"></a-sphere>
+
+
+      <a-entity id="sceneRue" class="scene">
+        <a-sky id="image-360" radius="300" src="#city"></a-sky>
+        <a-box position="-2 2 -1" rotation="0 45 0" width="1" height="1" depth="1"  color="#4CC3D9" onclick="showSceneCuisine()"></a-box>
+        <a-box position="2 2 -1" rotation="0 45 0" width="1" height="1" depth="1"  color="red" onclick="showVideo()"></a-box>
+      </a-entity>
+
       <!-- 360-degree image. -->
-      <a-sky id="image-360" radius="300" src="#city"></a-sky>
-
-      <!-- Image links. -->
-      <a-entity id="link1" layout="type: line; margin: 1.5" position="0 -1 -4">
-        <a-entity template="src: #link" data-src="#cubes" data-thumb="#cubes-thumb"></a-entity>
+      <a-entity id="sceneCuisine" class="scene" visible="false">
+        <a-sky id="image-360" radius="300" src="#cuisine"></a-sky>
+        <!-- <a-entity id="pollution" pollution="count:1000;multiplier:0"></a-entity> -->
       </a-entity>
 
-      <a-entity id="link2" layout="type: line; margin: 1.5" position="1.5 1.5 -3">
-        <a-entity template="src: #link" data-src="#city" data-thumb="#city-thumb"></a-entity>
-      </a-entity>
-
-      <a-entity id="link3" template="src: #link" data-src="#sechelt" data-thumb="#sechelt-thumb" layout="type: line; margin: 1.5" position="-4 2 -2"></a-entity>
-
-
-      <!-- Camera + cursor. -->
-      <a-entity camera look-controls>
-        <a-cursor id="cursor"
-          animation__click="property: scale; startEvents: click; from: 0.1 0.1 0.1; to: 1 1 1; dur: 150"
-          animation__fusing="property: fusing; startEvents: fusing; from: 1 1 1; to: 0.1 0.1 0.1; dur: 1500"
-          event-set__1="_event: mouseenter; color: springgreen"
-          event-set__2="_event: mouseleave; color: black"
-          fuse="true"
-          raycaster="objects: .link"></a-cursor>
+      <a-entity id="sceneVideo" class="scene" visible="false">
+        <a-videosphere src="#video" rotation="0 180 0"></a-videosphere>
       </a-entity>
 
 
+      <script type="text/javascript">
+
+        function hideAllScenes() {
+          var scenes = document.getElementsByClassName('scene')
+          for(var i = 0; i < scenes.length; i++) {
+            scenes[i].setAttribute('visible', 'false')
+          }
+        }
+
+        function showSceneRue() {
+          hideAllScenes() // reset
+          document.getElementById("sceneRue").setAttribute('visible', 'true')
+        }
+
+        function showVideo() {
+          hideAllScenes() // reset
+          document.getElementById("sceneVideo").setAttribute('visible', 'true')
+        }
+
+        function showSceneCuisine(number) {
+          hideAllScenes() // reset
+          document.getElementById("sceneCuisine").setAttribute('visible', 'true')
+
+          // var multiplier = 0;
+          // var interval = setInterval(function(){
+          //   var el = document.getElementById("pollution")
+          //   multiplier = multiplier + 0.1;
+          //   d3.select("#pollution")
+          //     .attr("pollution", function(d){
+          //       return { multiplier : multiplier}
+          //     })
+          //   if(multiplier > 1) clearInterval(interval);
+          // }, 300);
+
+        }
+      </script>
 
     </a-scene>
   </body>
