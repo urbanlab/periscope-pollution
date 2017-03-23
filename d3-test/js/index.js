@@ -1,9 +1,7 @@
 var scene = d3.select('a-scene');
 
-scene.on("mouseover", moveUp);
-scene.on("mouseout", moveDown);
-
 var up = false;
+
 setInterval(function(){
   console.log("Hello");
   up ? moveUp() : moveDown();
@@ -15,7 +13,7 @@ function moveUp() {
       .transition()
       .duration(1000)
       .attrTween("position", function() {
-        return d3.interpolate("0 0 0", "0 4 0");
+        return d3.interpolate("0 0 0", "2 4 0");
       });
 }
 
@@ -24,6 +22,6 @@ function moveDown() {
       .transition()
       .duration(1000)
       .attrTween("position", function() {
-        return d3.interpolate("0 4 0", "0 0 0");
+        return d3.interpolate("2 4 0", "0 0 0");
       });
 }
