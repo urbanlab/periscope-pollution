@@ -7,7 +7,6 @@
     <script src="https://aframe.io/releases/0.4.0/aframe.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aframe-text-component/0.4.2/aframe-text-component.js"></script>
     <script src="https://rawgit.com/squarefeet/ShaderParticleEngine/master/build/SPE.js"></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.16/d3.min.js'></script>
 
     <script src='./js/pollution.js'></script>
 
@@ -22,7 +21,12 @@
         <img id="cuisine" crossorigin="anonymous" src="img/360-cottage-interior-render-green.png" >
         <img id="viseur" crossorigin="anonymous" src="./img/viseur-01.png">
 
-        <video id="video" src="./video/test.small.mp4" autoplay loop crossorigin></video>
+        <video id="videoTest" src="./video/test.small.mp4" autoplay loop crossorigin></video>
+        <video id="videoRoom" src="./video/room.small.mp4" autoplay></video>
+        <video id="videoGaribaldi" src="./video/garibaldi.small.mp4" autoplay loop crossorigin></video>
+        <!--
+        <video id="videoRoomWindow" src="./video/Room_ouverture_fenetre.mp4"></video>
+      -->
 
         <a-asset-item id="p1-obj" src="./assets/P1-OBJ.obj"></a-asset-item>
         <a-asset-item id="p1-mtl" src="./assets/P1-OBJ.mtl"></a-asset-item>
@@ -34,6 +38,7 @@
         <a-asset-item id="p3-mtl" src="./assets/P3-OBJ.mtl"></a-asset-item>
 
       </a-assets>
+
 
 
 
@@ -53,39 +58,56 @@
        </a-entity>
      </a-entity>
 
-     <!-- <a-sphere position="-3 3.25 -1" radius=".5" color="#EF2D5E" onclick="showSceneRue()"></a-sphere> -->
+     <a-sphere position="-3 3.25 -1" radius=".5" color="#EF2D5E" onclick="showSceneRue()"></a-sphere>
 
-
-    <a-entity id="sceneRue" class="scene">
-      <a-sky id="image-360" radius="300" src="#city"></a-sky>
-
+    <a-entity id="sceneModels" class="scene" visible="false">
       <a-entity
         obj-model="obj: #p1-obj; mtl: #p1-mtl"
         position="-3 3.25 -1"
+        color="red"
         scale="100 100 100"></a-entity>
       <a-entity
         obj-model="obj: #p2-obj; mtl: #p2-mtl"
         position="3 -3.25 1"
+        color="blue"
         scale="100 100 100"></a-entity>
       <a-entity
         obj-model="obj: #p3-obj; mtl: #p3-mtl"
         position="2 2.5 1.5"
+        color="pink"
         scale="100 100 100"></a-entity>
+    </a-entity>
 
+    <a-entity id="sceneRue" class="scene" visible="true">
+      <!-- <a-sky id="image-360" radius="300" src="#city"></a-sky> -->
+      <a-videosphere src="#videoGaribaldi" rotation="0 0 0"></a-videosphere>
       <a-box position="-2 2 -1" rotation="0 45 0" width="1" height="2" depth="1"  color="#4CC3D9" onclick="showSceneCuisine()"></a-box>
       <a-box position="2 2 -1" rotation="0 45 0" width="1" height="1" depth="1"  color="red" onclick="showVideo()"></a-box>
     </a-entity>
 
       <!-- 360-degree image. -->
       <a-entity id="sceneCuisine" class="scene" visible="false">
-        <a-sky id="image-360" radius="300" src="#cuisine"></a-sky>
+        <a-videosphere src="#videoRoom" rotation="0 0 0"></a-videosphere>
         <a-entity id="pollution" pollution="count:20000;multiplier:0"></a-entity>
-        <a-box id="hidden-window" visible="false" position="2 2 -1" rotation="0 45 0" width="1" height="1" depth="1"  color="red" onclick="removePollution()"></a-box>
+
+        <a-box id="hidden-window"
+          visible="false"
+          position="25 5 6"
+          rotation="0 90 0"
+          width="6"
+          height="10"
+          depth=".5"
+          color="red"
+          onclick="removePollution()"
+          >
+        </a-box>
+
       </a-entity>
 
 
       <a-entity id="sceneVideo" class="scene" visible="false">
-        <a-videosphere src="#video" rotation="0 180 0"></a-videosphere>
+        <a-sky id="image-360" radius="300" src="#cuisine"></a-sky>
+        <!-- <a-videosphere src="#videoRoom" rotation="0 0 0"></a-videosphere> -->
       </a-entity>
 
 
@@ -129,10 +151,16 @@
 
         // events
         var sceneEl = document.getElementById("sceneCuisine")
+
         sceneEl.addEventListener('pollutionReady', function () {
           console.log("pollution is ready !");
           // show window
           document.getElementById("hidden-window").setAttribute("visible", true)
+        });
+
+        sceneEl.addEventListener('pollutionFinished', function () {
+          console.log("pollution is finished !");
+          showSceneRue()
         });
 
       </script>

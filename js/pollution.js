@@ -65,7 +65,7 @@ AFRAME.registerComponent('pollution', {
   fadeIn() {
     var self = this
     var interval = setInterval(function () {
-      self.data.multiplier += .1
+      self.data.multiplier += .05
 
       if (self.data.multiplier > 1) {
         self.data.multiplier = 1
@@ -73,15 +73,18 @@ AFRAME.registerComponent('pollution', {
         self.el.emit('pollutionReady');
       }
       self.update()
-    }, 300);
+    }, 500);
   },
   fadeOut() {
     var self = this
     var interval = setInterval(function () {
-      self.data.multiplier -= .1
+      self.data.multiplier -= .05
+      if (self.data.multiplier < 0) {
+        clearInterval(interval)
+        self.el.emit('pollutionFinished');
+      }
       self.update()
-      if (self.data.multiplier < 0) clearInterval(interval)
-    }, 300);
+    }, 500);
   },
   update(oldData) {
     console.log("updated")
