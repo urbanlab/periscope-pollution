@@ -14,13 +14,15 @@
   </head>
   <body>
     <a-scene>
+        <!-- fog="type: exponential; color: #00FF00; density:.00025 "
+        animation__fog="property: fog.density; to:.005 ; dur: 6000" -->
       <a-assets>
         <img id="city" crossorigin="anonymous" src="img/parvis.jpg" >
         <img id="city2" crossorigin="anonymous" src="img/garibaldi1.jpg" >
         <img id="cuisine" crossorigin="anonymous" src="img/360-cottage-interior-render-green.png" >
         <img id="viseur" crossorigin="anonymous" src="./img/viseur-01.png">
 
-        <video id="video" src="./video/test.mp4" autoplay loop crossorigin></video>
+        <video id="video" src="./video/test.small.mp4" autoplay loop crossorigin></video>
 
       </a-assets>
 
@@ -40,20 +42,27 @@
        </a-entity>
      </a-entity>
 
-     <a-sphere position="-3 3.25 -1" radius="1.25" color="#EF2D5E" onclick="showSceneRue()"></a-sphere>
+     <a-sphere position="-3 3.25 -1" radius=".5" color="#EF2D5E" onclick="showSceneRue()"></a-sphere>
+
+     <!-- <a-entity position="1 0 0.3" text-geometry="value: PERISCOPE; style: italic; size: 0.8; weight: bold; height: 0;" material="shader: flat; color: white"></a-entity> -->
 
 
-      <a-entity id="sceneRue" class="scene">
-        <a-sky id="image-360" radius="300" src="#city"></a-sky>
-        <a-box position="-2 2 -1" rotation="0 45 0" width="1" height="1" depth="1"  color="#4CC3D9" onclick="showSceneCuisine()"></a-box>
-        <a-box position="2 2 -1" rotation="0 45 0" width="1" height="1" depth="1"  color="red" onclick="showVideo()"></a-box>
-      </a-entity>
+    <a-entity id="sceneRue" class="scene">
+      <a-sky id="image-360" radius="300" src="#city"></a-sky>
+      <a-box position="-2 2 -1" rotation="0 45 0" width="1" height="2" depth="1"  color="#4CC3D9" onclick="showSceneCuisine()"></a-box>
+      <a-box position="2 2 -1" rotation="0 45 0" width="1" height="1" depth="1"  color="red" onclick="showVideo()"></a-box>
+    </a-entity>
 
       <!-- 360-degree image. -->
       <a-entity id="sceneCuisine" class="scene" visible="false">
         <a-sky id="image-360" radius="300" src="#cuisine"></a-sky>
-        <!-- <a-entity id="pollution" pollution="count:1000;multiplier:0"></a-entity> -->
+        <a-entity
+          id="pollution"
+          pollution="count:20000;multiplier:0"
+          >
+        </a-entity>
       </a-entity>
+
 
       <a-entity id="sceneVideo" class="scene" visible="false">
         <a-videosphere src="#video" rotation="0 180 0"></a-videosphere>
@@ -67,6 +76,11 @@
           for(var i = 0; i < scenes.length; i++) {
             scenes[i].setAttribute('visible', 'false')
           }
+
+          // hide pollution
+          var pollution = document.getElementById("pollution")
+          pollution.setAttribute("pollution", {"multiplier" : 0})
+
         }
 
         function showSceneRue() {
@@ -79,20 +93,15 @@
           document.getElementById("sceneVideo").setAttribute('visible', 'true')
         }
 
-        function showSceneCuisine(number) {
+        function showSceneCuisine() {
           hideAllScenes() // reset
-          document.getElementById("sceneCuisine").setAttribute('visible', 'true')
+          var sceneEl = document.getElementById("sceneCuisine")
+          sceneEl.setAttribute('visible', 'true')
 
-          // var multiplier = 0;
-          // var interval = setInterval(function(){
-          //   var el = document.getElementById("pollution")
-          //   multiplier = multiplier + 0.1;
-          //   d3.select("#pollution")
-          //     .attr("pollution", function(d){
-          //       return { multiplier : multiplier}
-          //     })
-          //   if(multiplier > 1) clearInterval(interval);
-          // }, 300);
+          var pollutionEl = document.getElementById("pollution")
+
+          // start the animation
+          pollutionEl.emit("pollutionFadeIn")
 
         }
       </script>
