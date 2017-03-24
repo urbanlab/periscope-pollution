@@ -24,7 +24,18 @@
 
         <video id="video" src="./video/test.small.mp4" autoplay loop crossorigin></video>
 
+        <a-asset-item id="p1-obj" src="./assets/P1-OBJ.obj"></a-asset-item>
+        <a-asset-item id="p1-mtl" src="./assets/P1-OBJ.mtl"></a-asset-item>
+
+        <a-asset-item id="p2-obj" src="./assets/P2-OBJ.obj"></a-asset-item>
+        <a-asset-item id="p2-mtl" src="./assets/P2-OBJ.mtl"></a-asset-item>
+
+        <a-asset-item id="p3-obj" src="./assets/P3-OBJ.obj"></a-asset-item>
+        <a-asset-item id="p3-mtl" src="./assets/P3-OBJ.mtl"></a-asset-item>
+
       </a-assets>
+
+
 
       <!-- CURSOR -->
       <a-entity position="0 2.2 4">
@@ -42,10 +53,25 @@
        </a-entity>
      </a-entity>
 
-     <a-sphere position="-3 3.25 -1" radius=".5" color="#EF2D5E" onclick="showSceneRue()"></a-sphere>
+     <!-- <a-sphere position="-3 3.25 -1" radius=".5" color="#EF2D5E" onclick="showSceneRue()"></a-sphere> -->
+
 
     <a-entity id="sceneRue" class="scene">
       <a-sky id="image-360" radius="300" src="#city"></a-sky>
+
+      <a-entity
+        obj-model="obj: #p1-obj; mtl: #p1-mtl"
+        position="-3 3.25 -1"
+        scale="100 100 100"></a-entity>
+      <a-entity
+        obj-model="obj: #p2-obj; mtl: #p2-mtl"
+        position="3 -3.25 1"
+        scale="100 100 100"></a-entity>
+      <a-entity
+        obj-model="obj: #p3-obj; mtl: #p3-mtl"
+        position="2 2.5 1.5"
+        scale="100 100 100"></a-entity>
+
       <a-box position="-2 2 -1" rotation="0 45 0" width="1" height="2" depth="1"  color="#4CC3D9" onclick="showSceneCuisine()"></a-box>
       <a-box position="2 2 -1" rotation="0 45 0" width="1" height="1" depth="1"  color="red" onclick="showVideo()"></a-box>
     </a-entity>
@@ -101,7 +127,6 @@
           pollutionEl.emit("pollutionFadeOut")
         }
 
-
         // events
         var sceneEl = document.getElementById("sceneCuisine")
         sceneEl.addEventListener('pollutionReady', function () {
@@ -109,7 +134,6 @@
           // show window
           document.getElementById("hidden-window").setAttribute("visible", true)
         });
-
 
       </script>
 
