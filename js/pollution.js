@@ -66,9 +66,11 @@ AFRAME.registerComponent('pollution', {
     var self = this
     var interval = setInterval(function () {
       self.data.multiplier += .1
+
       if (self.data.multiplier > 1) {
         self.data.multiplier = 1
         clearInterval(interval)
+        self.el.emit('pollutionReady');
       }
       self.update()
     }, 300);

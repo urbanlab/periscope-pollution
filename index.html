@@ -44,9 +44,6 @@
 
      <a-sphere position="-3 3.25 -1" radius=".5" color="#EF2D5E" onclick="showSceneRue()"></a-sphere>
 
-     <!-- <a-entity position="1 0 0.3" text-geometry="value: PERISCOPE; style: italic; size: 0.8; weight: bold; height: 0;" material="shader: flat; color: white"></a-entity> -->
-
-
     <a-entity id="sceneRue" class="scene">
       <a-sky id="image-360" radius="300" src="#city"></a-sky>
       <a-box position="-2 2 -1" rotation="0 45 0" width="1" height="2" depth="1"  color="#4CC3D9" onclick="showSceneCuisine()"></a-box>
@@ -56,11 +53,8 @@
       <!-- 360-degree image. -->
       <a-entity id="sceneCuisine" class="scene" visible="false">
         <a-sky id="image-360" radius="300" src="#cuisine"></a-sky>
-        <a-entity
-          id="pollution"
-          pollution="count:20000;multiplier:0"
-          >
-        </a-entity>
+        <a-entity id="pollution" pollution="count:20000;multiplier:0"></a-entity>
+        <a-box id="hidden-window" visible="false" position="2 2 -1" rotation="0 45 0" width="1" height="1" depth="1"  color="red" onclick="removePollution()"></a-box>
       </a-entity>
 
 
@@ -99,11 +93,24 @@
           sceneEl.setAttribute('visible', 'true')
 
           var pollutionEl = document.getElementById("pollution")
-
-          // start the animation
-          pollutionEl.emit("pollutionFadeIn")
-
+          pollutionEl.emit("pollutionFadeIn") // start the animation
         }
+
+        function removePollution() {
+          var pollutionEl = document.getElementById("pollution")
+          pollutionEl.emit("pollutionFadeOut")
+        }
+
+
+        // events
+        var sceneEl = document.getElementById("sceneCuisine")
+        sceneEl.addEventListener('pollutionReady', function () {
+          console.log("pollution is ready !");
+          // show window
+          document.getElementById("hidden-window").setAttribute("visible", true)
+        });
+
+
       </script>
 
     </a-scene>
