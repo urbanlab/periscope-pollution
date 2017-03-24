@@ -13,8 +13,6 @@
   </head>
   <body>
     <a-scene>
-        <!-- fog="type: exponential; color: #00FF00; density:.00025 "
-        animation__fog="property: fog.density; to:.005 ; dur: 6000" -->
       <a-assets>
         <img id="city" crossorigin="anonymous" src="img/parvis.jpg" >
         <img id="city2" crossorigin="anonymous" src="img/garibaldi1.jpg" >
@@ -24,9 +22,6 @@
         <video id="videoTest" src="./video/test.small.mp4" autoplay loop crossorigin></video>
         <video id="videoRoom" src="./video/room.small.mp4" autoplay></video>
         <video id="videoGaribaldi" src="./video/garibaldi.small.mp4" autoplay loop crossorigin></video>
-        <!--
-        <video id="videoRoomWindow" src="./video/Room_ouverture_fenetre.mp4"></video>
-      -->
 
         <a-asset-item id="p1-obj" src="./assets/P1-OBJ.obj"></a-asset-item>
         <a-asset-item id="p1-mtl" src="./assets/P1-OBJ.mtl"></a-asset-item>
@@ -36,56 +31,65 @@
 
         <a-asset-item id="p3-obj" src="./assets/P3-OBJ.obj"></a-asset-item>
         <a-asset-item id="p3-mtl" src="./assets/P3-OBJ.mtl"></a-asset-item>
-
       </a-assets>
 
-
-
+      <a-sphere position="-3 3.25 -1" radius=".5" color="#EF2D5E" onclick="showSceneRue()"></a-sphere>
 
       <!-- CURSOR -->
       <a-entity position="0 2.2 4">
-       <a-entity camera look-controls wasd-controls>
-         <a-entity position="0 0 -3"
-                   geometry="primitive: ring; radiusOuter: 0.20;
-                             radiusInner: 0.10;"
-                   material="color: cyan; shader: flat"
-                   cursor="maxDistance: 30; fuse: true">
-           <a-animation begin="click" easing="ease-in" attribute="scale"
-                fill="backwards" from="0.1 0.1 0.1" to="1 1 1" dur="150"></a-animation>
-           <a-animation begin="fusing" easing="ease-in" attribute="scale"
-                fill="forwards" from="1 1 1" to="0.1 0.1 0.1" dur="1500"></a-animation>
+         <a-entity camera look-controls wasd-controls>
+           <a-entity position="0 0 -3"
+                     geometry="primitive: ring; radiusOuter: 0.20;
+                               radiusInner: 0.10;"
+                     material="color: cyan; shader: flat"
+                     cursor="maxDistance: 30; fuse: true">
+             <a-animation begin="click" easing="ease-in" attribute="scale"
+                  fill="backwards" from="0.1 0.1 0.1" to="1 1 1" dur="150"></a-animation>
+             <a-animation begin="fusing" easing="ease-in" attribute="scale"
+                  fill="forwards" from="1 1 1" to="0.1 0.1 0.1" dur="1500"></a-animation>
+           </a-entity>
          </a-entity>
-       </a-entity>
-     </a-entity>
+      </a-entity>
 
-     <a-sphere position="-3 3.25 -1" radius=".5" color="#EF2D5E" onclick="showSceneRue()"></a-sphere>
+      <!-- 3D models -->
+      <a-entity id="sceneModels" class="scene" visible="false">
+        <a-entity
+          obj-model="obj: #p1-obj; mtl: #p1-mtl"
+          position="-3 3.25 -1"
+          color="red"
+          scale="100 100 100"></a-entity>
+        <a-entity
+          obj-model="obj: #p2-obj; mtl: #p2-mtl"
+          position="3 -3.25 1"
+          color="blue"
+          scale="100 100 100"></a-entity>
+        <a-entity
+          obj-model="obj: #p3-obj; mtl: #p3-mtl"
+          position="2 2.5 1.5"
+          color="pink"
+          scale="100 100 100"></a-entity>
+      </a-entity>
 
-    <a-entity id="sceneModels" class="scene" visible="false">
-      <a-entity
-        obj-model="obj: #p1-obj; mtl: #p1-mtl"
-        position="-3 3.25 -1"
-        color="red"
-        scale="100 100 100"></a-entity>
-      <a-entity
-        obj-model="obj: #p2-obj; mtl: #p2-mtl"
-        position="3 -3.25 1"
-        color="blue"
-        scale="100 100 100"></a-entity>
-      <a-entity
-        obj-model="obj: #p3-obj; mtl: #p3-mtl"
-        position="2 2.5 1.5"
-        color="pink"
-        scale="100 100 100"></a-entity>
-    </a-entity>
+      <!-- garibaldi -->
+      <a-entity id="sceneRue" class="scene" visible="true">
+        <a-videosphere src="#videoGaribaldi" rotation="0 0 0"></a-videosphere>
+        <a-box
+          position="-8 2 -1"
+          rotation="0 90 0"
+          width="2"
+          height="3"
+          depth="1"
+          color="green"
+          onclick="showSceneCuisine()"></a-box>
+        <a-box
+          position="-12 0 9"
+          rotation="0 90 0"
+          width="2"
+          height="2"
+          depth="1"  color="red" onclick="showVideo()"></a-box>
+      </a-entity>
 
-    <a-entity id="sceneRue" class="scene" visible="true">
-      <!-- <a-sky id="image-360" radius="300" src="#city"></a-sky> -->
-      <a-videosphere src="#videoGaribaldi" rotation="0 0 0"></a-videosphere>
-      <a-box position="-2 2 -1" rotation="0 45 0" width="1" height="2" depth="1"  color="#4CC3D9" onclick="showSceneCuisine()"></a-box>
-      <a-box position="2 2 -1" rotation="0 45 0" width="1" height="1" depth="1"  color="red" onclick="showVideo()"></a-box>
-    </a-entity>
-
-      <!-- 360-degree image. -->
+      <!-- interior -->
       <a-entity id="sceneCuisine" class="scene" visible="false">
         <a-videosphere src="#videoRoom" rotation="0 0 0"></a-videosphere>
         <a-entity id="pollution" pollution="count:20000;multiplier:0"></a-entity>
@@ -101,15 +105,12 @@
           onclick="removePollution()"
           >
         </a-box>
-
       </a-entity>
 
-
+      <!-- bonus scene :) -->
       <a-entity id="sceneVideo" class="scene" visible="false">
         <a-sky id="image-360" radius="300" src="#cuisine"></a-sky>
-        <!-- <a-videosphere src="#videoRoom" rotation="0 0 0"></a-videosphere> -->
       </a-entity>
-
 
       <script type="text/javascript">
 
