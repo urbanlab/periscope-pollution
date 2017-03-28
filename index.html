@@ -7,21 +7,31 @@
     <script src="https://aframe.io/releases/0.4.0/aframe.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aframe-text-component/0.4.2/aframe-text-component.js"></script>
     <script src="https://rawgit.com/squarefeet/ShaderParticleEngine/master/build/SPE.js"></script>
+    <script src="./js/aframe-animation-component.min.js"></script>
 
     <script src='./js/pollution.js'></script>
 
   </head>
   <body>
-    <a-scene>
+    <a-scene >
       <a-assets>
         <img id="city" crossorigin="anonymous" src="img/parvis.jpg" >
         <img id="city2" crossorigin="anonymous" src="img/garibaldi1.jpg" >
         <img id="cuisine" crossorigin="anonymous" src="img/360-cottage-interior-render-green.png" >
-        <img id="viseur" crossorigin="anonymous" src="./img/viseur-01.png">
+        <img id="viseurAsset" crossorigin="anonymous" src="./img/viseur.png">
+        <img id="moleculesAll" crossorigin="anonymous" src="./img/molecules-all.png">
+
+        <img id="vignetteCov" crossorigin="anonymous" src="./img/vignette-cov.png">
+        <img id="vignetteDioxydeAzote" crossorigin="anonymous" src="./img/vignette-dioxydedazote.png">
+        <img id="vignetteOzone" crossorigin="anonymous" src="./img/vignette-ozone.png">
+        <img id="vignetteParticulesFines" crossorigin="anonymous" src="./img/vignette-particules-fines.png">
+
+        <img id="roomTexteAsset" crossorigin="anonymous" src="./img/room-texte.jpg">
 
         <video id="videoTest" src="./video/test.small.mp4" autoplay loop crossorigin></video>
-        <video id="videoRoom" src="./video/room.small.mp4" autoplay></video>
-        <video id="videoGaribaldi" src="./video/garibaldi.small.mp4" autoplay loop crossorigin></video>
+        <video id="videoRoomBeforeAction" src="./video/room-before-action.mp4"></video>
+        <video id="videoRoomAfterAction" src="./video/room-after-action.mp4"></video>
+        <video id="videoGaribaldi" src="./video/garibaldi.mp4" autoplay loop crossorigin></video>
 
         <a-asset-item id="p1-obj" src="./assets/P1-OBJ.obj"></a-asset-item>
         <a-asset-item id="p1-mtl" src="./assets/P1-OBJ.mtl"></a-asset-item>
@@ -31,43 +41,119 @@
 
         <a-asset-item id="p3-obj" src="./assets/P3-OBJ.obj"></a-asset-item>
         <a-asset-item id="p3-mtl" src="./assets/P3-OBJ.mtl"></a-asset-item>
+
+        <a-asset-item id="murvegetal-obj" src="./assets/murvegetal.obj"></a-asset-item>
+        <a-asset-item id="murvegetal-mtl" src="./assets/murvegetal.mtl"></a-asset-item>
+
+        <script id="orbiter" type="template/nunjucks">
+          <a-entity animation="property: position;to:300 300 300;duration:4000;direction:alternate;loop:true;"
+          animation__opacity="property: opacity;to:0;duration:1000;direction:alternate;loop:true;">
+          </a-entity>
+        </script>
       </a-assets>
 
-      <a-sphere position="-3 3.25 -1" radius=".5" color="#EF2D5E" onclick="showSceneRue()"></a-sphere>
+      <!-- <a-sphere position="-3 3.25 -1" radius=".5" color="#EF2D5E" onclick="showSceneRue()"></a-sphere> -->
 
       <!-- CURSOR -->
       <a-entity position="0 2.2 4">
          <a-entity camera look-controls wasd-controls>
+           <a-plane
+             position="0 0 -3"
+             width=".5"
+             height=".5"
+             color="#FFF"
+             cursor="fuse: true"
+             src="#viseurAsset"
+             id="viseur"
+             transparent="true"
+             >
+             <a-animation begin="click" easing="ease-in" attribute="scale"
+                  fill="forwards" from="0.1 0.1 0.1" to="1 1 1" dur="150"></a-animation>
+             <a-animation begin="fusing" easing="ease-in" attribute="scale"
+                  fill="backwards" from="1 1 1" to="0.1 0.1 0.1" dur="1500"></a-animation>
+         </a-plane>
+
+         <a-plane
+          position="0 .85 -3"
+          width="5"
+          height="1.22"
+          scale=".5 .5"
+          src="#roomTexteAsset"
+          transparent="true"
+          id="roomTexte"
+          visible="false">
+
+         </a-plane>
+<!--
+
            <a-entity position="0 0 -3"
                      geometry="primitive: ring; radiusOuter: 0.20;
                                radiusInner: 0.10;"
                      material="color: cyan; shader: flat"
-                     cursor="maxDistance: 30; fuse: true">
+                     cursor="fuse: true">
              <a-animation begin="click" easing="ease-in" attribute="scale"
                   fill="backwards" from="0.1 0.1 0.1" to="1 1 1" dur="150"></a-animation>
              <a-animation begin="fusing" easing="ease-in" attribute="scale"
                   fill="forwards" from="1 1 1" to="0.1 0.1 0.1" dur="1500"></a-animation>
-           </a-entity>
+           </a-entity> -->
          </a-entity>
+      </a-entity>
+
+      <a-entity>
+        <a-plane
+         position="0 -1 -3"
+         width="5"
+         height="5.3"
+         scale=".5 .5"
+         src="#vignetteCov"
+         transparent="true">
+       </a-plane>
+         <a-plane
+          position="-7 -1 4"
+          rotation="0 90 0"
+          width="5"
+          height="5.3"
+          scale=".5 .5"
+          src="#vignetteOzone"
+          transparent="true">
+        </a-plane>
+          <a-plane
+           position="0 -1 10"
+           rotation="0 180 0"
+           width="5"
+           height="5.3"
+           scale=".5 .5"
+           src="#vignetteDioxydeAzote"
+           transparent="true">
+         </a-plane>
+           <a-plane
+            position="7 -1 4"
+            rotation="0 -90 0"
+            width="5"
+            height="5.3"
+            scale=".5 .5"
+            src="#vignetteParticulesFines"
+            transparent="true">
+          </a-plane>
       </a-entity>
 
       <!-- 3D models -->
       <a-entity id="sceneModels" class="scene" visible="false">
         <a-entity
-          obj-model="obj: #p1-obj; mtl: #p1-mtl"
+          obj-model="obj: #murvegetal-obj; mtl: #murvegetal-mtl"
           position="-3 3.25 -1"
           color="red"
           scale="100 100 100"></a-entity>
-        <a-entity
+        <!-- <a-entity
           obj-model="obj: #p2-obj; mtl: #p2-mtl"
           position="3 -3.25 1"
           color="blue"
-          scale="100 100 100"></a-entity>
-        <a-entity
+          scale="100 100 100"></a-entity> -->
+        <!-- <a-entity
           obj-model="obj: #p3-obj; mtl: #p3-mtl"
           position="2 2.5 1.5"
           color="pink"
-          scale="100 100 100"></a-entity>
+          scale="100 100 100"></a-entity> -->
       </a-entity>
 
       <!-- garibaldi -->
@@ -80,7 +166,7 @@
           height="3"
           depth="1"
           color="green"
-          onclick="showSceneCuisine()"></a-box>
+          onclick="showSceneRoom()"></a-box>
         <a-box
           position="-12 0 9"
           rotation="0 90 0"
@@ -90,21 +176,25 @@
       </a-entity>
 
       <!-- interior -->
-      <a-entity id="sceneCuisine" class="scene" visible="false">
-        <a-videosphere src="#videoRoom" rotation="0 0 0"></a-videosphere>
-        <a-entity id="pollution" pollution="count:20000;multiplier:0"></a-entity>
+      <a-entity id="sceneRoom" class="scene" visible="false">
+        <a-videosphere id="videoSceneRoomBeforeAction" src="#videoRoomBeforeAction" visible="true" rotation="0 0 0"></a-videosphere>
+        <a-videosphere id="videoSceneRoomAfterAction" src="#videoRoomAfterAction" visible="false" rotation="0 0 0"></a-videosphere>
 
-        <a-box id="hidden-window"
+        <a-entity id="pollution" pollution="count:10000;multiplier:0;speed:0.05">
+        </a-entity>
+
+        <a-plane id="hidden-window"
           visible="false"
-          position="25 5 6"
-          rotation="0 90 0"
-          width="6"
-          height="10"
-          depth=".5"
-          color="red"
-          onclick="removePollution()"
+          position="100 10 3.9"
+          rotation="0 -90 0"
+          width="65"
+          height="98"
+          color="#FFF"
+          onclick="removePollution('sceneRoom')"
           >
-        </a-box>
+          <a-animation attribute="material.color" from="cyan" to="cyan" dur="1000" direction="alternate" repeat="indefinite"></a-animation>
+          <a-animation attribute="material.opacity" from="0" to=".5" dur="1000" direction="alternate" repeat="indefinite"></a-animation>
+        </a-plane>
       </a-entity>
 
       <!-- bonus scene :) -->
@@ -126,6 +216,14 @@
 
         }
 
+        function showCursor() {
+          document.getElementById('viseur').setAttribute('visible', true);
+        }
+
+        function hideCursor() {
+          document.getElementById('viseur').setAttribute('visible', false);
+        }
+
         function showSceneRue() {
           hideAllScenes() // reset
           document.getElementById("sceneRue").setAttribute('visible', 'true')
@@ -136,27 +234,47 @@
           document.getElementById("sceneVideo").setAttribute('visible', 'true')
         }
 
-        function showSceneCuisine() {
+        function showSceneRoom() {
           hideAllScenes() // reset
-          var sceneEl = document.getElementById("sceneCuisine")
+          hideCursor()
+          var sceneEl = document.getElementById("sceneRoom")
           sceneEl.setAttribute('visible', 'true')
+
+          document.getElementById('videoRoomBeforeAction').currentTime = 0
+          document.getElementById('videoRoomBeforeAction').play();
 
           var pollutionEl = document.getElementById("pollution")
           pollutionEl.emit("pollutionFadeIn") // start the animation
         }
 
-        function removePollution() {
+        function removePollution(sceneId) {
+          console.log('remove pollution');
+          console.log(sceneId);
           var pollutionEl = document.getElementById("pollution")
           pollutionEl.emit("pollutionFadeOut")
+
+          console.log('remove pollution');
+
+          switch (sceneId) {
+            case 'sceneRoom' :
+              document.getElementById("hidden-window").setAttribute("visible", false)
+              document.getElementById('videoSceneRoomBeforeAction').setAttribute('visible', 'false')
+              document.getElementById('videoSceneRoomAfterAction').setAttribute('visible', 'true')
+              document.getElementById('videoRoomAfterAction').currentTime = 0
+              document.getElementById('videoRoomAfterAction').play()
+            break;
+          }
         }
 
         // events
-        var sceneEl = document.getElementById("sceneCuisine")
+        var sceneEl = document.getElementById("sceneRoom")
 
         sceneEl.addEventListener('pollutionReady', function () {
           console.log("pollution is ready !");
           // show window
           document.getElementById("hidden-window").setAttribute("visible", true)
+          document.getElementById("roomTexte").setAttribute("visible", true)
+          showCursor()
         });
 
         sceneEl.addEventListener('pollutionFinished', function () {
