@@ -3,7 +3,8 @@
   <head>
     <meta charset="utf-8">
     <title>Periscope - Pollution de l'air - Urban LAB</title>
-    <meta name="description" content="360&deg; Image Gallery - A-Frame">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="description" content="Periscope - Pollution de l'air - Urban LAB Workshop DSAA Villefontaine">
     <script src="https://aframe.io/releases/0.4.0/aframe.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aframe-text-component/0.4.2/aframe-text-component.js"></script>
     <script src="https://rawgit.com/squarefeet/ShaderParticleEngine/master/build/SPE.js"></script>
@@ -15,9 +16,10 @@
   <body>
     <a-scene >
       <a-assets>
+        <img id="start" crossorigin="anonymous" src="img/start.jpg" >
+
         <img id="city" crossorigin="anonymous" src="img/parvis.jpg" >
         <img id="city2" crossorigin="anonymous" src="img/garibaldi1.jpg" >
-        <img id="cuisine" crossorigin="anonymous" src="img/360-cottage-interior-render-green.png" >
         <img id="viseurAsset" crossorigin="anonymous" src="./img/viseur.png">
         <img id="moleculesAll" crossorigin="anonymous" src="./img/molecules-all.png">
 
@@ -28,19 +30,10 @@
 
         <img id="roomTexteAsset" crossorigin="anonymous" src="./img/room-texte.jpg">
 
-        <video id="videoGaribaldi" src="./video/garibaldi.mp4" loop autoplay="false"></video>
-        <video id="videoTest" src="./video/test.small.mp4" loop="true"></video>
-        <video id="videoRoomBeforeAction" src="./video/room-before-action.mp4" loop="false"></video>
-        <video id="videoRoomAfterAction" src="./video/room-after-action.mp4" loop="false"></video>
-
-        <a-asset-item id="p1-obj" src="./assets/P1-OBJ.obj"></a-asset-item>
-        <a-asset-item id="p1-mtl" src="./assets/P1-OBJ.mtl"></a-asset-item>
-
-        <a-asset-item id="p2-obj" src="./assets/P2-OBJ.obj"></a-asset-item>
-        <a-asset-item id="p2-mtl" src="./assets/P2-OBJ.mtl"></a-asset-item>
-
-        <a-asset-item id="p3-obj" src="./assets/P3-OBJ.obj"></a-asset-item>
-        <a-asset-item id="p3-mtl" src="./assets/P3-OBJ.mtl"></a-asset-item>
+        <video class="video" id="videoGaribaldi" src="./video/garibaldi.light.mp4" loop autoplay="false"></video>
+        <video class="video" id="videoTest" src="./video/test.small.mp4" autoplay="false" loop="true"></video>
+        <video class="video" id="videoRoomBeforeAction" src="./video/room-before-action.mp4" autoplay="false" loop="false"></video>
+        <video class="video" id="videoRoomAfterAction" src="./video/room-after-action.mp4" autoplay="false" loop="false"></video>
 
         <a-asset-item id="murvegetal-obj" src="./assets/murvegetal.obj"></a-asset-item>
         <a-asset-item id="murvegetal-mtl" src="./assets/murvegetal.mtl"></a-asset-item>
@@ -54,6 +47,24 @@
 
       <!-- <a-sphere position="-3 3.25 -1" radius=".5" color="#EF2D5E" onclick="showSceneRue()"></a-sphere> -->
 
+      <!-- START button : play videos -->
+
+      <a-entity position="0 2.2 4" camera look-controls wasd-controls>
+        <a-plane
+           position="0 0 -3"
+           width="2.5"
+           height="1"
+           color="#FFF"
+           shader: flat;
+           cursor="fuse: true"
+           src="#start"
+           id="playVideos"
+           transparent="true"
+          >
+        </a-plane>
+      </a-entity>
+
+
       <!-- CURSOR -->
       <a-entity position="0 2.2 4">
          <a-entity camera look-controls wasd-controls>
@@ -66,6 +77,7 @@
              src="#viseurAsset"
              id="viseur"
              transparent="true"
+             visible="false"
              >
              <a-animation begin="click" easing="ease-in" attribute="scale"
                   fill="forwards" from="0.1 0.1 0.1" to="1 1 1" dur="150"></a-animation>
@@ -82,40 +94,29 @@
           transparent="true"
           id="roomTexte"
           visible="false">
-
          </a-plane>
-<!--
-
-           <a-entity position="0 0 -3"
-                     geometry="primitive: ring; radiusOuter: 0.20;
-                               radiusInner: 0.10;"
-                     material="color: cyan; shader: flat"
-                     cursor="fuse: true">
-             <a-animation begin="click" easing="ease-in" attribute="scale"
-                  fill="backwards" from="0.1 0.1 0.1" to="1 1 1" dur="150"></a-animation>
-             <a-animation begin="fusing" easing="ease-in" attribute="scale"
-                  fill="forwards" from="1 1 1" to="0.1 0.1 0.1" dur="1500"></a-animation>
-           </a-entity> -->
-         </a-entity>
+        </a-entity>
       </a-entity>
+
 
       <!-- garibaldi -->
       <a-entity id="sceneRue" class="scene" visible="true">
-        <a-videosphere src="#videoGaribaldi" rotation="0 0 0"></a-videosphere>
+        <a-videosphere
+          id="videoPlayerGaribaldi"
+          src="#videoGaribaldi"
+          rotation="0 0 0"
+          class="playable"
+          >
+        </a-videosphere>
         <a-entity
+          id="mur"
           obj-model="obj: #murvegetal-obj; mtl: #murvegetal-mtl"
           position="-8 0 -1"
           rotation="0 90 0"
-          scale="1 1 1"
+          scale=".001 .001 .001"
           onclick="showSceneRoom()"
         >
         </a-entity>
-        <a-box
-          position="-12 0 9"
-          rotation="0 90 0"
-          width="2"
-          height="2"
-          depth="1"  color="red" onclick="showVideo()"></a-box>
       </a-entity>
 
       <!-- interior -->
@@ -146,6 +147,35 @@
       </a-entity>
 
       <script type="text/javascript">
+
+        var inited = false;
+        document.addEventListener("touchend", function(e){
+          var videos = document.querySelectorAll('video')
+          console.log("click screen");
+          if(!inited && videos.length) {
+            console.log("init");
+
+            // play()
+            for(var i = 0; i < videos.length; i++) {
+              videos[i].play();
+            }
+
+            // pause
+            setTimeout( function () {
+              for(var i = 0; i < videos.length; i++) {
+                videos[i].pause();
+              }
+              document.getElementById('videoGaribaldi').play()
+              document.getElementById('playVideos').setAttribute('visible', false);
+              showCursor()
+              inited = true;
+              document.removeEventListener("touchend", function(e){
+                console.log("init done");
+              })
+            },1000);
+          }
+        })
+
 
         function hideAllScenes() {
           var scenes = document.getElementsByClassName('scene')
@@ -183,6 +213,7 @@
           var sceneEl = document.getElementById("sceneRoom")
           sceneEl.setAttribute('visible', 'true')
 
+          console.log("play room before");
           document.getElementById('videoRoomBeforeAction').currentTime = 0
           document.getElementById('videoRoomBeforeAction').play();
 
@@ -226,7 +257,6 @@
         });
 
       </script>
-
     </a-scene>
   </body>
 </html>
