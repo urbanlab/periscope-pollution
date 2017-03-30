@@ -1,12 +1,17 @@
 # OBJ Material Export by Luxion KeyShot
 
-newmtl 3dmurvegetal - Copie:color:0:255:0
-Kd 0 1 0
-Ks 0 0 0
-
-newmtl 3dmurvegetal - Copie:color:202:209:238
+newmtl murvegetal version 100:color:202:209:238
 Kd 0.792157 0.819608 0.933333
 Ks 0 0 0
+map_Kd  texturebeton.jpg
 
-newmtl Procedural Mahogany #2
-Kd 0.5 0.5 0.5
+newmtl murvegetal version 100:color:128:255:128
+Kd 0.501961 1 0.501961
+Ks 0 0 0
+map_Kd  texturevegetaux.jpg
+
+newmtl murvegetal version 100:color:255:0:0
+
+Kd 1 0 0
+Ks 0 0 0
+map_Kd  texturebanc.jpg
