@@ -76,17 +76,6 @@
              <a-animation begin="fusing" easing="ease-in" attribute="scale"
                   fill="backwards" from="1 1 1" to="0.1 0.1 0.1" dur="1500"></a-animation>
          </a-plane>
-
-         <a-plane
-          position="0 .85 -3"
-          width="5"
-          height="1.22"
-          scale=".5 .5"
-          src="#roomTexteAsset"
-          transparent="true"
-          id="roomTexte"
-          visible="false">
-         </a-plane>
         </a-entity>
       </a-entity>
 
@@ -114,10 +103,25 @@
 
       <!-- interior -->
       <a-entity id="sceneRoom" class="scene" visible="false">
-        <a-videosphere id="videoSceneRoomBeforeAction" src="#videoRoomBeforeAction" visible="true" rotation="0 0 0"></a-videosphere>
-        <a-videosphere id="videoSceneRoomAfterAction" src="#videoRoomAfterAction" visible="false" rotation="0 0 0"></a-videosphere>
+        <a-videosphere
+          id="videoSceneRoomBeforeAction"
+          src="#videoRoomBeforeAction"
+          visible="true"
+          rotation="0 0 0"
+          >
+        </a-videosphere>
+        <a-videosphere
+          id="videoSceneRoomAfterAction"
+          src="#videoRoomAfterAction"
+          visible="false"
+          rotation="0 0 0"
+          >
+        </a-videosphere>
 
-        <a-entity id="pollution" pollution="count:10000;multiplier:0;speed:0.05">
+        <a-entity
+          id="pollution"
+          pollution="count:10000;multiplier:0;speed:0.025"
+          >
         </a-entity>
 
         <a-plane id="hidden-window"
@@ -129,9 +133,38 @@
           color="#FFF"
           onclick="removePollution('sceneRoom')"
           >
-          <a-animation attribute="material.color" from="cyan" to="cyan" dur="1000" direction="alternate" repeat="indefinite"></a-animation>
-          <a-animation attribute="material.opacity" from="0" to=".5" dur="1000" direction="alternate" repeat="indefinite"></a-animation>
+          <a-animation
+            attribute="material.color"
+            from="cyan"
+            to="cyan"
+            dur="1000"
+            direction="alternate"
+            repeat="indefinite"
+            >
+          </a-animation>
+          <a-animation
+            attribute="material.opacity"
+            from="0"
+            to=".5"
+            dur="1000"
+            direction="alternate"
+            repeat="indefinite"
+            >
+          </a-animation>
         </a-plane>
+
+        <a-entity position="0 2.2 4" camera look-controls wasd-controls>
+          <a-plane
+            position="0 .85 -3"
+            width="5"
+            height="1.22"
+            scale=".5 .5"
+            src="#roomTexteAsset"
+            transparent="true"
+            id="roomTexte"
+            visible="false"
+            >
+          </a-plane>
       </a-entity>
 
       <!-- bonus scene :) -->
