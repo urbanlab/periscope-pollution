@@ -150,6 +150,10 @@
 
         var inited = false;
         document.addEventListener("touchend", function(e){
+          initVideos()
+        })
+
+        function initVideos() {
           var videos = document.querySelectorAll('video')
           console.log("click screen");
           if(!inited && videos.length) {
@@ -169,13 +173,10 @@
               document.getElementById('playVideos').setAttribute('visible', false);
               showCursor()
               inited = true;
-              document.removeEventListener("touchend", function(e){
-                console.log("init done");
-              })
+              document.removeEventListener("touchend", initVideos)
             },1000);
           }
-        })
-
+        }
 
         function hideAllScenes() {
           var scenes = document.getElementsByClassName('scene')
