@@ -18,7 +18,7 @@ AFRAME.registerComponent('pollution', {
     this.particleGroups = [
       new SPE.Group({
           texture: {
-              value: THREE.ImageUtils.loadTexture('../img/particule-cov.png?123')
+              value: THREE.ImageUtils.loadTexture('./img/particule-cov.png?123')
           },
           blending: THREE.AdditiveBlending,
           maxParticleCount : 10000,
@@ -27,7 +27,7 @@ AFRAME.registerComponent('pollution', {
 
       new SPE.Group({
           texture: {
-              value: THREE.ImageUtils.loadTexture('../img/particule-fine.png?123')
+              value: THREE.ImageUtils.loadTexture('./img/particule-fine.png?123')
           },
           blending: THREE.AdditiveBlending,
           maxParticleCount : 5000,
@@ -36,7 +36,7 @@ AFRAME.registerComponent('pollution', {
 
       new SPE.Group({
           texture: {
-              value: THREE.ImageUtils.loadTexture('../img/particule-dioxydedazote.png?123')
+              value: THREE.ImageUtils.loadTexture('./img/particule-dioxydedazote.png?123')
           },
           blending: THREE.AdditiveBlending,
           maxParticleCount : 5000,
