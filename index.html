@@ -38,17 +38,9 @@
         <a-asset-item id="murvegetal-obj" src="./assets/murvegetal.obj"></a-asset-item>
         <a-asset-item id="murvegetal-mtl" src="./assets/murvegetal.mtl"></a-asset-item>
 
-        <script id="orbiter" type="template/nunjucks">
-          <a-entity animation="property: position;to:300 300 300;duration:4000;direction:alternate;loop:true;"
-          animation__opacity="property: opacity;to:0;duration:1000;direction:alternate;loop:true;">
-          </a-entity>
-        </script>
       </a-assets>
 
-      <!-- <a-sphere position="-3 3.25 -1" radius=".5" color="#EF2D5E" onclick="showSceneRue()"></a-sphere> -->
-
       <!-- START button : play videos -->
-
       <a-entity position="0 2.2 4" camera look-controls wasd-controls>
         <a-plane
            position="0 0 -3"
@@ -115,6 +107,7 @@
           rotation="0 90 0"
           scale=".001 .001 .001"
           onclick="showSceneRoom()"
+          visible="false"
         >
         </a-entity>
       </a-entity>
@@ -149,22 +142,22 @@
       <script type="text/javascript">
 
         var inited = false;
-        document.addEventListener("touchend", function(e){
-          initVideos()
-        })
 
+        document.addEventListener("touchend", initVideos)
+
+        // play and pause all videos
         function initVideos() {
+
           var videos = document.querySelectorAll('video')
           console.log("click screen");
           if(!inited && videos.length) {
             console.log("init");
+            inited = true;
 
-            // play()
             for(var i = 0; i < videos.length; i++) {
               videos[i].play();
             }
 
-            // pause
             setTimeout( function () {
               for(var i = 0; i < videos.length; i++) {
                 videos[i].pause();
@@ -172,7 +165,8 @@
               document.getElementById('videoGaribaldi').play()
               document.getElementById('playVideos').setAttribute('visible', false);
               showCursor()
-              inited = true;
+
+              document.getElementById('mur').setAttribute('visible', true);
               document.removeEventListener("touchend", initVideos)
             },1000);
           }
@@ -200,12 +194,8 @@
 
         function showSceneRue() {
           hideAllScenes() // reset
-          document.getElementById("sceneRue").setAttribute('visible', 'true')
-        }
-
-        function showVideo() {
-          hideAllScenes() // reset
-          document.getElementById("sceneVideo").setAttribute('visible', 'true')
+          document.getElementById("sceneRue").setAttribute('visible', true)
+          document.getElementById("mur").setAttribute('visible', true)
         }
 
         function showSceneRoom() {
