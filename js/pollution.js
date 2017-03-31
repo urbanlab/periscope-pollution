@@ -121,8 +121,8 @@ AFRAME.registerComponent('pollution', {
     var self = this
     var sceneEl = document.getElementById("sceneRoom")
     var interval = setInterval(function () {
-      self.data.multiplier -= self.data.speed
-      if (self.data.multiplier < .01) {
+      self.data.multiplier -= 0.1
+      if (self.data.multiplier < .2) {
         clearInterval(interval)
         sceneEl.emit('pollutionFinished');
       }
