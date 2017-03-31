@@ -145,7 +145,7 @@
 
         <a-entity position="0 2.2 4" camera look-controls wasd-controls>
            <a-plane
-             position="0 1.25 -3"
+             position="0 .85 -4"
              width="2"
              height="1"
              src="#roomTexteAsset"
@@ -221,6 +221,7 @@
           document.getElementById('videoSceneRoomBeforeAction').setAttribute('visible', true)
           document.getElementById('videoSceneRoomAfterAction').setAttribute('visible', false)
           document.getElementById('mur').setAttribute('visible', false);
+          document.getElementById('roomTexte').setAttribute('visible', false);
         }
 
         function playBeforeSceneRoom() {
@@ -239,9 +240,14 @@
           document.getElementById('videoSceneRoomAfterAction').setAttribute('visible', 'true')
           document.getElementById('videoRoomAfterAction').play()
 
+          document.getElementById('roomTexte').setAttribute('visible', false);
+
           // remove pollution
-          var pollutionEl = document.getElementById("pollution")
-          pollutionEl.emit("pollutionFadeOut")
+          var video = document.getElementById('videoRoomAfterAction');
+          video.addEventListener('ended', function (evt) {
+            var pollutionEl = document.getElementById("pollution")
+            pollutionEl.emit("pollutionFadeOut")
+          });
         }
 
         function showSceneRoom() {
