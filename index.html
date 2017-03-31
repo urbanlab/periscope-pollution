@@ -16,11 +16,11 @@
   <body>
     <a-scene >
       <a-assets>
-        <img id="start" crossorigin="anonymous" src="img/start.jpg" >
+        <img id="start" crossorigin="anonymous" src="img/play.png" >
 
         <img id="viseurAsset" crossorigin="anonymous" src="./img/viseur.png">
         <img id="moleculesAll" crossorigin="anonymous" src="./img/molecules-all.png">
-        <img id="roomTexteAsset" crossorigin="anonymous" src="./img/room-texte.jpg">
+        <img id="roomTexteAsset" crossorigin="anonymous" src="./img/room-texte.png">
 
         <video id="videoGaribaldi" src="./video/garibaldi.light.mp4" loop autoplay="false"></video>
         <video id="videoTest" src="./video/test.small.mp4" autoplay="false" loop="true"></video>
@@ -36,7 +36,7 @@
       <a-entity position="0 2.2 4" camera look-controls wasd-controls>
         <a-plane
            position="0 0 -3"
-           width="2.5"
+           width="1"
            height="1"
            color="#FFF"
            shader: flat;
@@ -71,6 +71,12 @@
         </a-entity>
       </a-entity>
 
+      <!-- POLLUTION  -->
+      <a-entity
+        id="pollution"
+        pollution="count:10000;multiplier:0.01;speed:0.05"
+        >
+      </a-entity>
 
       <!-- garibaldi -->
       <a-entity id="sceneRue" class="scene" visible="true">
@@ -110,12 +116,6 @@
           >
         </a-videosphere>
 
-        <a-entity
-          id="pollution"
-          pollution="count:10000;multiplier:0;speed:0.025"
-          >
-        </a-entity>
-
         <a-plane id="hidden-window"
           visible="false"
           position="100 10 3.9"
@@ -123,7 +123,7 @@
           width="65"
           height="98"
           color="#FFF"
-          onclick="removePollution('sceneRoom')"
+          onclick="removePollution()"
           >
           <a-animation
             attribute="material.color"
@@ -145,12 +145,11 @@
           </a-animation>
         </a-plane>
 
-        <a-entity position="0 2.2 4" camera look-controls wasd-controls>
+        <a-entity position="0 2.2 4" camera>
           <a-plane
             position="0 .85 -3"
-            width="5"
-            height="1.22"
-            scale=".5 .5"
+            width="2"
+            height="2"
             src="#roomTexteAsset"
             transparent="true"
             id="roomTexte"
@@ -159,10 +158,6 @@
           </a-plane>
       </a-entity>
 
-      <!-- bonus scene :) -->
-      <a-entity id="sceneVideo" class="scene" visible="false">
-        <a-sky id="image-360" radius="300" src="#cuisine"></a-sky>
-      </a-entity>
 
       <script type="text/javascript">
 
@@ -231,6 +226,8 @@
 
           console.log("play room before");
           document.getElementById('videoRoomBeforeAction').currentTime = 0
+          document.getElementById('videoSceneRoomBeforeAction').setAttribute('visible', true)
+          document.getElementById('videoSceneRoomAfterAction').setAttribute('visible', false)
           document.getElementById('videoRoomBeforeAction').play();
 
           var pollutionEl = document.getElementById("pollution")
@@ -239,21 +236,16 @@
 
         function removePollution(sceneId) {
           console.log('remove pollution');
-          console.log(sceneId);
           var pollutionEl = document.getElementById("pollution")
+
+          // hide window and play 2nd video
+          document.getElementById("hidden-window").setAttribute("visible", false)
+          document.getElementById('videoSceneRoomBeforeAction').setAttribute('visible', 'false')
+          document.getElementById('videoSceneRoomAfterAction').setAttribute('visible', 'true')
+          document.getElementById('videoRoomAfterAction').currentTime = 0
+          document.getElementById('videoRoomAfterAction').play()
+
           pollutionEl.emit("pollutionFadeOut")
-
-          console.log('remove pollution');
-
-          switch (sceneId) {
-            case 'sceneRoom' :
-              document.getElementById("hidden-window").setAttribute("visible", false)
-              document.getElementById('videoSceneRoomBeforeAction').setAttribute('visible', 'false')
-              document.getElementById('videoSceneRoomAfterAction').setAttribute('visible', 'true')
-              document.getElementById('videoRoomAfterAction').currentTime = 0
-              document.getElementById('videoRoomAfterAction').play()
-            break;
-          }
         }
 
         // events
