@@ -1,0 +1,25 @@
+
+//Ici les points d'intérêt de la scène générale
+var points_interet = [
+    {
+      "nom" : "pointInteret1",
+      "coord" : "-7 5 -1.7",
+      "largeur" :"1.5",
+      "hauteur" :"1.5",
+      "rotation" :"0 60 0"
+    },
+    {
+      "nom" : "pointInteret3",
+      "coord" : "-12 1.5 10",
+      "largeur" :"2.5",
+      "hauteur" :"2.5",
+      "rotation" :"0 130 0"
+    },
+    {
+      "nom" : "pointInteret4",
+      "coord" : "0 7 17",
+      "largeur" :"2.5",
+      "hauteur" :"2.5",
+      "rotation" :"0 10 0"
+    }
+  ]

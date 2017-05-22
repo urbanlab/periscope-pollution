@@ -9,8 +9,13 @@ AFRAME.registerComponent('pollution', {
 
     console.log(this);
 
+    var loader1 = new THREE.TextureLoader();
+    var loader2 = new THREE.TextureLoader();
+    var loader3 = new THREE.TextureLoader();
+    var loader4 = new THREE.TextureLoader();
 
     this.clocks = [
+      new THREE.Clock(),
       new THREE.Clock(),
       new THREE.Clock(),
       new THREE.Clock()
@@ -21,7 +26,7 @@ AFRAME.registerComponent('pollution', {
     this.particleGroups = [
       new SPE.Group({
           texture: {
-              value: THREE.ImageUtils.loadTexture('./img/particule-cov.png?123')
+              value: loader1.load('./img/2.png?123')
           },
           // blending: THREE.AdditiveBlending,
           maxParticleCount : 10000,
@@ -31,7 +36,7 @@ AFRAME.registerComponent('pollution', {
 
       new SPE.Group({
           texture: {
-              value: THREE.ImageUtils.loadTexture('./img/particule-fine.png?123')
+              value: loader2.load('./img/2.png?123')
           },
           // blending: THREE.AdditiveBlending,
           colorize :false,
@@ -41,7 +46,17 @@ AFRAME.registerComponent('pollution', {
 
       new SPE.Group({
           texture: {
-              value: THREE.ImageUtils.loadTexture('./img/particule-dioxydedazote.png?123')
+              value: loader3.load('./img/3.png?123')
+          },
+          // blending: THREE.AdditiveBlending,
+          colorize :false,
+          maxParticleCount : 10000
+          // fog: true
+      }),
+
+      new SPE.Group({
+          texture: {
+              value: loader4.load('./img/4.png?123')
           },
           // blending: THREE.AdditiveBlending,
           colorize :false,
@@ -70,16 +85,17 @@ AFRAME.registerComponent('pollution', {
       //     value: [ 1, 1, 0 ]
       // },
       color: {
-          value: [ new THREE.Color(0xFFFFFF), new THREE.Color(0x555555) ]
+          value: [ new THREE.Color(0xFF0000), new THREE.Color(0xFF0000) ]
       },
       size: {
-          value: 1
+          value: 0.5
       },
       activeMultiplier: this.data.multiplier,
       particleCount: this.data.count
     }
 
     this.emitters = [
+      new SPE.Emitter(emitterSettings),
       new SPE.Emitter(emitterSettings),
       new SPE.Emitter(emitterSettings),
       new SPE.Emitter(emitterSettings)

@@ -5,16 +5,21 @@
     <title>Periscope - Pollution de l'air - Urban LAB</title>
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="description" content="Periscope - Pollution de l'air - Urban LAB Workshop DSAA Villefontaine">
-    <script src="https://aframe.io/releases/0.4.0/aframe.min.js"></script>
+    <script src="https://aframe.io/releases/0.5.0/aframe.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aframe-text-component/0.4.2/aframe-text-component.js"></script>
     <script src="https://rawgit.com/squarefeet/ShaderParticleEngine/master/build/SPE.js"></script>
     <script src="./js/aframe-animation-component.min.js"></script>
 
     <script src='./js/pollution.js'></script>
+    <script type="text/javascript" src='jsonPolluscope.json'></script>
+
+    <script type="text/javascript" src="./json2html-master/json2html.js"></script> 
 
   </head>
   <body>
+
     <a-scene >
+      <!--<a-box id="bottom-plate" height="0.2" position="0 -0.5 0" color="#000000"></a-box>-->
       <a-assets>
         <img id="start" crossorigin="anonymous" src="img/play.png" >
 
@@ -24,13 +29,116 @@
 
         <video id="videoGaribaldi" src="./video/garibaldi.light.mp4" loop autoplay="false"></video>
         <video id="videoTest" src="./video/test.small.mp4" autoplay="false" loop="true"></video>
-        <video id="videoRoomBeforeAction" src="./video/room-before-action.mp4" autoplay="false" loop="false"></video>
-        <video id="videoRoomAfterAction" src="./video/room-after-action.mp4" autoplay="false" loop="false"></video>
-
-        <a-asset-item id="murvegetal-obj" src="./assets/murvegetal.obj"></a-asset-item>
-        <a-asset-item id="murvegetal-mtl" src="./assets/murvegetal.mtl"></a-asset-item>
+        <video id="videoNoir" src="./video/fondNoir.mp4" autoplay="false" loop="true"></video>
+        <video id="videoRoomBeforeAction" src="./video/room-before-action.mp4" loop="false"></video>
+        <video id="videoRoomAfterAction" src="./video/room-after-action.mp4" controls preload="none" loop="false"></video>
 
       </a-assets>
+      
+      <!--Premier point intérêt fenêtre garibaldi-->
+      <!--<a-image id="pointInteret1" src="#viseurAsset" onclick="startScenario()" position="-7 5 -1.7" width="1.5" height="1.5" rotation="0 60 0"></a-image>-->
+      <!--Second point d'interet (appartement)'-->
+      <a-image id="pointInteret2" src="#viseurAsset" onclick="continueScenario()" position="5 2.5 4" width="1.5" height="1.5" rotation="0 90 0" visible="false"></a-image>
+      <!--La voiture-->
+      <!--<a-image id="pointInteret3" src="#viseurAsset" onclick="startScenario()" position="-12 1.5 10" width="2.5" height="2.5" rotation="0 130 0" visible="true"></a-image>-->
+      <!--L'industrie-->
+      <!--<a-image id="pointInteret4" src="#viseurAsset" onclick="startScenario()" position="0 7 17" width="2.5" height="2.5" rotation="0 10 0" visible="true"></a-image>-->
+
+      <script>
+        var transform = [
+          {"<>":"a-image", "id":"${nom}", "html":"", "src":"#viseurAsset", "position": "${coord}", "onclick": "startScenario()", "width": "${largeur}", "height": "${hauteur}", "rotation": "${rotation}", "visible": "true"},
+        ];  
+        var html = json2html.transform(points_interet, transform);
+        document.write(html);
+        </script>
+      <!--Fenêtre "cliquable"-->
+        <a-plane id="hiddenPremier"
+          visible="true"
+          position="-7 5 -1.7"
+          rotation="0 25 0"
+          width="2.5"
+          height="40"
+          onclick="startScenario()"
+          >
+          <a-animation
+            attribute="material.opacity"
+            from="0"
+            to="0"
+            dur="1000"
+            repeat="indefinite"
+            >
+          </a-animation>
+        </a-plane>
+        <!--Fenêtre "cliquable"-->
+        <a-plane id="hiddenPremier2"
+          visible="false"
+          position="100 10 3.9"
+          rotation="0 -90 0"
+          width="65"
+          height="180"
+          color="#FFF"
+          onclick="continueScenario()"
+          >
+          <a-animation
+            attribute="material.opacity"
+            from="0"
+            to="0"
+            dur="1000"
+            repeat="indefinite"
+            >
+          </a-animation>
+        </a-plane>
+        <!--//TODO désactiver/activer (non géré)-->
+        <a-plane id="hiddenPremier3"
+          visible="true"
+          position="-12 1.5 10"
+          rotation="0 130 0"
+          width="2.5"
+          height="50"
+          color="#FFF"
+          onclick="startScenario()"
+          >
+          <a-animation
+            attribute="material.opacity"
+            from="0"
+            to="0"
+            dur="1000"
+            direction="alternate"
+            repeat="indefinite"
+            >
+          </a-animation>
+        </a-plane>
+        <a-plane id="hiddenPremier4"
+          visible="true"
+          position="0 7 17"
+          rotation="0 130 0"
+          width="2.5"
+          height="50"
+          color="#FFF"
+          onclick="startScenario()"
+          >
+          <a-animation
+            attribute="material.opacity"
+            from="0"
+            to="0"
+            dur="1000"
+            direction="alternate"
+            repeat="indefinite"
+            >
+          </a-animation>
+        </a-plane>
+        
+       <!--Spacing. 
+      <a-entity mixin="marker" position="-1 2.5 0.01"></a-entity>
+      <a-entity id="texteFondu" visible="false" position="-1 2.5 0"
+                text="width: 2+; color: red; value: Ici le texte d'introduction pour l'entree dans l'appartement par exemple!'">
+      </a-entity>
+
+      <a-entity id="please" position="0 2.2 4" visible="false" position="-1 2.5 0"
+                text="width: 2+; color: red; value: Ici le texte d'introduction pour l'entree dans l'appartement par exemple!'">
+      </a-entity>-->
+
+
 
       <!-- START button : play videos -->
       <a-entity position="0 2.2 4" camera look-controls wasd-controls>
@@ -44,9 +152,65 @@
            src="#start"
            id="playVideos"
            transparent="true"
+           visible="true"
           >
+          <!--<a-animation
+            attribute="material.opacity"
+            direction="alternate"
+            from="0"
+            to="1"
+            dur="3000"
+            repeat="indefinite"
+            >
+          </a-animation>--> 
+          <!--Ca marche pas sur le a-text ngga  -->
+          <!--TODO: begin="fadeIn" ou fadeOut pour la lancer une fois et que ca tourne pas en boucle pour le texte-->
         </a-plane>
-      </a-entity>
+        <a-plane>
+        <a-text 
+        value="Suis-je a l'abri a l'interieur de mon logement?"
+        position="0 0 -8"
+        align="center"
+        width="10"
+        height="10"
+        color="white"
+        font-family="Lucida Sans Unicode"
+        shader: flat;
+        cursor="fuse: true"
+        id="questionScene1"
+        visible="false"
+        >
+        </a-text>
+        <a-text 
+        value="Notre habitat regorge de differentes sources de pollution: materiaux, activite humaine...Pensez a aerer votre logement en moyenne 15 minutes le matin ou en soiree "
+        position="0 0 -8"
+        align="center"
+        width="10"
+        height="10"
+        font-family="Lucida Sans Unicode"
+        color="white"
+        shader: flat;
+        cursor="fuse: true"
+        id="reponseScene1"
+        visible="false"
+        >
+        </a-text>
+        <a-text 
+        value="Niveau de pollution"
+        position="11 -4 -8"
+        align="center"
+        width="10"
+        height="10"
+        font-family="Lucida Sans Unicode"
+        color="red"
+        shader: flat;
+        cursor="fuse: true"
+        id="niveauPollution"
+        visible="true"
+        >
+        </a-text>
+
+        </a-entity>
 
 
       <!-- CURSOR -->
@@ -72,7 +236,7 @@
       <!-- POLLUTION  -->
       <a-entity
         id="pollution"
-        pollution="count:10000;multiplier:0.01;speed:0.05"
+        pollution="count:10000;multiplier:0.1;speed:0.05"
         >
       </a-entity>
 
@@ -85,24 +249,36 @@
           class="playable"
           >
         </a-videosphere>
-        <a-entity
-          id="mur"
-          obj-model="obj: #murvegetal-obj; mtl: #murvegetal-mtl"
-          position="1.5 -1 12"
+         <!--<a-sky src="https://maps.googleapis.com/maps/api/streetview?size=640x640&location=pole pixel villeurbanne
+&fov=120&heading=235&pitch=0
+&key=AIzaSyAw3_wsSoV7-AvVlRxO0dqcMEcHNq2hEA8" rotation="0 -130 0"></a-sky>-->
+        <!--<a-sky src="./img/RIEN.png" rotation="0 -130 0" visible="fasle"></a-sky>-->
+        <!-- LA PORTE -->
+        <!--<a-entity
+          id="porte"
+          obj-model="obj: #porte-obj; mtl: #porte-mtl"
+          position="5 2 -12"
           rotation="0 -15 0"
           scale=".001 .001 .001"
-          onclick="showSceneRoom()"
+          onclick="startScenario()"
           visible="true"
         >
-        </a-entity>
+        </a-entity>-->
       </a-entity>
-
+      <!-- tentative de fondu texte -->
       <!-- interior -->
-      <a-entity id="sceneRoom" class="scene" visible="false">
+      <a-entity id="sceneRoom" class="scene" visible="true">
         <a-videosphere
           id="videoSceneRoomBeforeAction"
           src="#videoRoomBeforeAction"
-          visible="true"
+          visible="false"
+          rotation="0 0 0"
+          >
+        </a-videosphere>
+        <a-videosphere
+          id="videoSceneNoir"
+          src="#videoNoir"
+          visible="false"
           rotation="0 0 0"
           >
         </a-videosphere>
@@ -114,7 +290,8 @@
           >
         </a-videosphere>
 
-        <a-plane id="hidden-window"
+        <!--Fenêtre "cliquable"-->
+        <!--<a-plane id="hidden-window"
           visible="false"
           position="100 10 3.9"
           rotation="0 -90 0"
@@ -141,143 +318,238 @@
             repeat="indefinite"
             >
           </a-animation>
-        </a-plane>
-
-        <a-entity position="0 2.2 4" camera look-controls wasd-controls>
-           <a-plane
-             position="0 .85 -4"
-             width="2"
-             height="1"
-             src="#roomTexteAsset"
-             transparent="true"
-             id="roomTexte"
-             visible="false"
-             >
-           </a-plane>
-        </a-entity>
+        </a-plane>-->
 
       <script type="text/javascript">
 
-        var inited = false;
+        // var inited = false;
 
-        document.addEventListener("touchend", initVideos)
+        // document.addEventListener("touchend", initVideos)
 
-        // play and pause all videos
-        function initVideos() {
+        // // play and pause all videos
+        // function initVideos() {
 
-          var videos = document.querySelectorAll('video')
-          console.log("click screen");
-          if(!inited && videos.length) {
-            console.log("init");
-            inited = true;
+        //   var videos = document.querySelectorAll('video')
+        //   console.log("click screen");
+        //   if(!inited && videos.length) {
+        //     console.log("init");
+        //     inited = true;
 
-            for(var i = 0; i < videos.length; i++) {
-              videos[i].play();
-            }
+        //     for(var i = 0; i < videos.length; i++) {
+        //       videos[i].play();
+        //     }
 
-            setTimeout( function () {
-              for(var i = 0; i < videos.length; i++) {
-                videos[i].pause();
-              }
-              document.getElementById('videoGaribaldi').play()
-              document.getElementById('playVideos').setAttribute('visible', false);
-              showCursor()
+        //     setTimeout( function () {
+        //       for(var i = 0; i < videos.length; i++) {
+        //         videos[i].pause();
+        //       }
+        //       document.getElementById('videoGaribaldi').play()
+        //       document.getElementById('playVideos').setAttribute('visible', false);
+        //       showCursor()
 
-              document.getElementById('mur').setAttribute('visible', true);
-              document.removeEventListener("touchend", initVideos)
-            },1000);
-          }
+        //       //document.getElementById('porte').setAttribute('visible', true);
+        //       document.removeEventListener("touchend", initVideos)
+        //     },1000);
+        //   }
+        // }
+
+        // function hideAllScenes() {
+        //   var scenes = document.getElementsByClassName('scene')
+        //   for(var i = 0; i < scenes.length; i++) {
+        //     scenes[i].setAttribute('visible', 'false')
+        //   }
+
+        //   // hide pollution
+        //   var pollution = document.getElementById("pollution")
+        //   pollution.setAttribute("pollution", {"multiplier" : 0})
+
+        // }
+
+        function setPollution(x) {
+          var pollution1 = document.getElementById("pollution")
+          pollution1.setAttribute("pollution", {"multiplier" : x})
         }
 
-        function hideAllScenes() {
-          var scenes = document.getElementsByClassName('scene')
-          for(var i = 0; i < scenes.length; i++) {
-            scenes[i].setAttribute('visible', 'false')
-          }
+        // function showCursor() {
+        //   document.getElementById('viseur').setAttribute('visible', false); //était à true. masqué pour corriger bug quand retour scène rue?
+        // }
 
-          // hide pollution
-          var pollution = document.getElementById("pollution")
-          pollution.setAttribute("pollution", {"multiplier" : 0})
+        // function hideCursor() {
+        //   document.getElementById('viseur').setAttribute('visible', false);
+        // }
 
-        }
+        // function showSceneRue() {
+        //   hideAllScenes() // reset
+        //   document.getElementById("sceneRue").setAttribute('visible', true)
+        //   //document.getElementById("porte").setAttribute('visible', true)
+        //   var pollution = document.getElementById("pollution")           //ajouté
+        //   pollution.setAttribute("pollution", {"multiplier" : 0.1})      //règle le bug de l'absence d epollution en retour sur rue'
+        // }
 
-        function showCursor() {
-          document.getElementById('viseur').setAttribute('visible', true);
-        }
+        
 
-        function hideCursor() {
-          document.getElementById('viseur').setAttribute('visible', false);
-        }
+        // function playFondu() {
+        //   //document.getElementById('videoNoir').play();
+        //   var pollutionEl = document.getElementById("pollution")
+        //   //pollutionEl.emit("pollutionFadeIn") // start the animation
+        //   pollutionE1.setAttribute("pollution", {"multiplier" : 0}) 
+        //   document.getElementById('roomTexte').setAttribute('visible', true);
+        // }
+        // function playBeforeSceneRoom() {
+        //   console.log('room : part 1');
+        //   document.getElementById('videoRoomBeforeAction').currentTime = 0
+        //   document.getElementById('fondNoirScene').setAttribute('visible', 'false')
+        //   document.getElementById('videoSceneRoomBeforeAction').setAttribute('visible', 'true')
+        //   document.getElementById('videoRoomBeforeAction').play();
+        //   var pollutionEl = document.getElementById("pollution")
+        //   pollutionEl.emit("pollutionFadeIn") // start the animation
+        // }
 
-        function showSceneRue() {
-          hideAllScenes() // reset
-          document.getElementById("sceneRue").setAttribute('visible', true)
-          document.getElementById("mur").setAttribute('visible', true)
-        }
+        // function playAfterSceneRoom() {
+        //   console.log('room : part 2');
+        //   // hide window and play 2nd video
+        //   document.getElementById('hiddenPremier2').setAttribute('visible', false);
+        //   document.getElementById('pointInteret2').setAttribute('visible', false);
+        //   document.getElementById('videoRoomAfterAction').currentTime = 0
+        //   document.getElementById('videoSceneRoomBeforeAction').setAttribute('visible', 'false')
+        //   document.getElementById('videoRoomAfterAction').play()
+        //   document.getElementById('videoSceneRoomAfterAction').setAttribute('visible', 'true')
+        //   document.getElementById('videoPlayerGaribaldi').setAttribute('visible', 'false')
 
-        function initSceneRoom() { 
-          document.getElementById('videoRoomBeforeAction').currentTime = 0
-          document.getElementById('videoRoomAfterAction').currentTime = 0
-          document.getElementById('videoSceneRoomBeforeAction').setAttribute('visible', true)
-          document.getElementById('videoSceneRoomAfterAction').setAttribute('visible', false)
-          document.getElementById('mur').setAttribute('visible', false);
-          document.getElementById('roomTexte').setAttribute('visible', false);
-        }
+        //   // remove pollution
+        //   var video = document.getElementById('videoRoomAfterAction');
+        //   video.addEventListener('ended', function (evt) {
+        //     var pollutionEl = document.getElementById("pollution")
+        //     pollutionEl.emit("pollutionFadeOut")
+        //   });
+        // }
 
-        function playBeforeSceneRoom() {
-          document.getElementById('videoRoomBeforeAction').play();
-          var pollutionEl = document.getElementById("pollution")
-          pollutionEl.emit("pollutionFadeIn") // start the animation
-        }
-
-        function playAfterSceneRoom() {
-          console.log('room : part 2');
-
-          // hide window and play 2nd video
-          document.getElementById("hidden-window").setAttribute("visible", false)
-          document.getElementById('videoRoomAfterAction').currentTime = 0
-          document.getElementById('videoSceneRoomBeforeAction').setAttribute('visible', 'false')
-          document.getElementById('videoSceneRoomAfterAction').setAttribute('visible', 'true')
-          document.getElementById('videoRoomAfterAction').play()
-
-          document.getElementById('roomTexte').setAttribute('visible', false);
-
-          // remove pollution
-          var video = document.getElementById('videoRoomAfterAction');
-          video.addEventListener('ended', function (evt) {
-            var pollutionEl = document.getElementById("pollution")
-            pollutionEl.emit("pollutionFadeOut")
-          });
-        }
-
-        function showSceneRoom() {
+        function startScenario() {
           // show scene
-          hideAllScenes()
-          var sceneEl = document.getElementById("sceneRoom")
+          //hideAllScenes()
+          setPollution(0.0)
+          document.getElementById('videoNoir').currentTime = 0
+          launchQuestion()
+          var sceneEl = document.getElementById("videoSceneNoir")
           sceneEl.setAttribute('visible', 'true')
-
+          setTimeout(function(){
+              sceneEl.setAttribute('visible', 'false')
+              document.getElementById('videoRoomBeforeAction').currentTime = 0
+              hideQuestion()
+              var sceneE2 = document.getElementById("videoSceneRoomBeforeAction")
+              sceneE2.setAttribute('visible', 'true')
+              setPollution(0.5)
+              document.getElementById('videoRoomBeforeAction').play()
+          }, 5000);
+          
+          //document.getElementById('videoSceneRoomBeforeAction').play()
           hideCursor()
 
           // play scene
-          initSceneRoom()
-          playBeforeSceneRoom()
+          //initSceneRoom()
+          //playFondu()
+        }
+
+        function continueScenario() {
+           console.log('room : part 2');
+          // cache le spoints d'intérêt'
+          document.getElementById('playVideos').setAttribute('visible', false);
+          //document.getElementById('videoRoomAfterAction').currentTime = 0
+          document.getElementById('hiddenPremier2').setAttribute('visible', false);
+          document.getElementById('pointInteret2').setAttribute('visible', false);          
+          document.getElementById('videoSceneRoomBeforeAction').setAttribute('visible', 'false')
+          document.getElementById('videoRoomAfterAction').play()
+          document.getElementById('videoSceneRoomAfterAction').setAttribute('visible', 'true')
+          document.getElementById('videoPlayerGaribaldi').setAttribute('visible', 'true')
+        }
+
+        function finishScenario(e) {
+          setPollution(0.0)
+          document.getElementById('videoSceneRoomAfterAction').setAttribute('visible', 'false')
+          document.getElementById('videoNoir').currentTime = 0
+          launchReponse()
+          var sceneEl = document.getElementById("videoSceneNoir")
+          sceneEl.setAttribute('visible', 'true')
+          setTimeout(function(){
+              sceneEl.setAttribute('visible', 'false')
+              document.getElementById('videoGaribaldi').currentTime = 0
+              hideReponse() //remet aussi les points d'intéret de départ'
+              var sceneE2 = document.getElementById("videoPlayerGaribaldi")
+              sceneE2.setAttribute('visible', 'true')
+              document.getElementById('videoGaribaldi').play()
+              setPollution(0.1)
+          }, 5000);
+        }
+
+        function launchQuestion() { 
+          document.getElementById('hiddenPremier').setAttribute('visible', false);
+          document.getElementById('hiddenPremier3').setAttribute('visible', false);
+          document.getElementById('hiddenPremier4').setAttribute('visible', false);
+          document.getElementById('pointInteret1').setAttribute('visible', false);
+          document.getElementById('pointInteret3').setAttribute('visible', false);
+          document.getElementById('pointInteret4').setAttribute('visible', false);
+          document.getElementById('playVideos').setAttribute('visible', false);
+          document.getElementById('niveauPollution').setAttribute('visible', false);
+          document.getElementById('questionScene1').setAttribute('visible', true);
+        }
+
+        function launchReponse() { 
+          document.getElementById('playVideos').setAttribute('visible', false);
+          document.getElementById('reponseScene1').setAttribute('visible', true);
+        }
+
+        function hideQuestion() { 
+          document.getElementById('hiddenPremier2').setAttribute('visible', true);
+          document.getElementById('pointInteret2').setAttribute('visible', true);
+          document.getElementById('playVideos').setAttribute('visible', true);
+          document.getElementById('questionScene1').setAttribute('visible', false);
+        }
+
+        function hideReponse() { 
+          document.getElementById('hiddenPremier').setAttribute('visible', true);
+          document.getElementById('hiddenPremier3').setAttribute('visible', true);
+          document.getElementById('hiddenPremier4').setAttribute('visible', true);
+          document.getElementById('pointInteret1').setAttribute('visible', true);
+          document.getElementById('pointInteret3').setAttribute('visible', true);
+          document.getElementById('pointInteret4').setAttribute('visible', true);
+          document.getElementById('playVideos').setAttribute('visible', true);
+          document.getElementById('niveauPollution').setAttribute('visible', true);
+          document.getElementById('reponseScene1').setAttribute('visible', false);
         }
 
         // events
-        var sceneEl = document.getElementById("sceneRoom")
+        // MyEvents
+        document.getElementById('videoRoomAfterAction').addEventListener('ended',finishScenario,false);
+        
+        //end of my events
+        document.getElementById('videoRoomAfterAction').pause();
+        //Chargement du json
+        // var text = '{"employees":[' +
+        // '{"firstName":"John","lastName":"Doe" },' +
+        // '{"firstName":"Anna","lastName":"Smith" },' +
+        // '{"firstName":"Peter","lastName":"Jones" }]}';
+        
 
-        sceneEl.addEventListener('pollutionReady', function () {
-          console.log("pollution is ready !");
-          // show window
-          document.getElementById("hidden-window").setAttribute("visible", true)
-          document.getElementById("roomTexte").setAttribute("visible", true)
-          showCursor()
-        });
+        // obj = JSON.parse(text);
+        // document.getElementById('questionScene1').setAttribute('value', points_interet[1].nom);
+        
+        // var sceneEl = document.getElementById("sceneRoom")
 
-        sceneEl.addEventListener('pollutionFinished', function () {
-          console.log("pollution is finished !");
-          showSceneRue()
-        });
+        // sceneEl.addEventListener('pollutionReady', function () {
+        //   console.log("pollution is ready !");
+        //   // show window
+        //   document.getElementById("hidden-window").setAttribute("visible", true)
+        //   document.getElementById("roomTexte").setAttribute("visible", true)
+        //   showCursor()
+        // });
+
+        // sceneEl.addEventListener('pollutionFinished', function () {
+        //   console.log("pollution is finished !");
+        //   showSceneRue()
+        // });
+
+      //pour ne pas qu'elle tourne une fois "toute seule" et que ca declenche involontairement l'event de fin de vidéo u_u
+      
 
       </script>
     </a-scene>
