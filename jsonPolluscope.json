@@ -1,6 +1,6 @@
 
 //Ici les points d'intérêt de la scène générale
-var points_interet = [
+var scene1POI = [
     {
       "nom" : "pointInteret1",
       "coord" : "-7 5 -1.7",
@@ -21,5 +21,39 @@ var points_interet = [
       "largeur" :"2.5",
       "hauteur" :"2.5",
       "rotation" :"0 10 0"
+    }
+  ]
+  // Points d'intérêt des autres scènes
+  var scene2POI = [
+    {
+      "nom" : "pointInteret2",
+      "coord" : "5 2.5 4",
+      "largeur" :"1.5",
+      "hauteur" :"1.5",
+      "rotation" :"0 90 0"
+    }
+  ]
+  // Les zones de click cachées pour clicker plus facilement
+  var scene1Click = [
+    {
+      "nom" : "hiddenPremier",
+      "coord" : "-7 5 -1.7",
+      "largeur" :"2.5",
+      "hauteur" :"40",
+      "rotation" :"0 25 0"
+    },
+    {
+      "nom" : "hiddenPremier3",
+      "coord" : "-12 1.5 10",
+      "largeur" :"2.5",
+      "hauteur" :"50",
+      "rotation" :"0 130 0"
+    },
+    {
+      "nom" : "hiddenPremier4",
+      "coord" : "0 7 17",
+      "largeur" :"2.5",
+      "hauteur" :"50",
+      "rotation" :"0 130 0"
     }
   ]
