@@ -25,37 +25,70 @@ var videos = [
       "boucle" : "false"
     }
   ]
-  // Points d'intérêt des autres scènes
-  var scene2POI = [
+  //Ici précisez les données concernant vos scénarios. Pour chaque scénario mettez dans la listePOI les id 
+  //des points d'interets qui apparaitront dans votre scénario'
+  var scenarios = [
     {
-      "nom" : "pointInteret2",
-      "coord" : "5 2.5 4",
+      "id" : "scenario1",
+      "question" : "bienvenue chez vous",
+      "videoImmersion" : "video1",
+      "tauxPollution" :"1.5",
+      "listePOI": [
+        {"id" : "pointInteretScn1"},
+        {"id" : "pointInteretScn2"},
+        {"id" : "pointInteretScn3"}
+      ]
+    },
+    {
+      "id" : "scenario2",
+      "question" : "bienvenue chez moi",
+      "videoImmersion" : "video2",
+      "tauxPollution" :"0.5",
+      "listePOI": [
+        {"id" : "pointInteretScn4"},
+        {"id" : "pointInteretScn5"},
+        {"id" : "pointInteretScn6"}
+      ]
+    }
+  ]
+  // Ici indiquez quels sont les points d'intérêt de la scène principale, et le scénario que chacun va lancer'
+  var principauxPOI = [
+    {
+      "id" : "pointInteret1",
+      "position" : "5 2.5 4",
+      "rotation" :"1.5",
       "largeur" :"1.5",
-      "hauteur" :"1.5",
-      "rotation" :"0 90 0"
-    }
-  ]
-  // Les zones de click cachées pour clicker plus facilement
-  var scene1Click = [
-    {
-      "nom" : "hiddenPremier",
-      "coord" : "-7 5 -1.7",
-      "largeur" :"2.5",
-      "hauteur" :"40",
-      "rotation" :"0 25 0"
+      "hauteur" :"0 90 0",
+      "idScenarioALancer" :"scenario1"
     },
     {
-      "nom" : "hiddenPremier3",
-      "coord" : "-12 1.5 10",
-      "largeur" :"2.5",
-      "hauteur" :"50",
-      "rotation" :"0 130 0"
-    },
-    {
-      "nom" : "hiddenPremier4",
-      "coord" : "0 7 17",
-      "largeur" :"2.5",
-      "hauteur" :"50",
-      "rotation" :"0 130 0"
+      "id" : "pointInteret2",
+      "position" : "5 2.5 4",
+      "rotation" :"1.5",
+      "largeur" :"1.5",
+      "hauteur" :"0 90 0",
+      "idScenarioALancer" :"scenario2"
     }
   ]
+  //Ici les points d'intérêts des scénarioslancés depuis la scène principale'
+  var scenariosPOI = [
+    {
+      "id" : "pointInteretScenario1",
+      "position" : "5 2.5 4",
+      "rotation" :"1.5",
+      "largeur" :"1.5",
+      "hauteur" :"0 90 0",
+      "idVideoALancer" :"video1",
+      "fermeture" :"merci et a bientot"
+    },
+    {
+      "id" : "pointInteretScenario3",
+      "position" : "5 2.5 4",
+      "rotation" :"1.5",
+      "largeur" :"1.5",
+      "hauteur" :"0 90 0",
+      "idVideoALancer" :"video2",
+      "fermeture" :"merci et a bientot2"
+    }
+  ]
+

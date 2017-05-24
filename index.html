@@ -55,17 +55,17 @@
           fill="backwards" repeat="indefinite" from="1 1 1" to="0.1 0.1 0.1" dur="1500"></a-animation>
       </a-plane>-->
       <a-entity id="POI1">
-       <a-plane id="hiddenPremier1"
+       <a-plane id="hiddenpointInteret1"
           visible="true"
           position="-7 5 -1.7"
-          rotation="0 25 0"
+          rotation="0 65 0"
           width="3.5"
           height="60"
           onclick="startScenario()"
-          transparent="false"
+          transparent="true"
           opacity="0">
             <a-image id="pointInteret1"  position="0.05 0.05 0.05" src="#viseurAsset" width="1.5" height="1.5"
-             rotation="0 35 0"></a-image> 
+            ></a-image> 
             <a-animation attribute="position" fill="backwards" begin="fusing" end="mouseleave" direction="alternate"
             repeat="indefinite" to="-7 6 -1.5" dur="600"></a-animation>
             <!--<a-animation easing="ease-in" attribute="scale" begin="fusing"
@@ -74,14 +74,14 @@
       </a-entity>
       <!--Second point d'interet (appartement)'-->
       <a-entity id="POI2">
-       <a-plane id="hiddenPremier2"
+       <a-plane id="hiddenpointInteret2"
           visible="false"
           position="10 3 3.9"
           rotation="0 -90 0"
           width="3.5"
           height="90"
           onclick="continueScenario()"
-          transparent="false"
+          transparent="true"
           opacity="0">
             <a-image id="pointInteret2"  position="0.05 0.05 0.05" onclick="continueScenario()" src="#viseurAsset" width="2.5" height="2.5"
              ></a-image> 
@@ -91,14 +91,14 @@
       </a-entity>
       <!--La voiture -->
       <a-entity id="POI3">
-       <a-plane id="hiddenPremier3"
+       <a-plane id="hiddenpointInteret3"
           visible="true"
           position="-12 1.5 10"
           rotation="0 130 0"
           width="3.5"
           height="90"
           onclick="startScenario()"
-          transparent="false"
+          transparent="true"
           opacity="0">
             <a-image id="pointInteret3"  position="0.05 0.05 0.05" onclick="startScenario()" src="#viseurAsset" width="2.5" height="2.5"
              ></a-image> 
@@ -108,14 +108,14 @@
       </a-entity>
       <!--Industrie-->
       <a-entity id="POI4">
-       <a-plane id="hiddenPremier4"
+       <a-plane id="hiddenpointInteret4"
           visible="true"
           position="0 7 17"
           rotation="0 170 0"
           width="3.5"
           height="90"
           onclick="startScenario()"
-          transparent="false"
+          transparent="true"
           opacity="0">
             <a-image id="pointInteret4"  position="0.05 0.05 0.05" src="#viseurAsset" width="2.5" height="2.5"
              rotation="0 0 0"></a-image> 
@@ -161,7 +161,7 @@
       </script>-->
 
       <!--Fenêtre "cliquable"-->
-        <!--<a-plane id="hiddenPremier1"
+        <!--<a-plane id="hiddenpointInteret1"
           visible="true"
           position="-7 5 -1.7"
           rotation="0 25 0"
@@ -179,7 +179,7 @@
           </a-animation>-->
         <!--</a-plane>-->
         <!--Fenêtre "cliquable"-->
-        <!--<a-plane id="hiddenPremier2"
+        <!--<a-plane id="hiddenpointInteret2"
           visible="false"
           position="100 10 3.9"
           rotation="0 -90 0"
@@ -197,7 +197,7 @@
             >
           </a-animation>
         </a-plane>
-        <a-plane id="hiddenPremier3"
+        <a-plane id="hiddenpointInteret3"
           visible="true"
           position="-12 1.5 10"
           rotation="0 130 0"
@@ -216,7 +216,7 @@
             >
           </a-animation>
         </a-plane>-->
-        <!--<a-plane id="hiddenPremier4"
+        <!--<a-plane id="hiddenpointInteret4"
           visible="true"
           position="0 7 17"
           rotation="0 130 0"
@@ -517,7 +517,7 @@
         // function playAfterSceneRoom() {
         //   console.log('room : part 2');
         //   // hide window and play 2nd video
-        //   document.getElementById('hiddenPremier2').setAttribute('visible', false);
+        //   document.getElementById('hiddenpointInteret2').setAttribute('visible', false);
         //   document.getElementById('pointInteret2').setAttribute('visible', false);
         //   document.getElementById('video2').currentTime = 0
         //   document.getElementById('videoSceneRoomBeforeAction').setAttribute('visible', 'false')
@@ -564,7 +564,7 @@
           // cache les points d'intérêt'
           document.getElementById('playVideos').setAttribute('visible', false);
           //document.getElementById('video2').currentTime = 0
-          document.getElementById('hiddenPremier2').setAttribute('visible', false);
+          document.getElementById('hiddenpointInteret2').setAttribute('visible', false);
           document.getElementById('pointInteret2').setAttribute('visible', false);          
           document.getElementById('videoSceneRoomBeforeAction').setAttribute('visible', 'false')
           document.getElementById('video2').play()
@@ -591,9 +591,9 @@
         }
 
         function launchQuestion() { 
-          document.getElementById('hiddenPremier1').setAttribute('visible', false);
-          document.getElementById('hiddenPremier3').setAttribute('visible', false);
-          document.getElementById('hiddenPremier4').setAttribute('visible', false);
+          document.getElementById('hiddenpointInteret1').setAttribute('visible', false);
+          document.getElementById('hiddenpointInteret3').setAttribute('visible', false);
+          document.getElementById('hiddenpointInteret4').setAttribute('visible', false);
           document.getElementById('pointInteret1').setAttribute('visible', false);
           document.getElementById('pointInteret3').setAttribute('visible', false);
           document.getElementById('pointInteret4').setAttribute('visible', false);
@@ -608,16 +608,16 @@
         }
 
         function hideQuestion() { 
-          document.getElementById('hiddenPremier2').setAttribute('visible', true);
+          document.getElementById('hiddenpointInteret2').setAttribute('visible', true);
           document.getElementById('pointInteret2').setAttribute('visible', true);
           document.getElementById('playVideos').setAttribute('visible', true);
           document.getElementById('questionScene1').setAttribute('visible', false);
         }
 
         function hideReponse() { 
-          document.getElementById('hiddenPremier1').setAttribute('visible', true);
-          document.getElementById('hiddenPremier3').setAttribute('visible', true);
-          document.getElementById('hiddenPremier4').setAttribute('visible', true);
+          document.getElementById('hiddenpointInteret1').setAttribute('visible', true);
+          document.getElementById('hiddenpointInteret3').setAttribute('visible', true);
+          document.getElementById('hiddenpointInteret4').setAttribute('visible', true);
           document.getElementById('pointInteret1').setAttribute('visible', true);
           document.getElementById('pointInteret3').setAttribute('visible', true);
           document.getElementById('pointInteret4').setAttribute('visible', true);
@@ -642,15 +642,15 @@
         //   thatE1.setAttribute('height',1.5);
         // }
         // for(i=1; i<5; i++){
-        //   document.getElementById('hiddenPremier'+i).addEventListener('fusing',startAnim,false);
-        //   document.getElementById('hiddenPremier'+i).addEventListener('mouseleave',stopAnim,false);
+        //   document.getElementById('hiddenpointInteret'+i).addEventListener('fusing',startAnim,false);
+        //   document.getElementById('hiddenpointInteret'+i).addEventListener('mouseleave',stopAnim,false);
         // }
 
         // events
         // MyEvents
         document.getElementById('video2').addEventListener('ended',finishScenario,false);
-        // document.getElementById('hiddenPremier1').addEventListener('fusing',startAnim, false);
-        // document.getElementById('hiddenPremier1').addEventListener('mouseleave',stopAnim,false);
+        // document.getElementById('hiddenpointInteret1').addEventListener('fusing',startAnim, false);
+        // document.getElementById('hiddenpointInteret1').addEventListener('mouseleave',stopAnim,false);
         
         
         //end of my events
