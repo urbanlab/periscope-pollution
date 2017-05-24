@@ -1,26 +1,23 @@
 
-//Ici les points d'intérêt de la scène générale
-var scene1POI = [
+//Ici Ajoutez toutes les vidéos que vous allez utiliser
+//Mettez le chemin de votre scène principale (lancée au démarrage) à l'id "principale" sans modifier cet id
+//ne modifiez pas non plus ni l'id ni le chemin de videoNoir
+var videos = [
     {
-      "nom" : "pointInteret1",
-      "coord" : "-7 5 -1.7",
-      "largeur" :"1.5",
-      "hauteur" :"1.5",
-      "rotation" :"0 60 0"
+      "id" : "principale",
+      "chemin" : "./video/garibaldi.light.mp4"
     },
     {
-      "nom" : "pointInteret3",
-      "coord" : "-12 1.5 10",
-      "largeur" :"2.5",
-      "hauteur" :"2.5",
-      "rotation" :"0 130 0"
+      "id" : "videoNoir",
+      "chemin" :"./video/fondNoir.mp4"
     },
     {
-      "nom" : "pointInteret4",
-      "coord" : "0 7 17",
-      "largeur" :"2.5",
-      "hauteur" :"2.5",
-      "rotation" :"0 10 0"
+      "id" : "video1",
+      "chemin" : "./video/room-before-action.mp4"
+    },
+    {
+      "id" : "video2",
+      "chemin" : "./video/room-after-action.mp4"
     }
   ]
   // Points d'intérêt des autres scènes

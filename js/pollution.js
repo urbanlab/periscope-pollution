@@ -26,7 +26,7 @@ AFRAME.registerComponent('pollution', {
     this.particleGroups = [
       new SPE.Group({
           texture: {
-              value: loader1.load('./img/2.png?123')
+              value: loader1.load('./img/11.png?123')
           },
           // blending: THREE.AdditiveBlending,
           maxParticleCount : 10000,
@@ -36,7 +36,7 @@ AFRAME.registerComponent('pollution', {
 
       new SPE.Group({
           texture: {
-              value: loader2.load('./img/2.png?123')
+              value: loader2.load('./img/12.png?123')
           },
           // blending: THREE.AdditiveBlending,
           colorize :false,
@@ -46,7 +46,7 @@ AFRAME.registerComponent('pollution', {
 
       new SPE.Group({
           texture: {
-              value: loader3.load('./img/3.png?123')
+              value: loader3.load('./img/2.png?123')
           },
           // blending: THREE.AdditiveBlending,
           colorize :false,

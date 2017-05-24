@@ -9,6 +9,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aframe-text-component/0.4.2/aframe-text-component.js"></script>
     <script src="https://rawgit.com/squarefeet/ShaderParticleEngine/master/build/SPE.js"></script>
     <script src="./js/aframe-animation-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-particle-system-component@1.0.9/dist/aframe-particle-system-component.min.js"></script>
 
     <script src='./js/pollution.js'></script>
     <script type="text/javascript" src='jsonPolluscope.json'></script>
@@ -17,21 +18,19 @@
 
   </head>
   <body>
-
+    
     <a-scene >
+       <!--<a-entity particle-system="preset: snow" position="0 0 -10"></a-entity>-->
+       <!--<a-entity position="0 2.25 -15" particle-system="preset: dust; texture: img/2.png; color: #0000FF,#00FF00,#FF0000"></a-entity>-->
       <!--<a-box id="bottom-plate" height="0.2" position="0 -0.5 0" color="#000000"></a-box>-->
       <a-assets>
-        <img id="start" crossorigin="anonymous" src="img/play.png" >
-
+        <img id="start" crossorigin="anonymous" src="./img/play.png" >
         <img id="viseurAsset" crossorigin="anonymous" src="./img/viseur.png">
-        <img id="moleculesAll" crossorigin="anonymous" src="./img/molecules-all.png">
-        <img id="roomTexteAsset" crossorigin="anonymous" src="./img/room-texte.png">
 
-        <video id="videoGaribaldi" src="./video/garibaldi.light.mp4" loop autoplay="false"></video>
-        <video id="videoTest" src="./video/test.small.mp4" autoplay="false" loop="true"></video>
-        <video id="videoNoir" src="./video/fondNoir.mp4" autoplay="false" loop="true"></video>
+        <video id="videoGaribaldi" src="./video/garibaldi.light.mp4" loop="true"></video>
+        <video id="videoNoir" src="./video/fondNoir.mp4" loop="true"></video>
         <video id="videoRoomBeforeAction" src="./video/room-before-action.mp4" loop="false"></video>
-        <video id="videoRoomAfterAction" src="./video/room-after-action.mp4" controls preload="none" loop="false"></video>
+        <video id="videoRoomAfterAction" src="./video/room-after-action.mp4"  loop="false"></video>
 
       </a-assets>
       
@@ -49,7 +48,7 @@
       <a-animation easing="ease-in" attribute="scale"
           fill="backwards" repeat="indefinite" from="1 1 1" to="0.1 0.1 0.1" dur="1500"></a-animation>
       </a-plane>-->
-      <a-entity>
+      <a-entity id="POI1">
        <a-plane id="hiddenPremier1"
           visible="true"
           position="-7 5 -1.7"
@@ -57,33 +56,35 @@
           width="3.5"
           height="60"
           onclick="startScenario()"
-          transparent="true"
+          transparent="false"
           opacity="0">
-            <a-image id="pointInteret1" src="#viseurAsset" onclick="startScenario()" width="1.5" height="1.5"
+            <a-image id="pointInteret1"  position="0.05 0.05 0.05" src="#viseurAsset" width="1.5" height="1.5"
              rotation="0 35 0"></a-image> 
-            <a-animation easing="ease-in" attribute="scale" begin="fusing"
-            repeat="2" fill="backwards" from="1 1 1" to="1 0.1 0.1" dur="1000"></a-animation> 
+            <a-animation attribute="position" fill="backwards" begin="fusing" end="mouseleave" direction="alternate"
+            repeat="indefinite" to="-7 6 -1.5" dur="600"></a-animation>
+            <!--<a-animation easing="ease-in" attribute="scale" begin="fusing"
+            repeat="2" fill="backwards" from="1 1 1" to="1 0.1 0.1" dur="1000"></a-animation> -->
         </a-plane>
       </a-entity>
       <!--Second point d'interet (appartement)'-->
-      <a-entity>
+      <a-entity id="POI2">
        <a-plane id="hiddenPremier2"
           visible="false"
-          position="100 10 3.9"
+          position="10 3 3.9"
           rotation="0 -90 0"
-          width="65"
-          height="300"
+          width="3.5"
+          height="90"
           onclick="continueScenario()"
-          transparent="true"
+          transparent="false"
           opacity="0">
-            <a-image id="pointInteret2" src="#viseurAsset" onclick="continueScenario()" width="30.5" height="30.5"
-             rotation="0 0 0"></a-image> 
-            <a-animation easing="ease-in" attribute="scale" begin="fusing"
-            repeat="2" fill="backwards" from="1 1 1" to="1 0.1 0.1" dur="1000"></a-animation> 
+            <a-image id="pointInteret2"  position="0.05 0.05 0.05" onclick="continueScenario()" src="#viseurAsset" width="2.5" height="2.5"
+             ></a-image> 
+            <a-animation attribute="position" fill="backwards" begin="fusing" end="mouseleave" direction="alternate"
+            repeat="indefinite" to="10 4 3.9" dur="600"></a-animation> 
         </a-plane>
       </a-entity>
       <!--La voiture -->
-      <a-entity>
+      <a-entity id="POI3">
        <a-plane id="hiddenPremier3"
           visible="true"
           position="-12 1.5 10"
@@ -91,16 +92,16 @@
           width="3.5"
           height="90"
           onclick="startScenario()"
-          transparent="true"
+          transparent="false"
           opacity="0">
-            <a-image id="pointInteret3" src="#viseurAsset" onclick="startScenario()" width="2.5" height="2.5"
-             rotation="0 0 0"></a-image> 
-            <a-animation easing="ease-in" attribute="scale" begin="fusing"
-            repeat="2" fill="backwards" from="1 1 1" to="1 0.1 0.1" dur="1000"></a-animation> 
+            <a-image id="pointInteret3"  position="0.05 0.05 0.05" onclick="startScenario()" src="#viseurAsset" width="2.5" height="2.5"
+             ></a-image> 
+            <a-animation attribute="position" fill="backwards" begin="fusing" end="mouseleave" direction="alternate"
+            repeat="indefinite" to="-12 2.5 10" dur="600"></a-animation> 
         </a-plane>
       </a-entity>
       <!--Industrie-->
-      <a-entity>
+      <a-entity id="POI4">
        <a-plane id="hiddenPremier4"
           visible="true"
           position="0 7 17"
@@ -108,12 +109,12 @@
           width="3.5"
           height="90"
           onclick="startScenario()"
-          transparent="true"
+          transparent="false"
           opacity="0">
-            <a-image id="pointInteret4" src="#viseurAsset" onclick="startScenario()" width="2.5" height="2.5"
+            <a-image id="pointInteret4"  position="0.05 0.05 0.05" src="#viseurAsset" width="2.5" height="2.5"
              rotation="0 0 0"></a-image> 
-            <a-animation easing="ease-in" attribute="scale" begin="fusing"
-            repeat="2" fill="backwards" from="1 1 1" to="1 0.1 0.1" dur="1000"></a-animation> 
+            <a-animation attribute="position" fill="backwards" begin="fusing" end="mouseleave" direction="alternate"
+            repeat="indefinite" to="0 8 17" dur="600"></a-animation> 
         </a-plane>
       </a-entity>
       <!--<a-entity>
@@ -272,12 +273,11 @@
         value="Suis-je a l'abri a l'interieur de mon logement?"
         position="0 0 -8"
         align="center"
-        width="10"
+        width="7"
         height="10"
         color="white"
         font-family="Lucida Sans Unicode"
         shader: flat;
-        cursor="fuse: true; fuse-timeout: 3000"
         id="questionScene1"
         visible="false"
         >
@@ -286,12 +286,11 @@
         value="Notre habitat regorge de differentes sources de pollution: materiaux, activite humaine...Pensez a aerer votre logement en moyenne 15 minutes le matin ou en soiree "
         position="0 0 -8"
         align="center"
-        width="10"
+        width="7"
         height="10"
         font-family="Lucida Sans Unicode"
         color="white"
         shader: flat;
-        cursor="fuse: true; fuse-timeout: 3000"
         id="reponseScene1"
         visible="false"
         >
@@ -346,6 +345,7 @@
           id="videoPlayerGaribaldi"
           src="#videoGaribaldi"
           rotation="0 0 0"
+          autoplay="false"
           class="playable"
           >
         </a-videosphere>
@@ -372,12 +372,14 @@
           id="videoSceneRoomBeforeAction"
           src="#videoRoomBeforeAction"
           visible="false"
+          autoplay="false"
           rotation="0 0 0"
           >
         </a-videosphere>
         <a-videosphere
           id="videoSceneNoir"
           src="#videoNoir"
+          autoplay="false"
           visible="false"
           rotation="0 0 0"
           >
@@ -386,6 +388,7 @@
           id="videoSceneRoomAfterAction"
           src="#videoRoomAfterAction"
           visible="false"
+          autoplay="false"
           rotation="0 0 0"
           >
         </a-videosphere>
@@ -552,7 +555,7 @@
 
         function continueScenario() {
            console.log('room : part 2');
-          // cache le spoints d'intérêt'
+          // cache les points d'intérêt'
           document.getElementById('playVideos').setAttribute('visible', false);
           //document.getElementById('videoRoomAfterAction').currentTime = 0
           document.getElementById('hiddenPremier2').setAttribute('visible', false);
@@ -617,19 +620,21 @@
           document.getElementById('reponseScene1').setAttribute('visible', false);
         }
 
-        function startAnim(e) {
-          var thatE1 = document.getElementById('pointInteret1');
-          console.log("gogogo lancé pour 1");
-          thatE1.emit("gogogo");
-        }
+        // begin="gogogo" dans l'animation'
+        // function startAnim(e) {
+        //   var thatE1 = document.getElementById('pointInteret1');
+        //   console.log("gogogo lancé pour 1");
+        //   thatE1.emit("gogogo");
+        // }
 
-        function stopAnim(e) {
-          var thatE1 = document.getElementById('pointInteret1');
-          console.log("fin de fusing");
-          thatE1.emit("stopit");
-          thatE1.setAttribute('width',1.5);
-          thatE1.setAttribute('height',1.5);
-        }
+        // end="stopit"
+        // function stopAnim(e) {
+        //   var thatE1 = document.getElementById('pointInteret1');
+        //   console.log("fin de fusing");
+        //   thatE1.emit("stopit");
+        //   thatE1.setAttribute('width',1.5);
+        //   thatE1.setAttribute('height',1.5);
+        // }
         // for(i=1; i<5; i++){
         //   document.getElementById('hiddenPremier'+i).addEventListener('fusing',startAnim,false);
         //   document.getElementById('hiddenPremier'+i).addEventListener('mouseleave',stopAnim,false);
@@ -643,6 +648,7 @@
         
         
         //end of my events
+        //pour ne pas qu'elle tourne une fois "toute seule" et que ca declenche involontairement l'event de fin de vidéo u_u
         document.getElementById('videoRoomAfterAction').pause();
         //Chargement du json
         // var text = '{"employees":[' +
@@ -669,7 +675,7 @@
         //   showSceneRue()
         // });
 
-      //pour ne pas qu'elle tourne une fois "toute seule" et que ca declenche involontairement l'event de fin de vidéo u_u
+      
       
 
       </script>
