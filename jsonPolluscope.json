@@ -1,23 +1,28 @@
 
-//Ici Ajoutez toutes les vidéos que vous allez utiliser
+//Ici Ajoutez toutes les vidéos que vous allez utiliser (choisissez l'id de votre choix, indiquez le chemin
+// de destination vers la vidéo
 //Mettez le chemin de votre scène principale (lancée au démarrage) à l'id "principale" sans modifier cet id
 //ne modifiez pas non plus ni l'id ni le chemin de videoNoir
 var videos = [
     {
       "id" : "principale",
-      "chemin" : "./video/garibaldi.light.mp4"
+      "chemin" : "./video/garibaldi.light.mp4",
+      "boucle" : "true"
     },
     {
       "id" : "videoNoir",
-      "chemin" :"./video/fondNoir.mp4"
+      "chemin" :"./video/fondNoir.mp4",
+      "boucle" : "true"
     },
     {
       "id" : "video1",
-      "chemin" : "./video/room-before-action.mp4"
+      "chemin" : "./video/room-before-action.mp4",
+      "boucle" : "false"
     },
     {
       "id" : "video2",
-      "chemin" : "./video/room-after-action.mp4"
+      "chemin" : "./video/room-after-action.mp4",
+      "boucle" : "false"
     }
   ]
   // Points d'intérêt des autres scènes

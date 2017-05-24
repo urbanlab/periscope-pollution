@@ -26,11 +26,17 @@
       <a-assets>
         <img id="start" crossorigin="anonymous" src="./img/play.png" >
         <img id="viseurAsset" crossorigin="anonymous" src="./img/viseur.png">
-
-        <video id="videoGaribaldi" src="./video/garibaldi.light.mp4" loop="true"></video>
+        <script>
+          var transformVideos = [
+            {"<>":"video", "id":"${id}", "html":"", "src":"${chemin}", "loop": "${boucle}"},
+          ];  
+          var html = json2html.transform(videos, transformVideos);
+          document.write(html);
+        </script>
+        <!--<video id="principale" src="./video/garibaldi.light.mp4" loop="true"></video>
         <video id="videoNoir" src="./video/fondNoir.mp4" loop="true"></video>
-        <video id="videoRoomBeforeAction" src="./video/room-before-action.mp4" loop="false"></video>
-        <video id="videoRoomAfterAction" src="./video/room-after-action.mp4"  loop="false"></video>
+        <video id="video1" src="./video/room-before-action.mp4" loop="false"></video>
+        <video id="video2" src="./video/room-after-action.mp4"  loop="false"></video>-->
 
       </a-assets>
       
@@ -343,7 +349,7 @@
       <a-entity id="sceneRue" class="scene" visible="true">
         <a-videosphere
           id="videoPlayerGaribaldi"
-          src="#videoGaribaldi"
+          src="#principale"
           rotation="0 0 0"
           autoplay="false"
           class="playable"
@@ -370,7 +376,7 @@
       <a-entity id="sceneRoom" class="scene" visible="true">
         <a-videosphere
           id="videoSceneRoomBeforeAction"
-          src="#videoRoomBeforeAction"
+          src="#video1"
           visible="false"
           autoplay="false"
           rotation="0 0 0"
@@ -386,7 +392,7 @@
         </a-videosphere>
         <a-videosphere
           id="videoSceneRoomAfterAction"
-          src="#videoRoomAfterAction"
+          src="#video2"
           visible="false"
           autoplay="false"
           rotation="0 0 0"
@@ -446,7 +452,7 @@
         //       for(var i = 0; i < videos.length; i++) {
         //         videos[i].pause();
         //       }
-        //       document.getElementById('videoGaribaldi').play()
+        //       document.getElementById('principale').play()
         //       document.getElementById('playVideos').setAttribute('visible', false);
         //       showCursor()
 
@@ -500,10 +506,10 @@
         // }
         // function playBeforeSceneRoom() {
         //   console.log('room : part 1');
-        //   document.getElementById('videoRoomBeforeAction').currentTime = 0
+        //   document.getElementById('video1').currentTime = 0
         //   document.getElementById('fondNoirScene').setAttribute('visible', 'false')
         //   document.getElementById('videoSceneRoomBeforeAction').setAttribute('visible', 'true')
-        //   document.getElementById('videoRoomBeforeAction').play();
+        //   document.getElementById('video1').play();
         //   var pollutionEl = document.getElementById("pollution")
         //   pollutionEl.emit("pollutionFadeIn") // start the animation
         // }
@@ -513,14 +519,14 @@
         //   // hide window and play 2nd video
         //   document.getElementById('hiddenPremier2').setAttribute('visible', false);
         //   document.getElementById('pointInteret2').setAttribute('visible', false);
-        //   document.getElementById('videoRoomAfterAction').currentTime = 0
+        //   document.getElementById('video2').currentTime = 0
         //   document.getElementById('videoSceneRoomBeforeAction').setAttribute('visible', 'false')
-        //   document.getElementById('videoRoomAfterAction').play()
+        //   document.getElementById('video2').play()
         //   document.getElementById('videoSceneRoomAfterAction').setAttribute('visible', 'true')
         //   document.getElementById('videoPlayerGaribaldi').setAttribute('visible', 'false')
 
         //   // remove pollution
-        //   var video = document.getElementById('videoRoomAfterAction');
+        //   var video = document.getElementById('video2');
         //   video.addEventListener('ended', function (evt) {
         //     var pollutionEl = document.getElementById("pollution")
         //     pollutionEl.emit("pollutionFadeOut")
@@ -537,12 +543,12 @@
           sceneEl.setAttribute('visible', 'true')
           setTimeout(function(){
               sceneEl.setAttribute('visible', 'false')
-              document.getElementById('videoRoomBeforeAction').currentTime = 0
+              document.getElementById('video1').currentTime = 0
               hideQuestion()
               var sceneE2 = document.getElementById("videoSceneRoomBeforeAction")
               sceneE2.setAttribute('visible', 'true')
               setPollution(0.5)
-              document.getElementById('videoRoomBeforeAction').play()
+              document.getElementById('video1').play()
           }, 5000);
           
           //document.getElementById('videoSceneRoomBeforeAction').play()
@@ -557,11 +563,11 @@
            console.log('room : part 2');
           // cache les points d'intérêt'
           document.getElementById('playVideos').setAttribute('visible', false);
-          //document.getElementById('videoRoomAfterAction').currentTime = 0
+          //document.getElementById('video2').currentTime = 0
           document.getElementById('hiddenPremier2').setAttribute('visible', false);
           document.getElementById('pointInteret2').setAttribute('visible', false);          
           document.getElementById('videoSceneRoomBeforeAction').setAttribute('visible', 'false')
-          document.getElementById('videoRoomAfterAction').play()
+          document.getElementById('video2').play()
           document.getElementById('videoSceneRoomAfterAction').setAttribute('visible', 'true')
           document.getElementById('videoPlayerGaribaldi').setAttribute('visible', 'true')
         }
@@ -575,11 +581,11 @@
           sceneEl.setAttribute('visible', 'true')
           setTimeout(function(){
               sceneEl.setAttribute('visible', 'false')
-              document.getElementById('videoGaribaldi').currentTime = 0
+              document.getElementById('principale').currentTime = 0
               hideReponse() //remet aussi les points d'intéret de départ'
               var sceneE2 = document.getElementById("videoPlayerGaribaldi")
               sceneE2.setAttribute('visible', 'true')
-              document.getElementById('videoGaribaldi').play()
+              document.getElementById('principale').play()
               setPollution(0.1)
           }, 5000);
         }
@@ -642,14 +648,14 @@
 
         // events
         // MyEvents
-        document.getElementById('videoRoomAfterAction').addEventListener('ended',finishScenario,false);
+        document.getElementById('video2').addEventListener('ended',finishScenario,false);
         // document.getElementById('hiddenPremier1').addEventListener('fusing',startAnim, false);
         // document.getElementById('hiddenPremier1').addEventListener('mouseleave',stopAnim,false);
         
         
         //end of my events
         //pour ne pas qu'elle tourne une fois "toute seule" et que ca declenche involontairement l'event de fin de vidéo u_u
-        document.getElementById('videoRoomAfterAction').pause();
+        document.getElementById('video2').pause();
         //Chargement du json
         // var text = '{"employees":[' +
         // '{"firstName":"John","lastName":"Doe" },' +
