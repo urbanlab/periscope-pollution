@@ -30,65 +30,58 @@ var videos = [
   var scenarios = [
     {
       "id" : "scenario1",
-      "question" : "bienvenue chez vous",
+      "question" : "Suis-je a l'abri a l'interieur de mon logement?",
       "videoImmersion" : "video1",
-      "tauxPollution" :"1.5",
+      "tauxPollution" : "1.5",
       "listePOI": [
-        {"id" : "pointInteretScn1"},
-        {"id" : "pointInteretScn2"},
-        {"id" : "pointInteretScn3"}
-      ]
-    },
-    {
-      "id" : "scenario2",
-      "question" : "bienvenue chez moi",
-      "videoImmersion" : "video2",
-      "tauxPollution" :"0.5",
-      "listePOI": [
-        {"id" : "pointInteretScn4"},
-        {"id" : "pointInteretScn5"},
-        {"id" : "pointInteretScn6"}
+        {"id" : "pointInteretScn1"}
+        // {"id" : "pointInteretScn2"},
+        // {"id" : "pointInteretScn3"}
       ]
     }
   ]
   // Ici indiquez quels sont les points d'intérêt de la scène principale, et le scénario que chacun va lancer'
   var principauxPOI = [
     {
-      "id" : "pointInteret1",
-      "position" : "5 2.5 4",
-      "rotation" :"1.5",
-      "largeur" :"1.5",
-      "hauteur" :"0 90 0",
+      "id" : "pointInteretPrincipal1",
+      "position" : "-7 5 -1.7",
+      "rotation" :"0 65 0",
+      "largeur" :"3.5",
+      "hauteur" :"60",
+      "hauteurAnimation" : "-7 6 -1.7",
       "idScenarioALancer" :"scenario1"
     },
     {
-      "id" : "pointInteret2",
-      "position" : "5 2.5 4",
-      "rotation" :"1.5",
-      "largeur" :"1.5",
-      "hauteur" :"0 90 0",
-      "idScenarioALancer" :"scenario2"
-    }
-  ]
-  //Ici les points d'intérêts des scénarioslancés depuis la scène principale'
-  var scenariosPOI = [
-    {
-      "id" : "pointInteretScenario1",
-      "position" : "5 2.5 4",
-      "rotation" :"1.5",
-      "largeur" :"1.5",
-      "hauteur" :"0 90 0",
-      "idVideoALancer" :"video1",
-      "fermeture" :"merci et a bientot"
+      "id" : "pointInteretPrincipal2",
+      "position" : "-12 1.5 10",
+      "rotation" :"0 130 0",
+      "largeur" :"3.5",
+      "hauteur" :"90",
+      "hauteurAnimation" : "-12 2.5 10",
+      "idScenarioALancer" :"scenario1"
     },
     {
-      "id" : "pointInteretScenario3",
-      "position" : "5 2.5 4",
-      "rotation" :"1.5",
-      "largeur" :"1.5",
-      "hauteur" :"0 90 0",
+      "id" : "pointInteretPrincipal3",
+      "position" : "0 7 17",
+      "rotation" :"0 170 0",
+      "largeur" :"3.5",
+      "hauteur" :"90",
+      "hauteurAnimation" : "0 8 17",
+      "idScenarioALancer" :"scenario1"
+    }
+  ]
+  //Ici les points d'intérêts des scénarios lancés depuis la scène principale'
+  //les id doivent correspondre à ceux de la listePOI de la variable scenarios
+  var scenariosPOI = [
+    {
+      "id" : "pointInteretScn1",
+      "position" : "10 3 3.9",
+      "rotation" :"0 -90 0",
+      "largeur" :"3.5",
+      "hauteur" :"90",
+      "hauteurAnimation" : "10 4 3.9",
       "idVideoALancer" :"video2",
-      "fermeture" :"merci et a bientot2"
+      "fermeture" :"Notre habitat regorge de differentes sources de pollution: materiaux, activite humaine...Pensez a aerer votre logement en moyenne 15 minutes le matin ou en soiree"
     }
   ]
 

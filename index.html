@@ -24,8 +24,10 @@
        <!--<a-entity position="0 2.25 -15" particle-system="preset: dust; texture: img/2.png; color: #0000FF,#00FF00,#FF0000"></a-entity>-->
       <!--<a-box id="bottom-plate" height="0.2" position="0 -0.5 0" color="#000000"></a-box>-->
       <a-assets>
+        <!--Images du bouton start (cruseur) et du viseur pour les points d'intéret'-->
         <img id="start" crossorigin="anonymous" src="./img/play.png" >
         <img id="viseurAsset" crossorigin="anonymous" src="./img/viseur.png">
+        <!--script pour récupérer l'ensemble des vidéos qui vont servir au projet'-->
         <script>
           var transformVideos = [
             {"<>":"video", "id":"${id}", "html":"", "src":"${chemin}", "loop": "${boucle}"},
@@ -37,12 +39,11 @@
         <video id="videoNoir" src="./video/fondNoir.mp4" loop="true"></video>
         <video id="video1" src="./video/room-before-action.mp4" loop="false"></video>
         <video id="video2" src="./video/room-after-action.mp4"  loop="false"></video>-->
-
       </a-assets>
       
       <!--Premier point intérêt fenêtre garibaldi-->
       <!--<a-plane
-      id="pointInteret1"
+      id="pointInteretPrincipal1image"
       src="#viseurAsset"
       onclick="startScenario"
       position="-7 5 -1.7"
@@ -54,8 +55,33 @@
       <a-animation easing="ease-in" attribute="scale"
           fill="backwards" repeat="indefinite" from="1 1 1" to="0.1 0.1 0.1" dur="1500"></a-animation>
       </a-plane>-->
-      <a-entity id="POI1">
-       <a-plane id="hiddenpointInteret1"
+      <script>
+        var transformPrincipauxPOI = [
+          {"<>":"a-entity","id":"${id}","html":[
+            {"<>":"a-plane","id":"${id}"+"hidden","visible":"true", "position":"${position}","rotation":"${rotation}","width":"${largeur}","height":"${hauteur}","transparent":"true","opacity":"1","html":[
+                {"<>":"a-image","id":"${id}"+"image","position":"0.05 0.05 0.05","src":"#viseurAsset","width":"2.5","height":"2.5","html":""},
+                {"<>":"a-animation","attribute":"position","fill":"backwards","begin":"fusing","end":"mouseleave","direction":"alternate","repeat":"indefinite","to":"${hauteurAnimation}","dur":"600","html":""}
+              ]}
+          ]}
+        ];
+        var html = json2html.transform(principauxPOI, transformPrincipauxPOI);
+        console.log(html);
+        document.write(html);
+      </script>
+      <script>
+        var transformScenariosPOI = [
+          {"<>":"a-entity","id":"${id}","html":[
+            {"<>":"a-plane","id":"${id}"+"hidden","visible":"false","position":"${position}","rotation":"${rotation}","width":"${largeur}","height":"${hauteur}", "transparent":"true","opacity":"0","html":[
+                {"<>":"a-image","id":"${id}"+"image","position":"0.05 0.05 0.05","src":"#viseurAsset","width":"2.5","height":"2.5","html":""},
+                {"<>":"a-animation","attribute":"position","fill":"backwards","begin":"fusing","end":"mouseleave","direction":"alternate","repeat":"indefinite","to":"${hauteurAnimation}","dur":"600","html":""}
+              ]}
+          ]}
+        ];
+        var html = json2html.transform(scenariosPOI, transformScenariosPOI);
+        document.write(html);
+      </script>
+      <!--<a-entity id="pointInteretPrincipal1">
+       <a-plane id="pointInteretPrincipal1hidden"
           visible="true"
           position="-7 5 -1.7"
           rotation="0 65 0"
@@ -64,17 +90,15 @@
           onclick="startScenario()"
           transparent="true"
           opacity="0">
-            <a-image id="pointInteret1"  position="0.05 0.05 0.05" src="#viseurAsset" width="1.5" height="1.5"
+            <a-image id="pointInteretPrincipal1image"  position="0.05 0.05 0.05" src="#viseurAsset" width="1.5" height="1.5"
             ></a-image> 
             <a-animation attribute="position" fill="backwards" begin="fusing" end="mouseleave" direction="alternate"
-            repeat="indefinite" to="-7 6 -1.5" dur="600"></a-animation>
-            <!--<a-animation easing="ease-in" attribute="scale" begin="fusing"
-            repeat="2" fill="backwards" from="1 1 1" to="1 0.1 0.1" dur="1000"></a-animation> -->
+            repeat="indefinite" to="-7 6 -1.7" dur="600"></a-animation>
+
         </a-plane>
       </a-entity>
-      <!--Second point d'interet (appartement)'-->
-      <a-entity id="POI2">
-       <a-plane id="hiddenpointInteret2"
+      <a-entity id="pointInteretScn1">
+       <a-plane id="pointInteretScn1hidden"
           visible="false"
           position="10 3 3.9"
           rotation="0 -90 0"
@@ -83,15 +107,14 @@
           onclick="continueScenario()"
           transparent="true"
           opacity="0">
-            <a-image id="pointInteret2"  position="0.05 0.05 0.05" onclick="continueScenario()" src="#viseurAsset" width="2.5" height="2.5"
+            <a-image id="pointInteretScn1image"  position="0.05 0.05 0.05" onclick="continueScenario()" src="#viseurAsset" width="2.5" height="2.5"
              ></a-image> 
             <a-animation attribute="position" fill="backwards" begin="fusing" end="mouseleave" direction="alternate"
             repeat="indefinite" to="10 4 3.9" dur="600"></a-animation> 
         </a-plane>
       </a-entity>
-      <!--La voiture -->
-      <a-entity id="POI3">
-       <a-plane id="hiddenpointInteret3"
+      <a-entity id="pointInteretPrincipal2">
+       <a-plane id="pointInteretPrincipal2hidden"
           visible="true"
           position="-12 1.5 10"
           rotation="0 130 0"
@@ -100,15 +123,14 @@
           onclick="startScenario()"
           transparent="true"
           opacity="0">
-            <a-image id="pointInteret3"  position="0.05 0.05 0.05" onclick="startScenario()" src="#viseurAsset" width="2.5" height="2.5"
+            <a-image id="pointInteretPrincipal2image"  position="0.05 0.05 0.05" onclick="startScenario()" src="#viseurAsset" width="2.5" height="2.5"
              ></a-image> 
             <a-animation attribute="position" fill="backwards" begin="fusing" end="mouseleave" direction="alternate"
             repeat="indefinite" to="-12 2.5 10" dur="600"></a-animation> 
         </a-plane>
       </a-entity>
-      <!--Industrie-->
-      <a-entity id="POI4">
-       <a-plane id="hiddenpointInteret4"
+      <a-entity id="pointInteretPrincipal3">
+       <a-plane id="pointInteretPrincipal3hidden"
           visible="true"
           position="0 7 17"
           rotation="0 170 0"
@@ -117,28 +139,30 @@
           onclick="startScenario()"
           transparent="true"
           opacity="0">
-            <a-image id="pointInteret4"  position="0.05 0.05 0.05" src="#viseurAsset" width="2.5" height="2.5"
+            <a-image id="pointInteretPrincipal3image"  position="0.05 0.05 0.05" src="#viseurAsset" width="2.5" height="2.5"
              rotation="0 0 0"></a-image> 
             <a-animation attribute="position" fill="backwards" begin="fusing" end="mouseleave" direction="alternate"
             repeat="indefinite" to="0 8 17" dur="600"></a-animation> 
         </a-plane>
-      </a-entity>
+      </a-entity>-->
+                  <!--<a-animation easing="ease-in" attribute="scale" begin="fusing"
+            repeat="2" fill="backwards" from="1 1 1" to="1 0.1 0.1" dur="1000"></a-animation> -->
       <!--<a-entity>
-      <a-image id="pointInteret2" src="#viseurAsset" onclick="continueScenario()" position="5 2.5 4" width="1.5" height="1.5" rotation="0 90 0" visible="false">
+      <a-image id="pointInteretScn1image" src="#viseurAsset" onclick="continueScenario()" position="5 2.5 4" width="1.5" height="1.5" rotation="0 90 0" visible="false">
         <a-animation easing="ease-in" attribute="scale" begin="gogogo" end="stopit"
            repeat="indefinite" from="1 1 1" to="0.1 0.1 0.1" dur="1000"></a-animation>
       </a-image>
       </a-entity>-->
       <!--La voiture-->
       <!--<a-entity>
-      <a-image id="pointInteret3" src="#viseurAsset" onclick="startScenario()" position="-12 1.5 10" width="2.5" height="2.5" rotation="0 130 0" visible="true">
+      <a-image id="pointInteretPrincipal2image" src="#viseurAsset" onclick="startScenario()" position="-12 1.5 10" width="2.5" height="2.5" rotation="0 130 0" visible="true">
         <a-animation easing="ease-in" attribute="scale" begin="gogogo" end="stopit"
            repeat="indefinite" from="1 1 1" to="0.1 0.1 0.1" dur="1000"></a-animation>
       </a-image>
       </a-entity>-->
       <!--L'industrie-->
       <!--<a-entity>
-      <a-image id="pointInteret4" src="#viseurAsset" onclick="startScenario()" position="0 7 17" width="2.5" height="2.5" rotation="0 10 0" visible="true">
+      <a-image id="pointInteretPrincipal3image" src="#viseurAsset" onclick="startScenario()" position="0 7 17" width="2.5" height="2.5" rotation="0 10 0" visible="true">
         <a-animation easing="ease-in" attribute="scale" begin="gogogo" end="stopit"
            repeat="indefinite" from="1 1 1" to="0.1 0.1 0.1" dur="1000"></a-animation>
       </a-image>
@@ -161,7 +185,7 @@
       </script>-->
 
       <!--Fenêtre "cliquable"-->
-        <!--<a-plane id="hiddenpointInteret1"
+        <!--<a-plane id="pointInteretPrincipal1hidden"
           visible="true"
           position="-7 5 -1.7"
           rotation="0 25 0"
@@ -179,7 +203,7 @@
           </a-animation>-->
         <!--</a-plane>-->
         <!--Fenêtre "cliquable"-->
-        <!--<a-plane id="hiddenpointInteret2"
+        <!--<a-plane id="pointInteretScn1hidden"
           visible="false"
           position="100 10 3.9"
           rotation="0 -90 0"
@@ -197,7 +221,7 @@
             >
           </a-animation>
         </a-plane>
-        <a-plane id="hiddenpointInteret3"
+        <a-plane id="pointInteretPrincipal2hidden"
           visible="true"
           position="-12 1.5 10"
           rotation="0 130 0"
@@ -216,7 +240,7 @@
             >
           </a-animation>
         </a-plane>-->
-        <!--<a-plane id="hiddenpointInteret4"
+        <!--<a-plane id="pointInteretPrincipal3hidden"
           visible="true"
           position="0 7 17"
           rotation="0 130 0"
@@ -517,8 +541,8 @@
         // function playAfterSceneRoom() {
         //   console.log('room : part 2');
         //   // hide window and play 2nd video
-        //   document.getElementById('hiddenpointInteret2').setAttribute('visible', false);
-        //   document.getElementById('pointInteret2').setAttribute('visible', false);
+        //   document.getElementById('pointInteretScn1hidden').setAttribute('visible', false);
+        //   document.getElementById('pointInteretScn1image').setAttribute('visible', false);
         //   document.getElementById('video2').currentTime = 0
         //   document.getElementById('videoSceneRoomBeforeAction').setAttribute('visible', 'false')
         //   document.getElementById('video2').play()
@@ -564,8 +588,8 @@
           // cache les points d'intérêt'
           document.getElementById('playVideos').setAttribute('visible', false);
           //document.getElementById('video2').currentTime = 0
-          document.getElementById('hiddenpointInteret2').setAttribute('visible', false);
-          document.getElementById('pointInteret2').setAttribute('visible', false);          
+          document.getElementById('pointInteretScn1hidden').setAttribute('visible', false);
+          document.getElementById('pointInteretScn1image').setAttribute('visible', false);          
           document.getElementById('videoSceneRoomBeforeAction').setAttribute('visible', 'false')
           document.getElementById('video2').play()
           document.getElementById('videoSceneRoomAfterAction').setAttribute('visible', 'true')
@@ -591,12 +615,12 @@
         }
 
         function launchQuestion() { 
-          document.getElementById('hiddenpointInteret1').setAttribute('visible', false);
-          document.getElementById('hiddenpointInteret3').setAttribute('visible', false);
-          document.getElementById('hiddenpointInteret4').setAttribute('visible', false);
-          document.getElementById('pointInteret1').setAttribute('visible', false);
-          document.getElementById('pointInteret3').setAttribute('visible', false);
-          document.getElementById('pointInteret4').setAttribute('visible', false);
+          document.getElementById('pointInteretPrincipal1hidden').setAttribute('visible', false);
+          document.getElementById('pointInteretPrincipal2hidden').setAttribute('visible', false);
+          document.getElementById('pointInteretPrincipal3hidden').setAttribute('visible', false);
+          document.getElementById('pointInteretPrincipal1image').setAttribute('visible', false);
+          document.getElementById('pointInteretPrincipal2image').setAttribute('visible', false);
+          document.getElementById('pointInteretPrincipal3image').setAttribute('visible', false);
           document.getElementById('playVideos').setAttribute('visible', false);
           document.getElementById('niveauPollution').setAttribute('visible', false);
           document.getElementById('questionScene1').setAttribute('visible', true);
@@ -608,19 +632,19 @@
         }
 
         function hideQuestion() { 
-          document.getElementById('hiddenpointInteret2').setAttribute('visible', true);
-          document.getElementById('pointInteret2').setAttribute('visible', true);
+          document.getElementById('pointInteretScn1hidden').setAttribute('visible', true);
+          document.getElementById('pointInteretScn1image').setAttribute('visible', true);
           document.getElementById('playVideos').setAttribute('visible', true);
           document.getElementById('questionScene1').setAttribute('visible', false);
         }
 
         function hideReponse() { 
-          document.getElementById('hiddenpointInteret1').setAttribute('visible', true);
-          document.getElementById('hiddenpointInteret3').setAttribute('visible', true);
-          document.getElementById('hiddenpointInteret4').setAttribute('visible', true);
-          document.getElementById('pointInteret1').setAttribute('visible', true);
-          document.getElementById('pointInteret3').setAttribute('visible', true);
-          document.getElementById('pointInteret4').setAttribute('visible', true);
+          document.getElementById('pointInteretPrincipal1hidden').setAttribute('visible', true);
+          document.getElementById('pointInteretPrincipal2hidden').setAttribute('visible', true);
+          document.getElementById('pointInteretPrincipal3hidden').setAttribute('visible', true);
+          document.getElementById('pointInteretPrincipal1image').setAttribute('visible', true);
+          document.getElementById('pointInteretPrincipal2image').setAttribute('visible', true);
+          document.getElementById('pointInteretPrincipal3image').setAttribute('visible', true);
           document.getElementById('playVideos').setAttribute('visible', true);
           document.getElementById('niveauPollution').setAttribute('visible', true);
           document.getElementById('reponseScene1').setAttribute('visible', false);
@@ -628,14 +652,14 @@
 
         // begin="gogogo" dans l'animation'
         // function startAnim(e) {
-        //   var thatE1 = document.getElementById('pointInteret1');
+        //   var thatE1 = document.getElementById('pointInteretPrincipal1image');
         //   console.log("gogogo lancé pour 1");
         //   thatE1.emit("gogogo");
         // }
 
         // end="stopit"
         // function stopAnim(e) {
-        //   var thatE1 = document.getElementById('pointInteret1');
+        //   var thatE1 = document.getElementById('pointInteretPrincipal1image');
         //   console.log("fin de fusing");
         //   thatE1.emit("stopit");
         //   thatE1.setAttribute('width',1.5);
@@ -649,8 +673,14 @@
         // events
         // MyEvents
         document.getElementById('video2').addEventListener('ended',finishScenario,false);
-        // document.getElementById('hiddenpointInteret1').addEventListener('fusing',startAnim, false);
-        // document.getElementById('hiddenpointInteret1').addEventListener('mouseleave',stopAnim,false);
+        for(var i=1;i<=principauxPOI.length; i++){
+          document.getElementById('pointInteretPrincipal'+i+"hidden").addEventListener('click',startScenario,false);
+        }
+        for(var j=1;j<=scenariosPOI.length; j++){
+          document.getElementById('pointInteretScn'+j+"hidden").addEventListener('click',continueScenario,false);
+        }
+        // document.getElementById('pointInteretPrincipal1hidden').addEventListener('fusing',startAnim, false);
+        // document.getElementById('pointInteretPrincipal1hidden').addEventListener('mouseleave',stopAnim,false);
         
         
         //end of my events
