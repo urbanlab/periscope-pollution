@@ -27,6 +27,44 @@
     <script src="./js/json2html.js"></script>
     <script src="./js/jquery.json2html.js"></script>
     
+    <!-- Simple Styling -->
+    <style>
+    
+        #company {
+            list-style:none;
+        }
+        
+        #company .item {
+            height:100px;
+            width:100px;
+            padding:5px;
+            margin:5px;
+            background-color:silver;
+            color:white;
+            text-align:center;
+            cursor:pointer;
+            
+            font-size:15pt;
+            
+            display:inline-block;
+        }
+        
+        #company .item i {
+            font-size:25pt;
+        }
+        
+        #company .item:hover {
+            background-color:gray;
+        }
+        
+        #company .item.selected {
+            background-color:gray;
+        }
+        
+        #description {
+            margin:20px 0 0 40px;
+        }
+    </style>
 
   </head>
   <body>
@@ -66,9 +104,9 @@
       <a-animation easing="ease-in" attribute="scale"
           fill="backwards" repeat="indefinite" from="1 1 1" to="0.1 0.1 0.1" dur="1500"></a-animation>
       </a-plane>-->
-      <a-entity id="iciPrincipauxPOI">
+      <a-entity id="please">
       </a-entity>
-      <a-entity id="iciScenariosPOI">
+      <a-entity id="thanksalot">
       </a-entity>
       <!--<script>
         var transformPrincipauxPOI = [
@@ -281,7 +319,7 @@
                 text="width: 2+; color: red; value: Ici le texte d'introduction pour l'entree dans l'appartement par exemple!'">
       </a-entity>
 
-      <a-entity id="iciPrincipauxPOI" position="0 2.2 4" visible="false" position="-1 2.5 0"
+      <a-entity id="please" position="0 2.2 4" visible="false" position="-1 2.5 0"
                 text="width: 2+; color: red; value: Ici le texte d'introduction pour l'entree dans l'appartement par exemple!'">
       </a-entity>-->
 
@@ -490,7 +528,6 @@
         </a-plane>-->
 
       <script type="text/javascript">
-      var tauxPollution = 0.1;
 
         // var inited = false;
 
@@ -594,80 +631,56 @@
         //   });
         // }
 
-        function startScenario(elem) {
+        function startScenario() {
           // show scene
           //hideAllScenes()
-          // console.log($(elem).attr("idScenarioALancer"))
-          var scenario = $(elem).attr("idScenarioALancer")
-          for(var l in scenarios){
-            if(scenarios[l].id == scenario){
-              var videolancer = scenarios[l].videoImmersion;
-            }
-          }
           setPollution(0.0)
           document.getElementById('videoNoir').currentTime = 0
-          launchQuestion(scenario)
+          launchQuestion()
           var sceneEl = document.getElementById("videoNoirVideo")
           sceneEl.setAttribute('visible', 'true')
           setTimeout(function(){
               sceneEl.setAttribute('visible', 'false')
-              document.getElementById(videolancer).currentTime = 0
-              hideQuestion(scenario)
-              var sceneE2 = document.getElementById(videolancer+"Video")
+              document.getElementById('video1').currentTime = 0
+              hideQuestion()
+              var sceneE2 = document.getElementById("video1Video")
               sceneE2.setAttribute('visible', 'true')
-              //LIMITE MAX POLLUTION
-              for(var q in scenarios){
-                if(scenarios[q].id == scenario){
-                  if(scenarios[q].tauxPollution > 3){
-                    setPollution(3.0)
-                  } else{
-                    setPollution(scenarios[q].tauxPollution)
-                  }
-                }
-              }
-              document.getElementById(videolancer).play()
+              setPollution(0.5)
+              document.getElementById('video1').play()
           }, 5000);
           
           //document.getElementById('video1Video').play()
+          hideCursor()
 
           // play scene
           //initSceneRoom()
           //playFondu()
         }
 
-        function continueScenario(elem) { 
-           var longueurvideo = document.getElementById($(elem).attr("idVideoALancer")).duration*1000
-           var videolance = $(elem).attr("idVideoALancer")
+        function continueScenario() {
+           console.log('scenario : part 2');
           // cache les points d'intérêt'
           document.getElementById('playVideos').setAttribute('visible', false);
           //document.getElementById('video2').currentTime = 0
-          for(var k=1;k<=scenariosPOI.length; k++){
-            document.getElementById('pointInteretScn'+k+"hidden").setAttribute('visible', false);
-            document.getElementById('pointInteretScn'+k+"image").setAttribute('visible', false);
-          }
-          // document.getElementById('pointInteretScn1hidden').setAttribute('visible', false);
-          // document.getElementById('pointInteretScn1image').setAttribute('visible', false);
-          for(var u in videos){
-             document.getElementById(videos[u].id+'Video').setAttribute('visible', 'false')
-          }          
-          document.getElementById(videolance).play()
-          document.getElementById(videolance+'Video').setAttribute('visible', 'true')
-           setTimeout(function(){
-             finishScenario(elem)
-          }, longueurvideo);
+          document.getElementById('pointInteretScn1hidden').setAttribute('visible', false);
+          document.getElementById('pointInteretScn1image').setAttribute('visible', false);          
+          document.getElementById('video1Video').setAttribute('visible', 'false')
+          document.getElementById('video2').play()
+          document.getElementById('video2Video').setAttribute('visible', 'true')
+          document.getElementById('principaleVideo').setAttribute('visible', 'true')
         }
 
-        function finishScenario(element) {
+        function finishScenario(e) {
           setPollution(0.0)
-          document.getElementById( $(element).attr("idVideoALancer")+'Video').setAttribute('visible', 'false')
+          document.getElementById('video2Video').setAttribute('visible', 'false')
           document.getElementById('videoNoir').currentTime = 0
-          launchReponse($(element).attr("id").slice(0, -6))
+          launchReponse()
           var sceneEl = document.getElementById("videoNoirVideo")
           sceneEl.setAttribute('visible', 'true')
           setTimeout(function(){
               sceneEl.setAttribute('visible', 'false')
               document.getElementById('principale').currentTime = 0
-              hideReponse($(element).attr("id").slice(0, -6)) //remet aussi les points d'intéret de départ'
+              hideReponse() //remet aussi les points d'intéret de départ'
               var sceneE2 = document.getElementById("principaleVideo")
               sceneE2.setAttribute('visible', 'true')
               document.getElementById('principale').play()
@@ -675,7 +688,7 @@
           }, 5000);
         }
 
-        function launchQuestion(scenario) { 
+        function launchQuestion() { 
           //cache tous les points d'interet'
           for(var k=1;k<=principauxPOI.length; k++){
             document.getElementById('pointInteretPrincipal'+k+"hidden").setAttribute('visible', false);
@@ -690,31 +703,29 @@
           document.getElementById('playVideos').setAttribute('visible', false);
           document.getElementById('niveauPollution').setAttribute('visible', false);
           // var obj = JSON.parse(scenarios);
-          
-          document.getElementById(scenario+'Question').setAttribute('visible', true);
-        }
-
-        function launchReponse(idRep) { 
-          document.getElementById('playVideos').setAttribute('visible', false);
-          document.getElementById(idRep+'Reponse').setAttribute('visible', true); //TODO LA REPONSE
-        }
-
-        function hideQuestion(scenario) { 
-          //parcourir la listePOI
-          for(var s in scenarios){
-            if(scenarios[s].id == scenario){
-              for(var poi in scenarios[s]["listePOI"]){
-                // console.log(scenarios[s]["listePOI"][poi]["id"]+'hidden')
-                document.getElementById(scenarios[s]["listePOI"][poi]["id"]+'hidden').setAttribute('visible', true);//TODO LE BON SCENARIO
-                document.getElementById(scenarios[s]["listePOI"][poi]["id"]+'image').setAttribute('visible', true);//TODO LE BON SCENARIO
-              }
+          for(var l in scenarios){
+            if(scenarios[l].id == "scenario1"){
+              console.log(scenarios[l].id+"Question");
             }
           }
-          document.getElementById('playVideos').setAttribute('visible', true);
-          document.getElementById(scenario+'Question').setAttribute('visible', false);
+          
+          document.getElementById('scenario1Question').setAttribute('visible', true); //TODO LA QUESTION
         }
 
-        function hideReponse(idRep) { 
+        function launchReponse() { 
+          document.getElementById('playVideos').setAttribute('visible', false);
+          document.getElementById('pointInteretScn1Reponse').setAttribute('visible', true); //TODO LA REPONSE
+        }
+
+        function hideQuestion() { 
+          //parcourir la listePOI
+          document.getElementById('pointInteretScn1hidden').setAttribute('visible', true);//TODO LE BON SCENARIO
+          document.getElementById('pointInteretScn1image').setAttribute('visible', true);//TODO LE BON SCENARIO
+          document.getElementById('playVideos').setAttribute('visible', true);
+          document.getElementById('scenario1Question').setAttribute('visible', false);
+        }
+
+        function hideReponse() { 
           for(var k=1;k<=principauxPOI.length; k++){
             document.getElementById('pointInteretPrincipal'+k+"hidden").setAttribute('visible', true);
             document.getElementById('pointInteretPrincipal'+k+"image").setAttribute('visible', true);
@@ -727,7 +738,7 @@
           // document.getElementById('pointInteretPrincipal3image').setAttribute('visible', true);
           document.getElementById('playVideos').setAttribute('visible', true);
           document.getElementById('niveauPollution').setAttribute('visible', true);
-          document.getElementById(idRep+'Reponse').setAttribute('visible', false);//TODO LA BONNE REPONSE
+          document.getElementById('pointInteretScn1Reponse').setAttribute('visible', false);//TODO LA BONNE REPONSE
         }
 
         // begin="gogogo" dans l'animation'
@@ -752,13 +763,13 @@
 
         // events
         // MyEvents
-        // document.getElementById('video2').addEventListener('ended',finishScenario,false);
-        // for(var i=1;i<=principauxPOI.length; i++){
-        //   document.getElementById('pointInteretPrincipal'+i+"hidden").addEventListener('click',startScenario,false);
-        // }
-        // for(var j=1;j<=scenariosPOI.length; j++){
-        //   document.getElementById('pointInteretScn'+j+"hidden").addEventListener('click',continueScenario,false);
-        // }
+        document.getElementById('video2').addEventListener('ended',finishScenario,false);
+        for(var i=1;i<=principauxPOI.length; i++){
+          document.getElementById('pointInteretPrincipal'+i+"hidden").addEventListener('click',startScenario,false);
+        }
+        for(var j=1;j<=scenariosPOI.length; j++){
+          document.getElementById('pointInteretScn'+j+"hidden").addEventListener('click',continueScenario,false);
+        }
         // document.getElementById('pointInteretPrincipal1hidden').addEventListener('fusing',startAnim, false);
         // document.getElementById('pointInteretPrincipal1hidden').addEventListener('mouseleave',stopAnim,false);
         
@@ -799,30 +810,80 @@
   </body>
   <script type="text/javascript">
 
+    //List items
+    var data = [
+        {"name":"apple","icon":"fa-apple","desc":"They let you communicate in overpriced style."},
+        {"name":"facebook","icon":"fa-facebook","desc":"They let you creap on your friends."},
+        {"name":"twitter","icon":"fa-twitter","desc":"They let you tell everyone about your favourite meal."},
+        {"name":"reddit","icon":"fa-reddit","desc":"They let you chat online about anything, and I really mean anything."},
+        {"name":"google","icon":"fa-google","desc":"They let you find anything online, and I really mean anything."}
+    ];
+
     var transformPrincipauxPOI = [
           {"<>":"a-entity","id":"${id}","html":[
-            {"<>":"a-plane","id":"${id}"+"hidden", "idScenarioALancer":"${idScenarioALancer}", "visible":"true","onclick":function(e){
+            {"<>":"a-plane","id":"${id}"+"hidden","visible":"true","onclick":function(e){
             
-            startScenario(this);
+            startScenario();
             
-        }, "position":"${position}","rotation":"${rotation}","width":"${largeur}","height":"${hauteur}","transparent":"true","opacity":"0","html":[
+        }, "position":"${position}","rotation":"${rotation}","width":"${largeur}","height":"${hauteur}","transparent":"true","opacity":"1","html":[
                 {"<>":"a-image","id":"${id}"+"image","position":"0.05 0.05 0.05","src":"#viseurAsset","width":"2.5","height":"2.5","html":""},
                 {"<>":"a-animation","attribute":"position","fill":"backwards","begin":"fusing","end":"mouseleave","direction":"alternate","repeat":"indefinite","to":"${hauteurAnimation}","dur":"600","html":""}
               ]}
           ]}
-        ];	
+        ];
+
+    //List item transform
+    var transforms = {
+        
+        "company":{"<>":"li","class":"item","title":"${name}","onclick":function(e){
+            
+            //Clear all other elements
+            $('#company .item').removeClass('selected');
+            
+            //Select this element
+            $(this).addClass('selected');
+            
+            //Create the description
+            // but first clear the existing one out
+            $('#description').empty().json2html(e.obj,transforms.description);
+            
+        },"html":[
+            {"<>":"i","class":"fa ${icon}"},
+            {"<>":"br"},
+            {"<>":"span","html":"${name}"}
+		]},
+		
+		"description":[
+		    {"<>":"h4","html":"${name}"},
+		    {"<>":"p","html":"${desc}"}
+		  ]
+    }
+	
     $(function(){
-        console.log("generePOIprincipaux");
-        $('#iciPrincipauxPOI').json2html(principauxPOI,transformPrincipauxPOI);
+        
+        //Create the company list
+        console.log("mamie");
+        $('#please').json2html(principauxPOI,transformPrincipauxPOI);
+        document.getElementById('video2').pause();
     });
+    document.getElementById('video2').pause();
 </script>
 <script type="text/javascript">
 
+    //List items
+    var data = [
+        {"name":"apple","icon":"fa-apple","desc":"They let you communicate in overpriced style."},
+        {"name":"facebook","icon":"fa-facebook","desc":"They let you creap on your friends."},
+        {"name":"twitter","icon":"fa-twitter","desc":"They let you tell everyone about your favourite meal."},
+        {"name":"reddit","icon":"fa-reddit","desc":"They let you chat online about anything, and I really mean anything."},
+        {"name":"google","icon":"fa-google","desc":"They let you find anything online, and I really mean anything."}
+    ];
+
     var transformScenariosPOI = [
           {"<>":"a-entity","id":"${id}","html":[
-            {"<>":"a-plane","id":"${id}"+"hidden", "idVideoALancer":"${idVideoALancer}", "onclick":function(e){
+            {"<>":"a-plane","id":"${id}"+"hidden","onclick":function(e){
             
-            continueScenario(this);
+            continueScenario();
             
         },"visible":"false","position":"${position}","rotation":"${rotation}","width":"${largeur}","height":"${hauteur}", "transparent":"true","opacity":"0","html":[
                 {"<>":"a-image","id":"${id}"+"image","position":"0.05 0.05 0.05","src":"#viseurAsset","width":"2.5","height":"2.5","html":""},
@@ -831,15 +892,40 @@
           ]}
         ];
 
+    //List item transform
+    var transforms = {
+        
+        "company":{"<>":"li","class":"item","title":"${name}","onclick":function(e){
+            
+            //Clear all other elements
+            $('#company .item').removeClass('selected');
+            
+            //Select this element
+            $(this).addClass('selected');
+            
+            //Create the description
+            // but first clear the existing one out
+            $('#description').empty().json2html(e.obj,transforms.description);
+            
+        },"html":[
+            {"<>":"i","class":"fa ${icon}"},
+            {"<>":"br"},
+            {"<>":"span","html":"${name}"}
+		]},
+		
+		"description":[
+		    {"<>":"h4","html":"${name}"},
+		    {"<>":"p","html":"${desc}"}
+		  ]
+    }
+	
     $(function(){
-        console.log("generatePOIscenario");
-        $('#iciScenariosPOI').json2html(scenariosPOI,transformScenariosPOI);
+        
+        //Create the company list
+        console.log("papy");
+        $('#thanksalot').json2html(scenariosPOI,transformScenariosPOI);
+        document.getElementById('video2').pause();
     });
-    //pause toutes les vidéos sauf la principale 
-    for(var p in videos){
-      if(videos[p].id != "principale"){
-        document.getElementById(videos[p].id).pause()
-      }
-    }   
+    document.getElementById('video2').pause();
 </script>
 </html>

@@ -7,7 +7,7 @@ AFRAME.registerComponent('pollution', {
   init() {
     console.log("hello pollution");
 
-    console.log(this);
+    // console.log(this);
 
     var loader1 = new THREE.TextureLoader();
     var loader2 = new THREE.TextureLoader();
@@ -118,34 +118,34 @@ AFRAME.registerComponent('pollution', {
     })
 
   },
-  fadeIn() {
-    var self = this
-    var sceneEl = document.getElementById("sceneRoom")
-    var interval = setInterval(function () {
-      self.data.multiplier += self.data.speed
-      console.log(self.data.multiplier);
-      if (self.data.multiplier >= 1) {
-        self.data.multiplier = 1
-        clearInterval(interval)
-        console.log(self);
-        sceneEl.emit('pollutionReady');
-      }
-      self.update()
-    }, 500);
-  },
-  fadeOut() {
-    var self = this
-    var sceneEl = document.getElementById("sceneRoom")
-    var interval = setInterval(function () {
-      self.data.multiplier -= 0.1
-      if (self.data.multiplier < .2) {
-        clearInterval(interval)
-        sceneEl.emit('pollutionFinished');
-      }
-      self.update()
-    }, 500);
-  },
-  update(oldData) {
+  // fadeIn() {
+  //   var self = this
+  //   var sceneEl = document.getElementById("sceneRoom")
+  //   var interval = setInterval(function () {
+  //     self.data.multiplier += self.data.speed
+  //     console.log(self.data.multiplier);
+  //     if (self.data.multiplier >= 1) {
+  //       self.data.multiplier = 1
+  //       clearInterval(interval)
+  //       console.log(self);
+  //       sceneEl.emit('pollutionReady');
+  //     }
+  //     self.update()
+  //   }, 500);
+  // },
+  // fadeOut() {
+  //   var self = this
+  //   var sceneEl = document.getElementById("sceneRoom")
+  //   var interval = setInterval(function () {
+  //     self.data.multiplier -= 0.1
+  //     if (self.data.multiplier < .2) {
+  //       clearInterval(interval)
+  //       sceneEl.emit('pollutionFinished');
+  //     }
+  //     self.update()
+  //   }, 500);
+  // },
+  update(oldData) {   
     console.log("updated")
 
     for (var i = 0; i < this.emitters.length; i++) {

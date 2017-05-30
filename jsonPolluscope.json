@@ -32,7 +32,7 @@ var videos = [
       "id" : "scenario1",
       "question" : "Suis-je a l'abri a l'interieur de mon logement?",
       "videoImmersion" : "video1",
-      "tauxPollution" : "1.5",
+      "tauxPollution" : "0.5",
       "listePOI": [
         {"id" : "pointInteretScn1"}
         // {"id" : "pointInteretScn2"},
@@ -44,11 +44,11 @@ var videos = [
   var principauxPOI = [
     {
       "id" : "pointInteretPrincipal1",
-      "position" : "-7 5 -1.7",
+      "position" : "-10 6 -3.7",
       "rotation" :"0 65 0",
       "largeur" :"3.5",
       "hauteur" :"60",
-      "hauteurAnimation" : "-7 6 -1.7",
+      "hauteurAnimation" : "-10 7 -3.7",
       "idScenarioALancer" :"scenario1"
     },
     {
@@ -81,7 +81,7 @@ var videos = [
       "hauteur" :"90",
       "hauteurAnimation" : "10 4 3.9",
       "idVideoALancer" :"video2",
-      "fermeture" :"Notre habitat regorge de differentes sources de pollution: materiaux, activite humaine...Pensez a aerer votre logement en moyenne 15 minutes le matin ou en soiree"
+      "reponse" :"Notre habitat regorge de differentes sources de pollution: materiaux, activite humaine...Pensez a aerer votre logement en moyenne 15 minutes le matin ou en soiree"
     }
   ]
 
