@@ -1,3 +1,12 @@
+// FICHIER DE CONFIGURATION DU POLLUSCOPE
+
+// Créez vous-même votre instance du polluscope avec vos propres medias et scenarios
+
+// Suivez les indications proposées pour les quatres variables à modifiables afin de 
+// façonner le polluscope selon vos envies
+
+
+
 
 //Ici Ajoutez toutes les vidéos que vous allez utiliser (choisissez l'id de votre choix, indiquez le chemin
 // de destination vers la vidéo
@@ -30,9 +39,13 @@ var videos = [
   var scenarios = [
     {
       "id" : "scenario1",
+      //question d'ouverture au lancement du scénario'
       "question" : "Suis-je a l'abri a l'interieur de mon logement?",
+      //vidéo lancée au début du scénario
       "videoImmersion" : "video1",
+      //taux de pollution pour votre scénario (fixé inférieur à 3.0)
       "tauxPollution" : "0.5",
+      //liste des points d'interet de votre scénario'
       "listePOI": [
         {"id" : "pointInteretScn1"}
         // {"id" : "pointInteretScn2"},
@@ -49,6 +62,7 @@ var videos = [
       "largeur" :"3.5",
       "hauteur" :"60",
       "hauteurAnimation" : "-10 7 -3.7",
+      //id du scénario que vous voulez lancer depuis ce point d'interet'
       "idScenarioALancer" :"scenario1"
     },
     {
@@ -70,7 +84,7 @@ var videos = [
       "idScenarioALancer" :"scenario1"
     }
   ]
-  //Ici les points d'intérêts des scénarios lancés depuis la scène principale'
+  //Ici les points d'intérêts des scénarios 
   //les id doivent correspondre à ceux de la listePOI de la variable scenarios
   var scenariosPOI = [
     {
@@ -79,8 +93,11 @@ var videos = [
       "rotation" :"0 -90 0",
       "largeur" :"3.5",
       "hauteur" :"90",
+      //réglez l'animation au survol du point d'intérêt
       "hauteurAnimation" : "10 4 3.9",
+      //choisissez la vidéo à lancer au click sur le point d'interet (suite du scenario)'
       "idVideoALancer" :"video2",
+      //indiquez la réponse qui apparaitra en fin de scénario
       "reponse" :"Notre habitat regorge de differentes sources de pollution: materiaux, activite humaine...Pensez a aerer votre logement en moyenne 15 minutes le matin ou en soiree"
     }
   ]

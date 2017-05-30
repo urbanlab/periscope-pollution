@@ -12,7 +12,7 @@
     <script src="https://unpkg.com/aframe-particle-system-component@1.0.9/dist/aframe-particle-system-component.min.js"></script>
 
     <script src='./js/pollution.js'></script>
-    <script type="text/javascript" src='jsonPolluscope.json'></script>
+    <script type="text/javascript" src='config.json'></script>
 
     <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -115,11 +115,13 @@
       <script type="text/javascript">
       var tauxPollution = 0.1;
 
+        //change la valeur du nombre de particule de pollution
         function setPollution(x) {
           var pollution1 = document.getElementById("pollution")
           pollution1.setAttribute("pollution", {"multiplier" : x})
         }
 
+        //déclenche le début d'un scénario'
         function startScenario(elem) {
           var scenario = $(elem).attr("idScenarioALancer")
           for(var l in scenarios){
@@ -152,10 +154,10 @@
           }, 5000);
         }
 
+        // déclenche la suite d'un scénario (après click sur POI d'un scenario)'
         function continueScenario(elem) { 
            var longueurvideo = document.getElementById($(elem).attr("idVideoALancer")).duration*1000
            var videolance = $(elem).attr("idVideoALancer")
-          // cache les points d'intérêt'
           document.getElementById('playVideos').setAttribute('visible', false);
           for(var k=1;k<=scenariosPOI.length; k++){
             document.getElementById('pointInteretScn'+k+"hidden").setAttribute('visible', false);
@@ -171,6 +173,7 @@
           }, longueurvideo);
         }
 
+        // Fin du scenario et retour a la scene principale
         function finishScenario(element) {
           setPollution(0.0)
           document.getElementById( $(element).attr("idVideoALancer")+'Video').setAttribute('visible', 'false')
@@ -186,7 +189,7 @@
               sceneE2.setAttribute('visible', 'true')
               document.getElementById('principale').play()
               setPollution(0.1)
-          }, 5000);
+          }, 7000);
         }
 
         function launchQuestion(scenario) { 
