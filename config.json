@@ -41,6 +41,8 @@ var videos = [
       "id" : "scenario1",
       //question d'ouverture au lancement du scénario'
       "question" : "Suis-je a l'abri a l'interieur de mon logement?",
+      //temps d'affichage de la question en millisecondes'
+      "tempsAffichageQuestion" : "4000",
       //vidéo lancée au début du scénario
       "videoImmersion" : "video1",
       //taux de pollution pour votre scénario (fixé inférieur à 3.0)
@@ -61,7 +63,6 @@ var videos = [
       "rotation" :"0 65 0",
       "largeur" :"3.5",
       "hauteur" :"60",
-      "hauteurAnimation" : "-10 7 -3.7",
       //id du scénario que vous voulez lancer depuis ce point d'interet'
       "idScenarioALancer" :"scenario1"
     },
@@ -71,7 +72,6 @@ var videos = [
       "rotation" :"0 130 0",
       "largeur" :"3.5",
       "hauteur" :"90",
-      "hauteurAnimation" : "-12 2.5 10",
       "idScenarioALancer" :"scenario1"
     },
     {
@@ -80,7 +80,6 @@ var videos = [
       "rotation" :"0 170 0",
       "largeur" :"3.5",
       "hauteur" :"90",
-      "hauteurAnimation" : "0 8 17",
       "idScenarioALancer" :"scenario1"
     }
   ]
@@ -93,10 +92,10 @@ var videos = [
       "rotation" :"0 -90 0",
       "largeur" :"3.5",
       "hauteur" :"90",
-      //réglez l'animation au survol du point d'intérêt
-      "hauteurAnimation" : "10 4 3.9",
       //choisissez la vidéo à lancer au click sur le point d'interet (suite du scenario)'
       "idVideoALancer" :"video2",
+      //temps d'affichage de la réponse en millisecondes'
+      "tempsAffichageReponse" : "7000",
       //indiquez la réponse qui apparaitra en fin de scénario
       "reponse" :"Notre habitat regorge de differentes sources de pollution: materiaux, activite humaine...Pensez a aerer votre logement en moyenne 15 minutes le matin ou en soiree"
     }

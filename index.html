@@ -28,12 +28,12 @@
 
       <a-assets>
         <!--Images du bouton start (cruseur) et du viseur pour les points d'intéret'-->
-        <img id="start" crossorigin="anonymous" src="./img/play.png" >
+        <img id="start" crossorigin="anonymous" src="./img/play2.png" >
         <img id="viseurAsset" crossorigin="anonymous" src="./img/viseur.png">
         <!--script pour récupérer l'ensemble des vidéos qui vont servir au projet'-->
         <script>
           var transformVideos = [
-            {"<>":"video", "id":"${id}", "html":"", "src":"${chemin}", "loop": "${boucle}"},
+            {"<>":"video", "id":"${id}", "html":"", "preload":"auto", "controls":"controls", "src":"${chemin}", "loop": "${boucle}"},
           ];  
           var html = json2html.transform(videos, transformVideos);
           document.write(html);
@@ -60,6 +60,8 @@
            transparent="true"
            visible="true"
           >
+          <a-animation easing="ease-in" attribute="scale" begin="cursor-fusing"
+          fill="backwards" repeat="indefinite" from="1 1 1" to="0 0 0" dur="3000"></a-animation>
         </a-plane>
         
         <!--Futures questions/Reponses des scenarios-->
@@ -80,8 +82,8 @@
           </script>
           <!--TODO: que indiquer ici? Où le placer?-->
           <a-text 
-          value="Niveau de pollution"
-          position="11 -4 -8"
+          value="Niveau de pollution:"
+          position="0 -2.0 -8"
           align="center"
           width="10"
           height="10"
@@ -89,6 +91,19 @@
           color="red"
           shader: flat;
           id="niveauPollution"
+          visible="true"
+          >
+          </a-text>
+          <a-text 
+          value="Moyen"
+          position="0 -2.5 -8"
+          align="center"
+          width="10"
+          height="10"
+          font-family="Lucida Sans Unicode"
+          color="yellow"
+          shader: flat;
+          id="indicePollution"
           visible="true"
           >
           </a-text>
@@ -127,6 +142,7 @@
           for(var l in scenarios){
             if(scenarios[l].id == scenario){
               var videolancer = scenarios[l].videoImmersion;
+              var tempsquestion = scenarios[l].tempsAffichageQuestion;
             }
           }
           setPollution(0.0)
@@ -135,47 +151,55 @@
           var sceneEl = document.getElementById("videoNoirVideo")
           sceneEl.setAttribute('visible', 'true')
           setTimeout(function(){
-              sceneEl.setAttribute('visible', 'false')
               document.getElementById(videolancer).currentTime = 0
-              hideQuestion(scenario)
-              var sceneE2 = document.getElementById(videolancer+"Video")
-              sceneE2.setAttribute('visible', 'true')
+              document.getElementById(videolancer).play()
               //LIMITE MAX POLLUTION
-              for(var q in scenarios){
-                if(scenarios[q].id == scenario){
-                  if(scenarios[q].tauxPollution > 3){
-                    setPollution(3.0)
-                  } else{
-                    setPollution(scenarios[q].tauxPollution)
+              
+              setTimeout(function(){
+                for(var q in scenarios){
+                  if(scenarios[q].id == scenario){
+                    if(scenarios[q].tauxPollution > 3){
+                      setPollution(3.0)
+                    } else{
+                      setPollution(scenarios[q].tauxPollution)
+                    }
                   }
                 }
-              }
-              document.getElementById(videolancer).play()
-          }, 5000);
+                sceneEl.setAttribute('visible', 'false')
+                hideQuestion(scenario)
+                var sceneE2 = document.getElementById(videolancer+"Video")
+                sceneE2.setAttribute('visible', 'true')
+              }, 700);
+              
+          }, tempsquestion);
         }
 
         // déclenche la suite d'un scénario (après click sur POI d'un scenario)'
         function continueScenario(elem) { 
-           var longueurvideo = document.getElementById($(elem).attr("idVideoALancer")).duration*1000
-           var videolance = $(elem).attr("idVideoALancer")
           document.getElementById('playVideos').setAttribute('visible', false);
+          var videolance = $(elem).attr("idVideoALancer") 
+          document.getElementById(videolance).currentTime=0.1;
           for(var k=1;k<=scenariosPOI.length; k++){
-            document.getElementById('pointInteretScn'+k+"hidden").setAttribute('visible', false);
-            document.getElementById('pointInteretScn'+k+"image").setAttribute('visible', false);
-          }
-          for(var u in videos){
-             document.getElementById(videos[u].id+'Video').setAttribute('visible', 'false')
-          }          
+              document.getElementById('pointInteretScn'+k+"hidden").setAttribute('visible', false);
+              document.getElementById('pointInteretScn'+k+"image").setAttribute('visible', false);
+            }
           document.getElementById(videolance).play()
-          document.getElementById(videolance+'Video').setAttribute('visible', 'true')
-           setTimeout(function(){
-             finishScenario(elem)
-          }, longueurvideo);
+          setTimeout(function(){
+            var longueurvideo = document.getElementById($(elem).attr("idVideoALancer")).duration*1000
+            for(var u in videos){
+              document.getElementById(videos[u].id+'Video').setAttribute('visible', 'false')
+            }    
+            document.getElementById(videolance+'Video').setAttribute('visible', 'true')  
+            setTimeout(function(){
+              finishScenario(elem)
+            }, (longueurvideo-800));
+          }, 1000);   
         }
 
         // Fin du scenario et retour a la scene principale
         function finishScenario(element) {
           setPollution(0.0)
+          var tempsreponse = $(element).attr("tempsAffichageReponse")
           document.getElementById( $(element).attr("idVideoALancer")+'Video').setAttribute('visible', 'false')
           document.getElementById('videoNoir').currentTime = 0
           launchReponse($(element).attr("id").slice(0, -6))
@@ -189,7 +213,7 @@
               sceneE2.setAttribute('visible', 'true')
               document.getElementById('principale').play()
               setPollution(0.1)
-          }, 7000);
+          }, tempsreponse);
         }
 
         function launchQuestion(scenario) { 
@@ -200,6 +224,7 @@
           }
           document.getElementById('playVideos').setAttribute('visible', false);
           document.getElementById('niveauPollution').setAttribute('visible', false);
+          document.getElementById('indicePollution').setAttribute('visible', false);
           document.getElementById(scenario+'Question').setAttribute('visible', true);
         }
 
@@ -229,6 +254,7 @@
           }
           document.getElementById('playVideos').setAttribute('visible', true);
           document.getElementById('niveauPollution').setAttribute('visible', true);
+          document.getElementById('indicePollution').setAttribute('visible', true);
           document.getElementById(idRep+'Reponse').setAttribute('visible', false);
         }
       </script>
@@ -244,8 +270,9 @@
             startScenario(this);
             
         }, "position":"${position}","rotation":"${rotation}","width":"${largeur}","height":"${hauteur}","transparent":"true","opacity":"0","html":[
-                {"<>":"a-image","id":"${id}"+"image","position":"-0.05 -0.05 -0.05","src":"#viseurAsset","width":"2.5","height":"2.5","html":""},
-                {"<>":"a-animation","attribute":"position","fill":"backwards","begin":"fusing","end":"mouseleave","direction":"alternate","repeat":"indefinite","to":"${hauteurAnimation}","dur":"600","html":""}
+                {"<>":"a-image","id":"${id}"+"image","position":"-0.05 -0.05 -0.05","src":"#viseurAsset","width":"2.5","height":"2.5","html":""}
+                // {"<>":"a-animation","attribute":"scale","fill":"backwards","begin":"fusing","end":"mouseleave", "repeat":"indefinite","from":"1 1 1", "to":"1 0.1 0.1","dur":"3000","html":""}
+                // {"<>":"a-animation","attribute":"position","fill":"backwards","begin":"fusing","end":"mouseleave","direction":"alternate","repeat":"indefinite","to":"${hauteurAnimation}","dur":"600","html":""}
               ]}
           ]}
         ];	
@@ -258,13 +285,16 @@
 
     var transformScenariosPOI = [
           {"<>":"a-entity","id":"${id}","html":[
-            {"<>":"a-plane","id":"${id}"+"hidden", "idVideoALancer":"${idVideoALancer}", "onclick":function(e){
+            {"<>":"a-plane","id":"${id}"+"hidden", "idVideoALancer":"${idVideoALancer}", "tempsAffichageReponse":"${tempsAffichageReponse}", "onclick":function(e){
             
             continueScenario(this);
             
         },"visible":"false","position":"${position}","rotation":"${rotation}","width":"${largeur}","height":"${hauteur}", "transparent":"true","opacity":"0","html":[
-                {"<>":"a-image","id":"${id}"+"image","position":"-0.05 -0.05 -0.05","src":"#viseurAsset","width":"2.5","height":"2.5","html":""},
-                {"<>":"a-animation","attribute":"position","fill":"backwards","begin":"fusing","end":"mouseleave","direction":"alternate","repeat":"indefinite","to":"${hauteurAnimation}","dur":"600","html":""}
+                {"<>":"a-image","id":"${id}"+"image","position":"-0.05 -0.05 -0.05","src":"#viseurAsset","width":"2.5","height":"2.5","html":""}
+                // {"<>":"a-animation","attribute":"scale","fill":"backwards","begin":"fusing","end":"mouseleave", "repeat":"indefinite","from":"1 1 1", "to":"1 0.1 0.1","dur":"3000","html":""}
+                // {"<>":"a-animation","attribute":"position","fill":"backwards","begin":"fusing","end":"mouseleave","direction":"alternate","repeat":"indefinite","to":"${hauteurAnimation}","dur":"600","html":""}
+            //     <a-animation easing="ease-in" attribute="scale" begin="fusing"
+            // repeat="2" fill="backwards" from="1 1 1" to="1 0.1 0.1" dur="1000">
               ]}
           ]}
         ];
@@ -277,6 +307,28 @@
     for(var p in videos){
       if(videos[p].id != "principale"){
         document.getElementById(videos[p].id).pause()
+        document.getElementById(videos[p].id).load()
+        //Bon sur l'ordi'
+        setTimeout(function(){
+          document.getElementById(videos[p].id).currentTime=0
+          document.getElementById(videos[p].id).pause()
+          console.log("videos chargées dans le cache!")
+          }, 8000);
+        // WOLOLOOO
+        //Bon sur le mobile
+        // document.getElementById(videos[p].id).addEventListener('loadeddata', function() {
+        //     console.log(" la durée: " + this.duration)
+        //     this.addEventListener("timeupdate", function(){
+        //       // console.log("le current time: " + this.currentTime)
+        //       // console.log("la duration: " + this.currentTime)
+        //       if(this.currentTime >= (this.duration-0.2)) {
+        //         console.log("video gérée!!")
+        //           this.currentTime = 0.2;
+        //           this.pause();
+        //       }
+        //     })
+
+        // })
       }
     }   
 </script>
