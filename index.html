@@ -125,6 +125,17 @@
             document.write(html);
             document.getElementById('principaleVideo').setAttribute('visible', true);
         </script>
+        <!--Les images a-sky-->
+        <script>
+            var transformSky = [
+              {"<>":"a-sky","id":"${id}","src":"${chemin}","visible":"false", "html":""}
+            ];  
+            var html = json2html.transform(images, transformSky);
+            document.write(html);
+        </script>
+
+        <!--<a-sky src="./img/image3.jpg" id="img1"  visible="false"></a-sky>
+        <a-sky src="./img/image2.jpg" id="img2"  visible="false"></a-sky>-->
         
 
       <script type="text/javascript">
@@ -136,6 +147,37 @@
           pollution1.setAttribute("pollution", {"multiplier" : x})
         }
 
+          //  debut d'un scenario a image'
+        function startScenarioImage(elem) {
+          document.getElementById('principaleVideo').setAttribute('visible', false);
+          var scenario = $(elem).attr("idScenarioALancer")
+          setPollution(0.0)
+          for(var l in scenarios){
+            if(scenarios[l].id == scenario){
+              var tempsquestion = scenarios[l].tempsAffichageQuestion;
+            }
+          }
+          document.getElementById('videoNoir').currentTime = 0
+          launchQuestion(scenario)
+          var sceneEl = document.getElementById("videoNoirVideo")
+          sceneEl.setAttribute('visible', 'true')
+          setTimeout(function(){
+          console.log("on est là")
+          for(var q in scenarios){
+            if(scenarios[q].id == scenario){
+              document.getElementById(scenarios[q].imageImmersion).setAttribute('visible', true)
+              if(scenarios[q].tauxPollution > 3){
+                setPollution(3.0)
+              } else{
+                setPollution(scenarios[q].tauxPollution)
+              }
+            }
+          }
+          sceneEl.setAttribute('visible', 'false')
+          
+          hideQuestion(scenario)    
+          }, tempsquestion)
+        }
         //déclenche le début d'un scénario'
         function startScenario(elem) {
           var scenario = $(elem).attr("idScenarioALancer")
@@ -146,6 +188,7 @@
             }
           }
           setPollution(0.0)
+          document.getElementById('principaleVideo').setAttribute('visible', false);
           document.getElementById('videoNoir').currentTime = 0
           launchQuestion(scenario)
           var sceneEl = document.getElementById("videoNoirVideo")
@@ -189,6 +232,10 @@
             for(var u in videos){
               document.getElementById(videos[u].id+'Video').setAttribute('visible', 'false')
             }    
+            for(var v in images){
+              document.getElementById(images[v].id).setAttribute('visible', 'false')
+            } 
+            document.getElementById('img1').setAttribute('visible', false);
             document.getElementById(videolance+'Video').setAttribute('visible', 'true')  
             setTimeout(function(){
               finishScenario(elem)
@@ -199,6 +246,7 @@
         // Fin du scenario et retour a la scene principale
         function finishScenario(element) {
           setPollution(0.0)
+          document.getElementById('principaleVideo').setAttribute('visible', true);
           var tempsreponse = $(element).attr("tempsAffichageReponse")
           document.getElementById( $(element).attr("idVideoALancer")+'Video').setAttribute('visible', 'false')
           document.getElementById('videoNoir').currentTime = 0
@@ -266,9 +314,16 @@
     var transformPrincipauxPOI = [
           {"<>":"a-entity","id":"${id}","html":[
             {"<>":"a-plane","id":"${id}"+"hidden", "idScenarioALancer":"${idScenarioALancer}", "visible":"true","onclick":function(e){
-            
-            startScenario(this);
-            
+            console.log(this.attr("idScenarioALancer"));
+            for(var b in scenarios){
+                  if(scenarios[b].id == (this.attr("idScenarioALancer"))){
+                    if(scenarios[b].type == "video"){
+                      startScenario(this);
+                    } else{
+                      startScenarioImage(this);
+                    }
+                  }
+                }
         }, "position":"${position}","rotation":"${rotation}","width":"${largeur}","height":"${hauteur}","transparent":"true","opacity":"0","html":[
                 {"<>":"a-image","id":"${id}"+"image","position":"-0.05 -0.05 -0.05","src":"#viseurAsset","width":"2.5","height":"2.5","html":""}
                 // {"<>":"a-animation","attribute":"scale","fill":"backwards","begin":"fusing","end":"mouseleave", "repeat":"indefinite","from":"1 1 1", "to":"1 0.1 0.1","dur":"3000","html":""}

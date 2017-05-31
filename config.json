@@ -34,17 +34,33 @@ var videos = [
       "boucle" : "false"
     }
   ]
+
+  var images = [
+    {
+      "id" : "img1",
+      "chemin" : "./img/image3.jpg",
+    },
+    {
+      "id" : "img2",
+      "chemin" :"./img/image2.jpg",
+      "boucle" : "true"
+    }
+  ]
   //Ici précisez les données concernant vos scénarios. Pour chaque scénario mettez dans la listePOI les id 
   //des points d'interets qui apparaitront dans votre scénario'
   var scenarios = [
     {
       "id" : "scenario1",
+      //choisissez si voter scenario commence par une video ou une image
+      "type" : "image",
       //question d'ouverture au lancement du scénario'
       "question" : "Suis-je a l'abri a l'interieur de mon logement?",
       //temps d'affichage de la question en millisecondes'
       "tempsAffichageQuestion" : "4000",
       //vidéo lancée au début du scénario
       "videoImmersion" : "video1",
+      //image lancée au moment de l'immersion'
+      "imageImmersion" : "img2",
       //taux de pollution pour votre scénario (fixé inférieur à 3.0)
       "tauxPollution" : "0.5",
       //liste des points d'interet de votre scénario'
