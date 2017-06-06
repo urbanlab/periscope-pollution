@@ -52,9 +52,9 @@
       <!-- START button : play videos -->
       <a-entity position="0 2.2 4" camera look-controls wasd-controls >
         <a-plane
-           position="0 0 -3"
-           width="1"
-           height="1"
+           position="0 0 -12"
+           width="4"
+           height="4"
            color="#FFF"
            shader: flat;
            cursor="fuse: true; fuse-timeout: 3000"
@@ -189,11 +189,9 @@
                 beforeFirstChunk: undefined,
                 withCredentials: undefined
               });
-            // console.log(datapol);
           });
           var somme2 = 0;
           setTimeout(function(){
-              // console.log(datapol["data"].length);
               var nbvaleurs = datapol["data"].length-1;
               for(c = 0; c < (datapol["data"].length-1); c++){
                 if(!isNaN(Number(datapol["data"][c]["29/06/2016"]))){
@@ -208,14 +206,12 @@
               // }
               // somme = somme/nbvaleurs;
               console.log("SOMME 2 : " + somme2);
-              somme2 = (somme2/nbvaleurs)+200;
+              somme2 = (somme2/nbvaleurs);
               console.log("SOMME 2 : moyenne " + somme2);
               console.log("niveau pollution : "+ (somme2/700) )
               if(somme2 <= 52){
                 document.getElementById("indicePollution").setAttribute('value', "Bon")
                 document.getElementById("indicePollution").setAttribute('color', "#66ff33")
-                
-                // setPollution(((somme2/250)*3)) //changement d'échelle'
                 setPollution((somme2/700))
                 // document.getElementById("indicePollution").setAttribute('visible', true)
               }else if(somme2 > 52 && somme2 <= 104){
@@ -353,7 +349,7 @@
               var sceneE2 = document.getElementById("principaleVideo")
               sceneE2.setAttribute('visible', 'true')
               document.getElementById('principale').play()
-              setPollution(0.1)
+              getIndicePollution()
           }, tempsreponse);
         }
 
