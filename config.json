@@ -34,16 +34,15 @@ var videos = [
       "boucle" : "false"
     }
   ]
-
+//Ici ajoutez les images que vous allez utiliser dans votre projet
   var images = [
     {
       "id" : "img1",
-      "chemin" : "./img/image3.jpg",
+      "chemin" : "./img/image3.jpg"
     },
     {
       "id" : "img2",
-      "chemin" :"./img/image2.jpg",
-      "boucle" : "true"
+      "chemin" :"./img/image2.jpg"
     }
   ]
   //Ici précisez les données concernant vos scénarios. Pour chaque scénario mettez dans la listePOI les id 
@@ -52,14 +51,15 @@ var videos = [
     {
       "id" : "scenario1",
       //choisissez si voter scenario commence par une video ou une image
+      // type : image ou type : video
       "type" : "image",
       //question d'ouverture au lancement du scénario'
       "question" : "Suis-je a l'abri a l'interieur de mon logement?",
       //temps d'affichage de la question en millisecondes'
       "tempsAffichageQuestion" : "4000",
-      //vidéo lancée au début du scénario
+      //vidéo lancée au début du scénario (si scenario de type video)
       "videoImmersion" : "video1",
-      //image lancée au moment de l'immersion'
+      //image lancée au moment de l'immersion' (si scenario de type image)
       "imageImmersion" : "img2",
       //taux de pollution pour votre scénario (fixé inférieur à 3.0)
       "tauxPollution" : "0.5",

@@ -20,6 +20,9 @@
     <!-- Json2html -->
     <script src="./js/json2html.js"></script>
     <script src="./js/jquery.json2html.js"></script>
+
+    <!--Papa Parse csv to json-->
+    <script src="https://fastcdn.org/Papa-Parse/4.1.2/papaparse.min.js"></script>
     
 
   </head>
@@ -95,12 +98,12 @@
           >
           </a-text>
           <a-text 
-          value="Moyen"
           position="0 -2.5 -8"
           align="center"
           width="10"
           height="10"
           font-family="Lucida Sans Unicode"
+          value="Moyen"
           color="yellow"
           shader: flat;
           id="indicePollution"
@@ -147,8 +150,98 @@
           pollution1.setAttribute("pollution", {"multiplier" : x})
         }
 
+        function getIndicePollution() {
+          var d = new Date();
+          var n = d.getDate().toString();
+          var m = (d.getMonth()+1).toString();
+          var y = (d.getFullYear()-1).toString();
+          if(m.length == 1 ){
+            m = "0"+m
+          }
+          if(n.length == 1 ){
+            n = "0"+n
+          }
+          var date = n+"/"+m+"/"+y;
+          var somme = 0;
+          var datapol;
+          var csvfile = "donneeLyon.csv"
+          $.get(csvfile, function (data) {
+              datapol = Papa.parse(data,{
+                delimiter: "",	// auto-detect
+                newline: "",	// auto-detect
+                quoteChar: '"',
+                header: true,
+                dynamicTyping: false,
+                dynamicTyping: false,
+                preview: 0,
+                encoding: "",
+                worker: false,
+                comments: false,
+                step: undefined,
+                complete: function(results) {
+                  dataPol = results;
+                },
+                error: undefined,
+                download: false,
+                skipEmptyLines: false,
+                chunk: undefined,
+                fastMode: undefined,
+                beforeFirstChunk: undefined,
+                withCredentials: undefined
+              });
+            // console.log(datapol);
+          });
+          var somme2 = 0;
+          setTimeout(function(){
+              // console.log(datapol["data"].length);
+              var nbvaleurs = datapol["data"].length-1;
+              for(c = 0; c < (datapol["data"].length-1); c++){
+                if(!isNaN(Number(datapol["data"][c]["29/06/2016"]))){
+                  somme2 += Number(datapol["data"][c]["29/06/2016"]);
+                } else {
+                  nbvaleurs--;
+                }
+              }         
+              // for(var h in dataPollution){
+              //   somme += dataPollution[h][date]
+              //   // console.log("somme : " + nbvaleurs)
+              // }
+              // somme = somme/nbvaleurs;
+              console.log("SOMME 2 : " + somme2);
+              somme2 = (somme2/nbvaleurs)+200;
+              console.log("SOMME 2 : moyenne " + somme2);
+              console.log("niveau pollution : "+ (somme2/700) )
+              if(somme2 <= 52){
+                document.getElementById("indicePollution").setAttribute('value', "Bon")
+                document.getElementById("indicePollution").setAttribute('color', "#66ff33")
+                
+                // setPollution(((somme2/250)*3)) //changement d'échelle'
+                setPollution((somme2/700))
+                // document.getElementById("indicePollution").setAttribute('visible', true)
+              }else if(somme2 > 52 && somme2 <= 104){
+                document.getElementById("indicePollution").setAttribute('value', "Moyen")
+                document.getElementById("indicePollution").setAttribute('color', "yellow")
+                setPollution((somme2/500))
+                // document.getElementById("indicePollution").setAttribute('visible', true)
+              }
+              else if(somme2 > 104 && somme2 <= 213){
+                document.getElementById("indicePollution").setAttribute('value', "Mediocre")
+                document.getElementById("indicePollution").setAttribute('color', "#ff9933")
+                setPollution((somme2/400))
+                // document.getElementById("indicePollution").setAttribute('visible', true)
+              }
+              else if(somme2 > 213){
+                document.getElementById("indicePollution").setAttribute('value', "Mauvais")
+                document.getElementById("indicePollution").setAttribute('color', "#990000")
+                setPollution((somme2/400))
+                // document.getElementById("indicePollution").setAttribute('visible', true)
+              }
+              }, 1500);
+        }
+
           //  debut d'un scenario a image'
         function startScenarioImage(elem) {
+          // getIndicePollution();
           document.getElementById('principaleVideo').setAttribute('visible', false);
           var scenario = $(elem).attr("idScenarioALancer")
           setPollution(0.0)
@@ -162,7 +255,7 @@
           var sceneEl = document.getElementById("videoNoirVideo")
           sceneEl.setAttribute('visible', 'true')
           setTimeout(function(){
-          console.log("on est là")
+          console.log("scenario image")
           for(var q in scenarios){
             if(scenarios[q].id == scenario){
               document.getElementById(scenarios[q].imageImmersion).setAttribute('visible', true)
@@ -310,11 +403,11 @@
   </body>
   <!--Ici on genere les points d'interet (principaux puis scenario)'-->
   <script type="text/javascript">
+  getIndicePollution();
 
     var transformPrincipauxPOI = [
           {"<>":"a-entity","id":"${id}","html":[
             {"<>":"a-plane","id":"${id}"+"hidden", "idScenarioALancer":"${idScenarioALancer}", "visible":"true","onclick":function(e){
-            console.log(this.attr("idScenarioALancer"));
             for(var b in scenarios){
                   if(scenarios[b].id == (this.attr("idScenarioALancer"))){
                     if(scenarios[b].type == "video"){
