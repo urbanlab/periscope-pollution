@@ -454,10 +454,10 @@
         document.getElementById(videos[p].id).load()
         //Bon sur l'ordi'
         setTimeout(function(){
-          document.getElementById(videos[p].id).currentTime=0
+          document.getElementById(videos[p].id).currentTime=0.1
           document.getElementById(videos[p].id).pause()
           console.log("videos chargées dans le cache!")
-          }, 8000);
+          }, 20000);
         // WOLOLOOO
         //Bon sur le mobile
         // document.getElementById(videos[p].id).addEventListener('loadeddata', function() {

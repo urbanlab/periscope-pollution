@@ -25,12 +25,27 @@ var videos = [
     },
     {
       "id" : "video1",
-      "chemin" : "./video/bubu2.mp4",
+      "chemin" : "./video/room-before-action.mp4",
       "boucle" : "false"
     },
     {
       "id" : "video2",
       "chemin" : "./video/room-after-action.mp4",
+      "boucle" : "false"
+    },
+    {
+      "id" : "video3",
+      "chemin" : "./video/maldives1.mp4",
+      "boucle" : "false"
+    },
+    {
+      "id" : "video4",
+      "chemin" : "./video/maldives2.mp4",
+      "boucle" : "false"
+    },
+    {
+      "id" : "video5",
+      "chemin" : "./video/maldives3.mp4",
       "boucle" : "false"
     }
   ]
@@ -69,6 +84,28 @@ var videos = [
         // {"id" : "pointInteretScn2"},
         // {"id" : "pointInteretScn3"}
       ]
+    },
+    {
+      "id" : "scenario2",
+      //choisissez si voter scenario commence par une video ou une image
+      // type : image ou type : video
+      "type" : "video",
+      //question d'ouverture au lancement du scénario'
+      "question" : "Et avec des videos de bonne qualite?",
+      //temps d'affichage de la question en millisecondes'
+      "tempsAffichageQuestion" : "4000",
+      //vidéo lancée au début du scénario (si scenario de type video)
+      "videoImmersion" : "video3",
+      //image lancée au moment de l'immersion' (si scenario de type image)
+      "imageImmersion" : "img2",
+      //taux de pollution pour votre scénario (fixé inférieur à 3.0)
+      "tauxPollution" : "0.05",
+      //liste des points d'interet de votre scénario'
+      "listePOI": [
+        {"id" : "pointInteretScn2"},
+        {"id" : "pointInteretScn3"}
+        // {"id" : "pointInteretScn3"}
+      ]
     }
   ]
   // Ici indiquez quels sont les points d'intérêt de la scène principale, et le scénario que chacun va lancer'
@@ -88,7 +125,7 @@ var videos = [
       "rotation" :"0 130 0",
       "largeur" :"3.5",
       "hauteur" :"90",
-      "idScenarioALancer" :"scenario1"
+      "idScenarioALancer" :"scenario2"
     },
     {
       "id" : "pointInteretPrincipal3",
@@ -114,6 +151,32 @@ var videos = [
       "tempsAffichageReponse" : "7000",
       //indiquez la réponse qui apparaitra en fin de scénario
       "reponse" :"Notre habitat regorge de differentes sources de pollution: materiaux, activite humaine...Pensez a aerer votre logement en moyenne 15 minutes le matin ou en soiree"
+    },
+    {
+      "id" : "pointInteretScn2",
+      "position" : "12 1.5 -3.5",
+      "rotation" :"30 -70 0",
+      "largeur" :"3.5",
+      "hauteur" :"90",
+      //choisissez la vidéo à lancer au click sur le point d'interet (suite du scenario)'
+      "idVideoALancer" :"video4",
+      //temps d'affichage de la réponse en millisecondes'
+      "tempsAffichageReponse" : "5000",
+      //indiquez la réponse qui apparaitra en fin de scénario
+      "reponse" :"Fin du scenario en bateau!"
+    },
+    {
+      "id" : "pointInteretScn3",
+      "position" : "-5 1 13.9",
+      "rotation" :"0 -50 0",
+      "largeur" :"3.5",
+      "hauteur" :"90",
+      //choisissez la vidéo à lancer au click sur le point d'interet (suite du scenario)'
+      "idVideoALancer" :"video5",
+      //temps d'affichage de la réponse en millisecondes'
+      "tempsAffichageReponse" : "5000",
+      //indiquez la réponse qui apparaitra en fin de scénario
+      "reponse" :"Fin du scenario sous l'eau!"
     }
   ]
 
