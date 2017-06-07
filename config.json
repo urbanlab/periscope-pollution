@@ -37,6 +37,10 @@ var videos = [
 //Ici ajoutez les images que vous allez utiliser dans votre projet
   var images = [
     {
+      "id" : "principaleImage",
+      "chemin" : "./img/fondData.jpg"
+    },
+    {
       "id" : "img1",
       "chemin" : "./img/image3.jpg"
     },
@@ -54,7 +58,7 @@ var videos = [
       // type : image ou type : video
       "type" : "video",
       //question d'ouverture au lancement du scénario'
-      "question" : "Suis-je a l'abri a l'interieur de mon logement?",
+      "question" : "Suis-je a l'abri a l'interieur de mon logement? éé",
       //temps d'affichage de la question en millisecondes'
       "tempsAffichageQuestion" : "4000",
       //vidéo lancée au début du scénario (si scenario de type video)
