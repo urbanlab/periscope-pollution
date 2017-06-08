@@ -34,6 +34,19 @@ var videos = [
       "boucle" : "false"
     }
   ]
+
+  var positionAffichageDonnees = [
+    {
+      "id" : "donnees1",
+      //bien garder le format "2.0 2.0 2.0" par exemple et non "2 2 2"
+      "positionPOI" : "4.5 2.5 -6.7",
+      "positionDonneesX" : "0",
+      "positionDonneesZ" : "-1",
+      "rotation" :"0 0 0",
+      "largeur" :"3.5",
+      "hauteur" :"90",
+    }
+  ]
 //Ici ajoutez les images que vous allez utiliser dans votre projet
   var images = [
     {
@@ -79,7 +92,7 @@ var videos = [
   var principauxPOI = [
     {
       "id" : "pointInteretPrincipal1",
-      "position" : "-13 9 -5.7",
+      "position" : "-13 6 -5.7",
       "rotation" :"0 50 0",
       "largeur" :"3.5",
       "hauteur" :"60",

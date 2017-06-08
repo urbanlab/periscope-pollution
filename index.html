@@ -47,7 +47,7 @@
 
       <!--Ici le point d'interet vers les données et le petit champ :) '-->
       <a-entity id="pointInteretData">
-        <a-plane
+        <!--<a-plane
         id="pointInteretDatahidden"
         visible="true"
         onclick="showDataPollution()"
@@ -58,11 +58,11 @@
         transparent="true"
         opacity="0">
         <a-image id="pointInteretDataimage" position="-0.05 -0.05 -0.05" src="#viseurAssetData" width="2.5" height="2.5" ></a-image>
-        </a-plane>
+        </a-plane>-->
       </a-entity>
 
       <a-entity id="pointInteretDataBack" visible="false">
-        <a-plane
+        <!--<a-plane
         id="pointInteretDatahiddenBack"
         visible="true"
         onclick="hideDataPollution()"
@@ -75,9 +75,9 @@
         <a-image id="pointInteretDataimageBack" position="-0.05 -0.05 -0.05" src="#viseurAsset" width="2.5" height="2.5" ></a-image>
         <a-text color="#000099" align="center" baseline="top" width="13" position="-0.3 -1.4 1"
           font="aileronsemibold"
-            value="Retour" >
+            value="OK" >
       </a-text>
-        </a-plane>
+        </a-plane>-->
       </a-entity>
 
       <!--génération des points d'interet de la scene principale'-->
@@ -108,14 +108,14 @@
         <a-plane>
           <script>
             var transformQuestions = [
-              {"<>":"a-text","value":"${question}","position":"0 0 -8","align":"center","width":"7","height":"10","color":"white","font-family":"Lucida Sans Unicode","shader:":"","flat;":"","id":"${id}"+"Question","visible":"false","html":""}
+              {"<>":"a-text","value":"${question}","position":"0 0 -8","align":"center","width":"5","height":"10","color":"white","font-family":"Lucida Sans Unicode","shader:":"","flat;":"","id":"${id}"+"Question","visible":"false","html":""}
             ];
             var html = json2html.transform(scenarios, transformQuestions);
             document.write(html);
           </script>
           <script>
             var transformReponses = [
-              {"<>":"a-text","value":"${reponse}","position":"0 0 -8","align":"center","width":"7","height":"10","color":"white","font-family":"Lucida Sans Unicode","shader:":"","flat;":"","id":"${id}"+"Reponse","visible":"false","html":""}
+              {"<>":"a-text","value":"${reponse}","position":"0 0 -8","align":"center","width":"5","height":"10","color":"white","font-family":"Lucida Sans Unicode","shader:":"","flat;":"","id":"${id}"+"Reponse","visible":"false","html":""}
             ];
             var html = json2html.transform(scenariosPOI, transformReponses);
             document.write(html);
@@ -149,13 +149,53 @@
           </a-text>
           
         </a-entity>
-        <a-entity id="aBouger" visible="false">
+        <a-entity id="donneesPollution" visible="false">
+          <script>
+          // Récupère la date du jour
+            var d = new Date();
+            var n = d.getDate().toString();
+            var m = (d.getMonth()+1).toString();
+            var y = (d.getFullYear()-1).toString();
+            if(m.length == 1 ){
+              m = "0"+m
+            }
+            if(n.length == 1 ){
+              n = "0"+n
+            }
+            var date = n+"/"+m+"/"+y;
+            var posX = positionAffichageDonnees[0]["positionDonneesX"];
+            var posZ = positionAffichageDonnees[0]["positionDonneesZ"]
+            var newposTitre = posX + " 3.4 " + posZ;
+            var newpos1 = (Number(posX) - 1.7) + " 1 " + posZ;
+            var newpos2 = (Number(posX) - 0.8) + " 1 " + posZ;
+            var newpos3 = (Number(posX) + 0.4) + " 1 " + posZ;
+            var newpos4 = (Number(posX) + 1.6) + " 1 " + posZ;
+            //Ecrit le titre
+            var transformTitre = [
+              {"<>":"a-text","color":"red","align":"center","baseline":"top","width":"4","position":newposTitre,"rotataion":"${rotation}","font":"aileronsemibold","value":date+"\nMesure des niveaux de pollution :\n(en microgramme/m3)\n","html":""}
+            ];
+            var html = json2html.transform(positionAffichageDonnees, transformTitre);
+            document.write(html);
+            // Affichage de l'échelle'
+            var transformText = [
+              {"<>":"a-text","color":"#66ff33","align":"center","baseline":"top","width":"4","position":newpos1,"rotataion":"${rotation}","font":"aileronsemibold","value":"Bon","html":""},
+              {"<>":"a-text","color":"yellow","align":"center","baseline":"top","width":"4","position":newpos2,"rotataion":"${rotation}","font":"aileronsemibold","value":"Moyen","html":""},
+              {"<>":"a-text","color":"#ff9933","align":"center","baseline":"top","width":"4","position":newpos3,"rotataion":"${rotation}","font":"aileronsemibold","value":"Mediocre","html":""},
+              {"<>":"a-text","color":"#990000","align":"center","baseline":"top","width":"4","position":newpos4,"rotataion":"${rotation}","font":"aileronsemibold","value":"Mauvais","html":""}
+            ];
+            var html2 = json2html.transform(positionAffichageDonnees, transformText);
+            document.write(html2);
+            setTimeout(function(){
+              console.log("ICI SE DEROULENT LES TESTS");
+              console.log(newpos1);
+            }, 3000);
+          </script>
          <!--Haut et bas de l'affichage des données pour la scèneprincipale'-->
-         <a-text color="red" align="center" baseline="top" width="4" position="0 3.7 1"
+         <!--<a-text color="red" align="center" baseline="top" width="4" position="0 3.7 1"
                 font="aileronsemibold"
                   value="07/06/2017\nMesure des niveaux de pollution :\n(en microgramme/m3)\n" >
-         </a-text>
-         <a-text color="#66ff33" align="center" baseline="top" width="6" position="-3 -0.5 -1"
+         </a-text>-->
+         <!--<a-text color="#66ff33" align="center" baseline="top" width="6" position="-3 -0.5 -1"
                   font="aileronsemibold"
                   value="Bon" >
          </a-text>
@@ -169,14 +209,14 @@
          </a-text>
          <a-text color="#990000" align="center" baseline="top" width="6" position="3 -0.5 -1"
                   font="aileronsemibold"
-                  value="Mauvais" >
-         </a-text>
+                  value="Mauvais" >-->
+         <!--</a-text>-->
          <!--A generer-->
-         <a-text id="idTruc" color="#66ff33" align="center" visible="true" baseline="top" width="4" position="0 2.2 1"
+         <!--<a-text id="idTruc" color="#66ff33" align="center" visible="true" baseline="top" width="4" position="0 2.2 1"
                 font="aileronsemibold"
                   value="Particules PM10 : 18 " >
-         </a-text>
-         <a-text color="#66ff33" align="center" baseline="top" width="4" position="0 3 1"
+         </a-text>-->
+         <!--<a-text color="#66ff33" align="center" baseline="top" width="4" position="0 3 1"
                 font="aileronsemibold"
                   value="Particules PM2.5 : 13 " >
          </a-text>
@@ -187,7 +227,7 @@
          <a-text color="yellow" align="center" baseline="top" width="4" position="0 1.8 1"
                 font="aileronsemibold"
                   value="Dioxyde d'azote : 69" >
-         </a-text>
+         </a-text>-->
         </a-entity>
 
 
@@ -229,7 +269,7 @@
         }
         
         function showDataPollution(){
-          document.getElementById('principaleVideo').setAttribute('visible', false);
+          document.getElementById('principaleVideo').setAttribute('visible', true);
           document.getElementById('pointInteretData').setAttribute('visible', false);
           document.getElementById('playVideos').setAttribute('width', 0.2);
           document.getElementById('playVideos').setAttribute('height', 0.2);
@@ -239,25 +279,9 @@
           }
           document.getElementById('niveauPollution').setAttribute('visible', false);
           document.getElementById('indicePollution').setAttribute('visible', false);
-          document.getElementById('principaleImage').setAttribute('visible', true);
+          document.getElementById('principaleImage').setAttribute('visible', false);
           document.getElementById('pointInteretDataBack').setAttribute('visible', true);
-          document.getElementById('aBouger').setAttribute('visible', true);
-    //       var transformScenariosPOI = [
-    //       {"<>":"a-entity","id":"${id}","html":[
-    //         {"<>":"a-plane","id":"${id}"+"hidden", "idVideoALancer":"${idVideoALancer}", "tempsAffichageReponse":"${tempsAffichageReponse}", "onclick":function(e){
-            
-    //         continueScenario(this);
-            
-    //     },"visible":"false","position":"${position}","rotation":"${rotation}","width":"${largeur}","height":"${hauteur}", "transparent":"true","opacity":"0","html":[
-    //             {"<>":"a-image","id":"${id}"+"image","position":"-0.05 -0.05 -0.05","src":"#viseurAsset","width":"2.5","height":"2.5","html":""}
-    //           ]}
-    //       ]}
-    //     ];
-
-    // $(function(){
-    //     console.log("generatePOIscenario");
-    //     $('#iciScenariosPOI').json2html(scenariosPOI,transformScenariosPOI);
-    // });
+          document.getElementById('donneesPollution').setAttribute('visible', true);
         }
 
         function hideDataPollution() {
@@ -273,7 +297,7 @@
           document.getElementById('indicePollution').setAttribute('visible', true);
           document.getElementById('principaleImage').setAttribute('visible', false);
           document.getElementById('pointInteretDataBack').setAttribute('visible', false);
-          document.getElementById('aBouger').setAttribute('visible', false);
+          document.getElementById('donneesPollution').setAttribute('visible', false);
         }
 
         function getDateNow() {
@@ -366,6 +390,7 @@
         function startScenarioImage(elem) {
           // getIndicePollution();
           document.getElementById('principaleVideo').setAttribute('visible', false);
+          document.getElementById('pointInteretData').setAttribute('visible', false);
           var scenario = $(elem).attr("idScenarioALancer")
           setPollution(0.0)
           for(var l in scenarios){
@@ -405,6 +430,7 @@
           }
           setPollution(0.0)
           document.getElementById('principaleVideo').setAttribute('visible', false);
+          document.getElementById('pointInteretData').setAttribute('visible', false);
           document.getElementById('videoNoir').currentTime = 0
           launchQuestion(scenario)
           var sceneEl = document.getElementById("videoNoirVideo")
@@ -475,6 +501,7 @@
               hideReponse($(element).attr("id").slice(0, -6)) //remet aussi les points d'intéret de départ'
               var sceneE2 = document.getElementById("principaleVideo")
               sceneE2.setAttribute('visible', 'true')
+              document.getElementById('pointInteretData').setAttribute('visible', true);
               document.getElementById('principale').play()
               getIndicePollution()
           }, tempsreponse);
@@ -554,6 +581,148 @@
   </script>
   <script type="text/javascript">
 
+    var transformPrincipalData = [
+      {"<>":"a-entity","id":"pointInteretData","html":[
+        {"<>":"a-plane","id":"pointInteretDatahidden","visible":"true", "onclick":function(e){
+            
+            showDataPollution();
+            
+        },"position":"${positionPOI}","width":"${largeur}","height":"${hauteur}","rotation":"${rotation}","transparent":"true","opacity":"0","html":[
+          {"<>":"a-image","id":"pointInteretDataimage","position":"-0.05 -0.05 -0.05","src":"#viseurAssetData","width":"2.5","height":"2.5","html":""}
+        ]}
+      ]}
+    ];
+    $(function(){
+        console.log("generatePrincipalPOIData");
+        $('#pointInteretData').json2html(positionAffichageDonnees,transformPrincipalData);
+    });
+  </script>
+
+  <script type="text/javascript">
+  
+    var transformPrincipalDataBack = [
+      {"<>":"a-entity","id":"pointInteretDataBack","html":[
+        {"<>":"a-plane","id":"pointInteretDatahiddenBack","visible":"true","onclick":function(e){
+            
+            hideDataPollution();
+            
+        },"position":"${positionPOI}","width":"${largeur}","height":"${hauteur}","rotation":"${rotation}","transparent":"true","opacity":"0","html":[
+            {"<>":"a-image","id":"pointInteretDataimageBack","position":"-0.05 -0.05 -0.05","src":"#viseurAsset","width":"2.5","height":"2.5","html":""},
+            {"<>":"a-text","color":"#000099","align":"center","baseline":"top","width":"13","position":"-0.3 -1.4 1","font":"aileronsemibold","value":"OK","html":""}
+          ]}
+     ]}
+    ];
+    $(function(){
+        // console.log("generatePrincipalPOIData");
+        $('#pointInteretDataBack').json2html(positionAffichageDonnees,transformPrincipalDataBack);
+    });
+  </script>
+  <script type="text/javascript">
+    // Récupère la date du jour
+            var d = new Date();
+            var n = d.getDate().toString();
+            var m = (d.getMonth()+1).toString();
+            var y = (d.getFullYear()-1).toString();
+            if(m.length == 1 ){
+              m = "0"+m
+            }
+            if(n.length == 1 ){
+              n = "0"+n
+            }
+            var date = n+"/"+m+"/"+y;
+            // Affiche pour chaque polluant de son nom et sa valeur
+            var somme = 0;
+            var datapol;
+            var csvfile = "donneeLyon.csv"
+            $.get(csvfile, function (data) {
+                datapol = Papa.parse(data,{
+                  delimiter: "",	// auto-detect
+                  newline: "",	// auto-detect
+                  quoteChar: '"',
+                  header: true,
+                  dynamicTyping: false,
+                  dynamicTyping: false,
+                  preview: 0,
+                  encoding: "",
+                  worker: false,
+                  comments: false,
+                  step: undefined,
+                  complete: function(results) {
+                    dataPol = results;
+                  },
+                  error: undefined,
+                  download: false,
+                  skipEmptyLines: false,
+                  chunk: undefined,
+                  fastMode: undefined,
+                  beforeFirstChunk: undefined,
+                  withCredentials: undefined
+                });
+            });
+            var somme2 = 0;
+            setTimeout(function(){
+                var nbvaleurs = datapol["data"].length-1;
+                for(c = 0; c < (datapol["data"].length-1); c++){
+                  if(!isNaN(Number(datapol["data"][c][date]))){
+                    somme2 += Number(datapol["data"][c][date]);
+                  } else {
+                    nbvaleurs--;
+                  }
+                }
+                var down = "";
+                var couleur ="";
+                for(d = 0; d < nbvaleurs; d++){
+                  if(datapol["data"][d]["Polluant"] == "Dioxyde d'azote" && datapol["data"][d][date] <= 80){
+                    couleur = "#66ff33";
+                  }else if(datapol["data"][d]["Polluant"] == "Dioxyde d'azote" && datapol["data"][d][date] > 80 && datapol["data"][d][date] <= 160){
+                    couleur = "yellow";
+                  }else if(datapol["data"][d]["Polluant"] == "Dioxyde d'azote" && datapol["data"][d][date] > 160 && datapol["data"][d][date] <= 400){
+                    couleur = "#ff9933";
+                  }else if(datapol["data"][d]["Polluant"] == "Dioxyde d'azote" && datapol["data"][d][date] > 400){
+                    couleur = "#990000";
+                  } else if(datapol["data"][d]["Polluant"] == "Ozone" && datapol["data"][d][date] <= 72){
+                    couleur = "#66ff33";
+                  }else if(datapol["data"][d]["Polluant"] == "Ozone" && datapol["data"][d][date] > 72 && datapol["data"][d][date] <= 144){
+                    couleur = "yellow";
+                  }else if(datapol["data"][d]["Polluant"] == "Ozone" && datapol["data"][d][date] > 144 && datapol["data"][d][date] <= 240){
+                    couleur = "#ff9933";
+                  }else if(datapol["data"][d]["Polluant"] == "Ozone" && datapol["data"][d][date] > 240){
+                    couleur = "#990000";
+                  } else if(datapol["data"][d]["Polluant"] == "Particules PM10" && datapol["data"][d][date] <= 32){
+                    couleur = "#66ff33";
+                  }else if(datapol["data"][d]["Polluant"] == "Particules PM10" && datapol["data"][d][date] > 32 && datapol["data"][d][date] <= 64){
+                    couleur = "yellow";
+                  }else if(datapol["data"][d]["Polluant"] == "Particules PM10" && datapol["data"][d][date] > 64 && datapol["data"][d][date] <= 125){
+                    couleur = "#ff9933";
+                  }else if(datapol["data"][d]["Polluant"] == "Particules PM10" && datapol["data"][d][date] > 125){
+                    couleur = "#990000";
+                  } else if(datapol["data"][d]["Polluant"] == "Particules PM2.5" && datapol["data"][d][date] <= 24){
+                    couleur = "#66ff33";
+                  }else if(datapol["data"][d]["Polluant"] == "Particules PM2.5" && datapol["data"][d][date] > 24 && datapol["data"][d][date] <= 48){
+                    couleur = "yellow";
+                  }else if(datapol["data"][d]["Polluant"] == "Particules PM2.5" && datapol["data"][d][date] > 48 && datapol["data"][d][date] <= 90){
+                    couleur = "#ff9933";
+                  }else if(datapol["data"][d]["Polluant"] == "Particules PM2.5" && datapol["data"][d][date] > 90){
+                    couleur = "#990000";
+                  }
+                  var phrase = down + datapol["data"][d]["Polluant"] + " : " + datapol["data"][d][date];
+                  var posX = positionAffichageDonnees[0]["positionDonneesX"];
+                  var posZ = positionAffichageDonnees[0]["positionDonneesZ"]
+                  var newposPhrases = (Number(posX) - 1) + " 3 " + posZ;
+                  var transformPolluant = [
+                    {"<>":"a-text","id":"idTruc","color":couleur,"align":"left","visible":"true","baseline":"top","width":"4","position":newposPhrases, "rotataion":"${rotation}","font":"aileronsemibold","value":"\n"+phrase,"html":""}
+                  ];
+                  var html3 = json2html.transform(positionAffichageDonnees, transformPolluant);
+                  // document.write(html3);
+                  $(function(){
+                      console.log("generatePhrases");
+                      $('#donneesPollution').json2html(positionAffichageDonnees,transformPolluant);
+                  });
+                  down = down + "\n\n";
+                }         
+                }, 2000);
+  </script>
+  <script type="text/javascript">
     var transformScenariosPOI = [
           {"<>":"a-entity","id":"${id}","html":[
             {"<>":"a-plane","id":"${id}"+"hidden", "idVideoALancer":"${idVideoALancer}", "tempsAffichageReponse":"${tempsAffichageReponse}", "onclick":function(e){
