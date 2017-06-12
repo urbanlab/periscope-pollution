@@ -1,3 +1,4 @@
+
 // FICHIER DE CONFIGURATION DU POLLUSCOPE
 
 // Créez vous-même votre instance du polluscope avec vos propres medias et scenarios
@@ -85,6 +86,12 @@ var videos = [
         {"id" : "pointInteretScn1"}
         // {"id" : "pointInteretScn2"},
         // {"id" : "pointInteretScn3"}
+      ],
+      "listeDonnees": [
+        {"id" : "data1"},
+        {"id" : "data2"},
+        {"id" : "data3"},
+        {"id" : "data4"}
       ]
     }
   ]
@@ -132,5 +139,40 @@ var videos = [
       //indiquez la réponse qui apparaitra en fin de scénario
       "reponse" :"Notre habitat regorge de differentes sources de pollution: materiaux, activite humaine...Pensez a aerer votre logement en moyenne 15 minutes le matin ou en soiree"
     }
+  ]
+
+  var scenariosDonnees = [
+      {
+        "id" : "data1",
+        "position" : "2 4.5 -1",
+        "rotation" : "0 0 0",
+        "taille" : "10",
+        "texte" : "Formaldehyde: 10%",
+        "couleur" : "red"
+      },
+      {
+        "id" : "data2",
+        "position" : "-0.8 4 12",
+        "rotation" : "0 -180 0",
+        "taille" : "10",
+        "texte" : "Monoxyde de carbone: 25%",
+        "couleur" : "yellow"
+      },
+      {
+        "id" : "data3",
+        "position" : "-5 4 5",
+        "rotation" : "0 90 0",
+        "taille" : "8",
+        "texte" : "Benzene: 15%",
+        "couleur" : "green"
+      },
+      {
+        "id" : "data4",
+        "position" : "10 3 11",
+        "rotation" : "0 -100 0",
+        "taille" : "13",
+        "texte" : "Particules PM10: 5%",
+        "couleur" : "green"
+      }
   ]
 

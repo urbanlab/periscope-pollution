@@ -84,72 +84,9 @@
       <a-entity id="iciPrincipauxPOI"></a-entity>
       <!--génération des points d'interet des scenarios'-->
       <a-entity id="iciScenariosPOI"></a-entity>
-
-
-      <!-- START button : play videos -->
-      <a-entity position="0 2.2 4" camera look-controls wasd-controls >
-        <a-plane
-           position="0 0 -3"
-           width="1"
-           height="1"
-           color="#FFF"
-           shader: flat;
-           cursor="fuse: true; fuse-timeout: 3000"
-           src="#start"
-           id="playVideos"
-           transparent="true"
-           visible="true"
-          >
-          <a-animation easing="ease-in" attribute="scale" begin="cursor-fusing"
-          fill="backwards" repeat="indefinite" from="1 1 1" to="0 0 0" dur="3000"></a-animation>
-        </a-plane>
-        
-        <!--Futures questions/Reponses des scenarios-->
-        <a-plane>
-          <script>
-            var transformQuestions = [
-              {"<>":"a-text","value":"${question}","position":"0 0 -8","align":"center","width":"5","height":"10","color":"white","font-family":"Lucida Sans Unicode","shader:":"","flat;":"","id":"${id}"+"Question","visible":"false","html":""}
-            ];
-            var html = json2html.transform(scenarios, transformQuestions);
-            document.write(html);
-          </script>
-          <script>
-            var transformReponses = [
-              {"<>":"a-text","value":"${reponse}","position":"0 0 -8","align":"center","width":"5","height":"10","color":"white","font-family":"Lucida Sans Unicode","shader:":"","flat;":"","id":"${id}"+"Reponse","visible":"false","html":""}
-            ];
-            var html = json2html.transform(scenariosPOI, transformReponses);
-            document.write(html);
-          </script>
-          <!--TODO: que indiquer ici? Où le placer?-->
-          <a-text 
-          value="Indice qualite de l'air:"
-          position="0 -2.0 -8"
-          align="center"
-          width="10"
-          height="10"
-          font-family="Lucida Sans Unicode"
-          color="red"
-          shader: flat;
-          id="niveauPollution"
-          visible="true"
-          >
-          </a-text>
-          <a-text 
-          position="0 -2.5 -8"
-          align="center"
-          width="10"
-          height="10"
-          font-family="Lucida Sans Unicode"
-          value="Moyen"
-          color="yellow"
-          shader: flat;
-          id="indicePollution"
-          visible="true"
-          >
-          </a-text>
-          
-        </a-entity>
-        <a-entity id="donneesPollution" visible="false">
+      <!--génération des textes de donnée dans les scnéarios-->
+      <a-entity id="iciTextesScenario"></a-entity>
+      <a-entity id="donneesPollution" visible="false">
           <script>
           // Récupère la date du jour
             var d = new Date();
@@ -229,6 +166,98 @@
                   value="Dioxyde d'azote : 69" >
          </a-text>-->
         </a-entity>
+
+
+      <!-- START button : play videos -->
+      <a-entity position="0 2.2 4" camera look-controls wasd-controls >
+        <a-plane
+           position="0 0 -3"
+           width="1"
+           height="1"
+           color="#FFF"
+           shader: flat;
+           cursor="fuse: true; fuse-timeout: 3000"
+           src="#start"
+           id="playVideos"
+           transparent="true"
+           visible="true"
+          >
+          <a-animation easing="ease-in" attribute="scale" begin="cursor-fusing"
+          fill="backwards" repeat="indefinite" from="1 1 1" to="0 0 0" dur="3000"></a-animation>
+        </a-plane>
+        
+        <!--Futures questions/Reponses des scenarios-->
+        <a-plane>
+          <script>
+            var transformQuestions = [
+              {"<>":"a-text","value":"${question}","position":"0 0 -8","align":"center","width":"5","height":"10","color":"white","font-family":"Lucida Sans Unicode","shader:":"","flat;":"","id":"${id}"+"Question","visible":"false","html":""}
+            ];
+            var html = json2html.transform(scenarios, transformQuestions);
+            document.write(html);
+          </script>
+          <script>
+            var transformReponses = [
+              {"<>":"a-text","value":"${reponse}","position":"0 0 -8","align":"center","width":"5","height":"10","color":"white","font-family":"Lucida Sans Unicode","shader:":"","flat;":"","id":"${id}"+"Reponse","visible":"false","html":""}
+            ];
+            var html = json2html.transform(scenariosPOI, transformReponses);
+            document.write(html);
+          </script>
+          <!--TODO: que indiquer ici? Où le placer?-->
+          <a-text 
+          value="Indice qualite de l'air:"
+          position="0 -2.0 -8"
+          align="center"
+          width="10"
+          height="10"
+          font-family="Lucida Sans Unicode"
+          color="red"
+          shader: flat;
+          id="niveauPollution"
+          visible="true"
+          >
+          </a-text>
+          <a-text 
+          position="0 -2.5 -8"
+          align="center"
+          width="10"
+          height="10"
+          font-family="Lucida Sans Unicode"
+          value="Moyen"
+          color="yellow"
+          shader: flat;
+          id="indicePollution"
+          visible="true"
+          >
+          </a-text>
+          
+        </a-entity>
+        <!--var transformPrincipalDataBack = [
+      {"<>":"a-entity","id":"pointInteretDataBack","html":[
+        {"<>":"a-plane","id":"pointInteretDatahiddenBack","visible":"true","onclick":function(e){
+            
+            hideDataPollution();
+            
+        },"position":"${positionPOI}","width":"${largeur}","height":"${hauteur}","rotation":"${rotation}","transparent":"true","opacity":"0","html":[
+            {"<>":"a-image","id":"pointInteretDataimageBack","position":"-0.05 -0.05 -0.05","src":"#viseurAsset","width":"2.5","height":"2.5","html":""},
+            {"<>":"a-text","color":"#000099","align":"center","baseline":"top","width":"13","position":"-0.3 -1.4 1","font":"aileronsemibold","value":"OK","html":""}
+          ]}
+     ]}
+    ];-->
+        <!--<a-entity id="testText" visible="true">
+          <a-text value="Benzene: 30%" color="green" align="center" baseline="top" width="10"  font="aileronsemibold">
+            <a-animation easing="ease-in" attribute="opacity" repeat="indefinite" direction="alternate" from="0" to="1" dur="4000"></a-animation>
+          </a-text>
+          <a-text value="Monoxyde de carbone: 25%" color="yellow" align="center" baseline="top" width="10" position="-3 1.5 -1" font="aileronsemibold">
+            <a-animation easing="ease-in" attribute="opacity" repeat="indefinite" direction="alternate" from="0" to="1" dur="4000"></a-animation>
+          </a-text>
+          <a-text value="Particules PM10: 5%" color="green" align="center" baseline="top" width="13" position="10 3 10" rotation="0 -120 0" font="aileronsemibold">
+            <a-animation easing="ease-in" attribute="opacity" repeat="indefinite" direction="alternate" from="0" to="1" dur="4000"></a-animation>
+          </a-text>
+          <a-text value="Formaldehyde: 10%" color="red" transparent="true" align="center" baseline="top" width="10" position="2 4.5 -1" font="aileronsemibold">
+            <a-animation easing="ease-in" attribute="opacity" repeat="indefinite" direction="alternate" from="0" to="1" dur="4000"></a-animation>
+          </a-text>
+        </a-entity>-->
+        
 
 
       <!--La pollution (les particules)  -->
@@ -468,6 +497,9 @@
               document.getElementById('pointInteretScn'+k+"hidden").setAttribute('visible', false);
               document.getElementById('pointInteretScn'+k+"image").setAttribute('visible', false);
             }
+          for(var txt in scenariosDonnees){
+            document.getElementById(scenariosDonnees[txt]["id"]).setAttribute('visible', false);
+          }
           document.getElementById(videolance).play()
           setTimeout(function(){
             var longueurvideo = document.getElementById($(elem).attr("idVideoALancer")).duration*1000
@@ -532,6 +564,9 @@
                 document.getElementById(scenarios[s]["listePOI"][poi]["id"]+'hidden').setAttribute('visible', true);
                 document.getElementById(scenarios[s]["listePOI"][poi]["id"]+'image').setAttribute('visible', true); 
               }
+              for(var poi2 in scenarios[s]["listeDonnees"]){
+                document.getElementById(scenarios[s]["listeDonnees"][poi2]["id"]).setAttribute('visible', true);
+              }
             }
           }
           document.getElementById('playVideos').setAttribute('visible', true);
@@ -579,6 +614,26 @@
           $('#iciPrincipauxPOI').json2html(principauxPOI,transformPrincipauxPOI);
       });
   </script>
+
+  <script type="text/javascript">
+  // for(var poi in scenarios[s]["listePOI"]){
+  //   document.getElementById(scenarios[s]["listePOI"][poi]["id"]+'hidden').setAttribute('visible', true);
+               
+    var transformTestText = [
+      {"<>":"a-entity","id":"${id}","visible":"false" ,"html":[
+        {"<>":"a-plane","id":"${id}"+"hidden","visible":"true","position":"${position}","width":"0.01","height":"0.01","rotation":"${rotation}","transparent":"true","opacity":"1","html":[
+           {"<>":"a-text","value":"${texte}","color":"${couleur}","align":"center","baseline":"top","width":"${taille}","font":"aileronsemibold","position":"0 0 0","html":[
+            {"<>":"a-animation","easing":"ease-in","attribute":"opacity","repeat":"indefinite","direction":"alternate","from":"0","to":"1","dur":"4000","html":""}
+          ]}
+        ]}
+      ]}
+    ];
+    $(function(){
+        console.log("generateTextes");
+        $('#iciTextesScenario').json2html(scenariosDonnees,transformTestText);
+    });
+  </script>
+
   <script type="text/javascript">
 
     var transformPrincipalData = [
