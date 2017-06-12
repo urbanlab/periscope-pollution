@@ -123,48 +123,8 @@
             var html2 = json2html.transform(positionAffichageDonnees, transformText);
             document.write(html2);
             setTimeout(function(){
-              console.log("ICI SE DEROULENT LES TESTS");
-              console.log(newpos1);
             }, 3000);
           </script>
-         <!--Haut et bas de l'affichage des données pour la scèneprincipale'-->
-         <!--<a-text color="red" align="center" baseline="top" width="4" position="0 3.7 1"
-                font="aileronsemibold"
-                  value="07/06/2017\nMesure des niveaux de pollution :\n(en microgramme/m3)\n" >
-         </a-text>-->
-         <!--<a-text color="#66ff33" align="center" baseline="top" width="6" position="-3 -0.5 -1"
-                  font="aileronsemibold"
-                  value="Bon" >
-         </a-text>
-         <a-text color="yellow" align="center" baseline="top" width="6" position="-1 -0.5 -1"
-                  font="aileronsemibold"
-                  value="Moyen" >
-         </a-text>
-         <a-text color="#ff9933" align="center" baseline="top" width="6" position="1 -0.5 -1"
-                  font="aileronsemibold"
-                  value="Mediocre" >
-         </a-text>
-         <a-text color="#990000" align="center" baseline="top" width="6" position="3 -0.5 -1"
-                  font="aileronsemibold"
-                  value="Mauvais" >-->
-         <!--</a-text>-->
-         <!--A generer-->
-         <!--<a-text id="idTruc" color="#66ff33" align="center" visible="true" baseline="top" width="4" position="0 2.2 1"
-                font="aileronsemibold"
-                  value="Particules PM10 : 18 " >
-         </a-text>-->
-         <!--<a-text color="#66ff33" align="center" baseline="top" width="4" position="0 3 1"
-                font="aileronsemibold"
-                  value="Particules PM2.5 : 13 " >
-         </a-text>
-         <a-text color="#990000" align="center" baseline="top" width="4" position="0 2.6 1"
-                font="aileronsemibold"
-                  value="Ozone : 27" >
-         </a-text>
-         <a-text color="yellow" align="center" baseline="top" width="4" position="0 1.8 1"
-                font="aileronsemibold"
-                  value="Dioxyde d'azote : 69" >
-         </a-text>-->
         </a-entity>
 
 
@@ -347,7 +307,7 @@
         function getIndicePollution() {
           var somme = 0;
           var datapol;
-          var csvfile = "donneeLyon.csv"
+          var csvfile = positionAffichageDonnees[0]["chemin"];
           $.get(csvfile, function (data) {
               datapol = Papa.parse(data,{
                 delimiter: "",	// auto-detect
@@ -389,29 +349,48 @@
               // }
               // somme = somme/nbvaleurs;
               somme2 = (somme2/nbvaleurs);
-              if(somme2 <= 52){
-                document.getElementById("indicePollution").setAttribute('value', "Bon")
-                document.getElementById("indicePollution").setAttribute('color', "#66ff33")
-                setPollution((somme2/700))
-                // document.getElementById("indicePollution").setAttribute('visible', true)
-              }else if(somme2 > 52 && somme2 <= 104){
-                document.getElementById("indicePollution").setAttribute('value', "Moyen")
-                document.getElementById("indicePollution").setAttribute('color', "yellow")
-                setPollution((somme2/500))
-                // document.getElementById("indicePollution").setAttribute('visible', true)
+              for(d = 0; d < nbvaleurs; d++){
+                if((datapol["data"][d]["Polluant"] == "Dioxyde d'azote" && datapol["data"][d][getDateNow()] > 400) || (datapol["data"][d]["Polluant"] == "Ozone" && datapol["data"][d][getDateNow()] > 240) || (datapol["data"][d]["Polluant"] == "Particules PM10" && datapol["data"][d][getDateNow()] > 125) || (datapol["data"][d]["Polluant"] == "Particules PM2,5" && datapol["data"][d][getDateNow()] > 90)){
+                    document.getElementById("indicePollution").setAttribute('value', "Mauvais")
+                    document.getElementById("indicePollution").setAttribute('color', "#990000")
+                    setPollution((somme2/100))
+                  }else if((datapol["data"][d]["Polluant"] == "Dioxyde d'azote" && datapol["data"][d][getDateNow()] > 160) || (datapol["data"][d]["Polluant"] == "Ozone" && datapol["data"][d][getDateNow()] > 144) || (datapol["data"][d]["Polluant"] == "Particules PM10" && datapol["data"][d][getDateNow()] > 64) || (datapol["data"][d]["Polluant"] == "Particules PM2,5" && datapol["data"][d][getDateNow()] > 48)){
+                    document.getElementById("indicePollution").setAttribute('value', "Moyen")
+                    document.getElementById("indicePollution").setAttribute('color', "yellow")
+                    setPollution((somme2/500))
+                  }else if((datapol["data"][d]["Polluant"] == "Dioxyde d'azote" && datapol["data"][d][getDateNow()] > 80) || (datapol["data"][d]["Polluant"] == "Ozone" && datapol["data"][d][getDateNow()] > 72) || (datapol["data"][d]["Polluant"] == "Particules PM10" && datapol["data"][d][getDateNow()] > 32) || (datapol["data"][d]["Polluant"] == "Particules PM2,5" && datapol["data"][d][getDateNow()] > 24)){
+                    document.getElementById("indicePollution").setAttribute('value', "Mediocre")
+                    document.getElementById("indicePollution").setAttribute('color', "#ff9933")
+                    setPollution((somme2/400))
+                  }else if((datapol["data"][d]["Polluant"] == "Dioxyde d'azote" && datapol["data"][d][getDateNow()] <= 80) || (datapol["data"][d]["Polluant"] == "Ozone" && datapol["data"][d][getDateNow()] <= 72) || (datapol["data"][d]["Polluant"] == "Particules PM10" && datapol["data"][d][getDateNow()] <= 32) || (datapol["data"][d]["Polluant"] == "Particules PM2,5" && datapol["data"][d][getDateNow()] <= 24)){
+                    document.getElementById("indicePollution").setAttribute('value', "Bon")
+                    document.getElementById("indicePollution").setAttribute('color', "#66ff33")
+                    setPollution((somme2/1000))
+                  } 
               }
-              else if(somme2 > 104 && somme2 <= 213){
-                document.getElementById("indicePollution").setAttribute('value', "Mediocre")
-                document.getElementById("indicePollution").setAttribute('color', "#ff9933")
-                setPollution((somme2/400))
-                // document.getElementById("indicePollution").setAttribute('visible', true)
-              }
-              else if(somme2 > 213){
-                document.getElementById("indicePollution").setAttribute('value', "Mauvais")
-                document.getElementById("indicePollution").setAttribute('color', "#990000")
-                setPollution((somme2/400))
-                // document.getElementById("indicePollution").setAttribute('visible', true)
-              }
+              // if(somme2 <= 52){
+              //   document.getElementById("indicePollution").setAttribute('value', "Bon")
+              //   document.getElementById("indicePollution").setAttribute('color', "#66ff33")
+              //   setPollution((somme2/700))
+              //   // document.getElementById("indicePollution").setAttribute('visible', true)
+              // }else if(somme2 > 52 && somme2 <= 104){
+              //   document.getElementById("indicePollution").setAttribute('value', "Moyen")
+              //   document.getElementById("indicePollution").setAttribute('color', "yellow")
+              //   setPollution((somme2/500))
+              //   // document.getElementById("indicePollution").setAttribute('visible', true)
+              // }
+              // else if(somme2 > 104 && somme2 <= 213){
+              //   document.getElementById("indicePollution").setAttribute('value', "Mediocre")
+              //   document.getElementById("indicePollution").setAttribute('color', "#ff9933")
+              //   setPollution((somme2/400))
+              //   // document.getElementById("indicePollution").setAttribute('visible', true)
+              // }
+              // else if(somme2 > 213){
+              //   document.getElementById("indicePollution").setAttribute('value', "Mauvais")
+              //   document.getElementById("indicePollution").setAttribute('color', "#990000")
+              //   setPollution((somme2/400))
+              //   // document.getElementById("indicePollution").setAttribute('visible', true)
+              // }
               }, 1500);
         }
 
@@ -688,7 +667,7 @@
             // Affiche pour chaque polluant de son nom et sa valeur
             var somme = 0;
             var datapol;
-            var csvfile = "donneeLyon.csv"
+            var csvfile = positionAffichageDonnees[0]["chemin"];
             $.get(csvfile, function (data) {
                 datapol = Papa.parse(data,{
                   delimiter: "",	// auto-detect
@@ -751,13 +730,13 @@
                     couleur = "#ff9933";
                   }else if(datapol["data"][d]["Polluant"] == "Particules PM10" && datapol["data"][d][date] > 125){
                     couleur = "#990000";
-                  } else if(datapol["data"][d]["Polluant"] == "Particules PM2.5" && datapol["data"][d][date] <= 24){
+                  } else if(datapol["data"][d]["Polluant"] == "Particules PM2,5" && datapol["data"][d][date] <= 24){
                     couleur = "#66ff33";
-                  }else if(datapol["data"][d]["Polluant"] == "Particules PM2.5" && datapol["data"][d][date] > 24 && datapol["data"][d][date] <= 48){
+                  }else if(datapol["data"][d]["Polluant"] == "Particules PM2,5" && datapol["data"][d][date] > 24 && datapol["data"][d][date] <= 48){
                     couleur = "yellow";
-                  }else if(datapol["data"][d]["Polluant"] == "Particules PM2.5" && datapol["data"][d][date] > 48 && datapol["data"][d][date] <= 90){
+                  }else if(datapol["data"][d]["Polluant"] == "Particules PM2,5" && datapol["data"][d][date] > 48 && datapol["data"][d][date] <= 90){
                     couleur = "#ff9933";
-                  }else if(datapol["data"][d]["Polluant"] == "Particules PM2.5" && datapol["data"][d][date] > 90){
+                  }else if(datapol["data"][d]["Polluant"] == "Particules PM2,5" && datapol["data"][d][date] > 90){
                     couleur = "#990000";
                   }
                   var phrase = down + datapol["data"][d]["Polluant"] + " : " + datapol["data"][d][date];

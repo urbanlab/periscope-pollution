@@ -36,11 +36,16 @@ var videos = [
     }
   ]
 
+  //Ici configurez la position à laquelle afficher les donnees de pollution 
+  // et indiquez où se trouve votre fichier csv
   var positionAffichageDonnees = [
     {
       "id" : "donnees1",
-      //bien garder le format "2.0 2.0 2.0" par exemple et non "2 2 2"
+      //chemin vers votre fichier csv contenant vos données de pollution
+      "chemin" : "./donneeLyon.csv",
+      //position de POI pour afficher les données
       "positionPOI" : "4.5 2.5 -6.7",
+      //Position du bloc de texte contenant les données
       "positionDonneesX" : "0",
       "positionDonneesZ" : "-1",
       "rotation" :"0 0 0",
@@ -87,6 +92,7 @@ var videos = [
         // {"id" : "pointInteretScn2"},
         // {"id" : "pointInteretScn3"}
       ],
+      //liste des données à afficher dasn votre scénario
       "listeDonnees": [
         {"id" : "data1"},
         {"id" : "data2"},
@@ -140,7 +146,8 @@ var videos = [
       "reponse" :"Notre habitat regorge de differentes sources de pollution: materiaux, activite humaine...Pensez a aerer votre logement en moyenne 15 minutes le matin ou en soiree"
     }
   ]
-
+  //Ici se trouvent les données (texte) à afficher dans votre scénario
+  //Les id doivent correspondrent à ceux de la listeDonnees de la variable scenarios
   var scenariosDonnees = [
       {
         "id" : "data1",
