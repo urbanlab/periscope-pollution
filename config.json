@@ -151,7 +151,7 @@ var videos = [
   var scenariosDonnees = [
       {
         "id" : "data1",
-        "position" : "2 4.5 -1",
+        "position" : "2 4 -1",
         "rotation" : "0 0 0",
         "taille" : "10",
         "texte" : "Formaldehyde: 10%",
