@@ -1,13 +1,9 @@
-
 // FICHIER DE CONFIGURATION DU POLLUSCOPE
 
 // Créez vous-même votre instance du polluscope avec vos propres medias et scenarios
 
 // Suivez les indications proposées pour les quatres variables à modifiables afin de 
 // façonner le polluscope selon vos envies
-
-
-
 
 //Ici Ajoutez toutes les vidéos que vous allez utiliser (choisissez l'id de votre choix, indiquez le chemin
 // de destination vers la vidéo
@@ -16,7 +12,7 @@
 var videos = [
     {
       "id" : "principale",
-      "chemin" : "./video/garibaldi.light.mp4",
+      "chemin" : "./video/garibaldiCut1.mp4",
       "boucle" : "true"
     },
     {
@@ -37,7 +33,7 @@ var videos = [
   ]
 
   //Ici configurez la position à laquelle afficher les donnees de pollution 
-  // et indiquez où se trouve votre fichier csv
+  // et indiquez où se trouve votre fichier csv contenant vos données
   var positionAffichageDonnees = [
     {
       "id" : "donnees1",
@@ -53,7 +49,7 @@ var videos = [
       "hauteur" :"90",
     }
   ]
-//Ici ajoutez les images que vous allez utiliser dans votre projet
+//Ici ajoutez les images que vous allez utiliser dans votre projet, pour vos scénarios
   var images = [
     {
       "id" : "principaleImage",
@@ -70,10 +66,11 @@ var videos = [
   ]
   //Ici précisez les données concernant vos scénarios. Pour chaque scénario mettez dans la listePOI les id 
   //des points d'interets qui apparaitront dans votre scénario'
+  //Mettez dans la listeDonnees les id des données textes qui apparaitront dans votre scénario
   var scenarios = [
     {
       "id" : "scenario1",
-      //choisissez si voter scenario commence par une video ou une image
+      //choisissez si votre scenario commence par une video ou une image
       // type : image ou type : video
       "type" : "video",
       //question d'ouverture au lancement du scénario'
@@ -92,7 +89,7 @@ var videos = [
         // {"id" : "pointInteretScn2"},
         // {"id" : "pointInteretScn3"}
       ],
-      //liste des données à afficher dasn votre scénario
+      //liste des données à afficher dans votre scénario
       "listeDonnees": [
         {"id" : "data1"},
         {"id" : "data2"},
@@ -129,7 +126,7 @@ var videos = [
       "idScenarioALancer" :"scenario1"
     }
   ]
-  //Ici les points d'intérêts des scénarios 
+  //Ici configurez les points d'intérêts des scénarios 
   //les id doivent correspondre à ceux de la listePOI de la variable scenarios
   var scenariosPOI = [
     {
@@ -151,7 +148,7 @@ var videos = [
   var scenariosDonnees = [
       {
         "id" : "data1",
-        "position" : "2 4 -1",
+        "position" : "2 3.8 -1",
         "rotation" : "0 0 0",
         "taille" : "10",
         "texte" : "Formaldehyde: 10%",
@@ -159,7 +156,7 @@ var videos = [
       },
       {
         "id" : "data2",
-        "position" : "-0.8 4 12",
+        "position" : "-0.8 3.7 12",
         "rotation" : "0 -180 0",
         "taille" : "10",
         "texte" : "Monoxyde de carbone: 25%",
