@@ -43,7 +43,13 @@
         </script>
 
       </a-assets>
-
+      <!--La pollution (les particules)  -->
+      <a-entity
+        id="pollution"
+        pollution="count:10000;multiplier:0.1;speed:0.05"
+        >
+      </a-entity>
+      
 
       <!--Ici le point d'interet vers les données et le petit champ :) '-->
       <a-entity id="pointInteretData">
@@ -79,7 +85,7 @@
       </a-text>
         </a-plane>-->
       </a-entity>
-
+      
       <!--génération des points d'interet de la scene principale'-->
       <a-entity id="iciPrincipauxPOI"></a-entity>
       <!--génération des points d'interet des scenarios'-->
@@ -220,12 +226,7 @@
         
 
 
-      <!--La pollution (les particules)  -->
-      <a-entity
-        id="pollution"
-        pollution="count:10000;multiplier:0.1;speed:0.05"
-        >
-      </a-entity>
+      
       <!--Les videospheres-->
       <script>
             var transformVideoSpheres = [
@@ -355,22 +356,19 @@
                     if(compare < 4){
                       compare = 4;
                     }
-                    
                   }else if((datapol["data"][d]["Polluant"] == "Dioxyde d'azote" && datapol["data"][d][getDateNow()] > 160) || (datapol["data"][d]["Polluant"] == "Ozone" && datapol["data"][d][getDateNow()] > 144) || (datapol["data"][d]["Polluant"] == "Particules PM10" && datapol["data"][d][getDateNow()] > 64) || (datapol["data"][d]["Polluant"] == "Particules PM2,5" && datapol["data"][d][getDateNow()] > 48)){
                     if(compare < 3){
                       compare = 3;
                     }
-                    
                   }else if((datapol["data"][d]["Polluant"] == "Dioxyde d'azote" && datapol["data"][d][getDateNow()] > 80) || (datapol["data"][d]["Polluant"] == "Ozone" && datapol["data"][d][getDateNow()] > 72) || (datapol["data"][d]["Polluant"] == "Particules PM10" && datapol["data"][d][getDateNow()] > 32) || (datapol["data"][d]["Polluant"] == "Particules PM2,5" && datapol["data"][d][getDateNow()] > 24)){
                     if(compare < 2){
                       compare = 2;
                     }
-                    
                   }else if((datapol["data"][d]["Polluant"] == "Dioxyde d'azote" && datapol["data"][d][getDateNow()] <= 80) || (datapol["data"][d]["Polluant"] == "Ozone" && datapol["data"][d][getDateNow()] <= 72) || (datapol["data"][d]["Polluant"] == "Particules PM10" && datapol["data"][d][getDateNow()] <= 32) || (datapol["data"][d]["Polluant"] == "Particules PM2,5" && datapol["data"][d][getDateNow()] <= 24)){
+                    // console.log("44444444444444")
                     if(compare < 1){
                       compare = 1;
                     }
-                    
                   } 
                   if(compare == 1){
                     document.getElementById("indicePollution").setAttribute('value', "Bon")
@@ -644,7 +642,7 @@
             showDataPollution();
             
         },"position":"${positionPOI}","width":"${largeur}","height":"${hauteur}","rotation":"${rotation}","transparent":"true","opacity":"0","html":[
-          {"<>":"a-image","id":"pointInteretDataimage","position":"-0.05 -0.05 -0.05","src":"#viseurAssetData","width":"2.5","height":"2.5","html":""}
+          {"<>":"a-image","id":"pointInteretDataimage","position":"-0.05 -0.05 -0.05","src":"#viseurAssetData","width":"12.5","height":"12.5","html":""}
         ]}
       ]}
     ];
@@ -663,7 +661,7 @@
             hideDataPollution();
             
         },"position":"${positionPOI}","width":"${largeur}","height":"${hauteur}","rotation":"${rotation}","transparent":"true","opacity":"0","html":[
-            {"<>":"a-image","id":"pointInteretDataimageBack","position":"-0.05 -0.05 -0.05","src":"#viseurAsset","width":"2.5","height":"2.5","html":""},
+            {"<>":"a-image","id":"pointInteretDataimageBack","position":"-0.05 -0.05 -0.05","src":"#viseurAsset","width":"12.5","height":"12.5","html":""},
             {"<>":"a-text","color":"#000099","align":"center","baseline":"top","width":"13","position":"-0.3 -1.4 1","font":"aileronsemibold","value":"OK","html":""}
           ]}
      ]}

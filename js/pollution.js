@@ -88,7 +88,7 @@ AFRAME.registerComponent('pollution', {
           value: [ new THREE.Color(0xFF0000), new THREE.Color(0xFF0000) ]
       },
       size: {
-          value: 0.5
+          value: 1.5
       },
       activeMultiplier: this.data.multiplier,
       particleCount: this.data.count
