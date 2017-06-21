@@ -38,7 +38,7 @@ var videos = [
     {
       "id" : "donnees1",
       //chemin vers votre fichier csv contenant vos données de pollution
-      "chemin" : "./donneeLyon.csv",
+      "chemin" : "./donneeLyonCentre.csv",
       //position de POI pour afficher les données
       "positionPOI" : "4.5 2.5 -6.7",
       //Position du bloc de texte contenant les données

@@ -349,24 +349,46 @@
               // }
               // somme = somme/nbvaleurs;
               somme2 = (somme2/nbvaleurs);
+              var compare = 0;
               for(d = 0; d < nbvaleurs; d++){
                 if((datapol["data"][d]["Polluant"] == "Dioxyde d'azote" && datapol["data"][d][getDateNow()] > 400) || (datapol["data"][d]["Polluant"] == "Ozone" && datapol["data"][d][getDateNow()] > 240) || (datapol["data"][d]["Polluant"] == "Particules PM10" && datapol["data"][d][getDateNow()] > 125) || (datapol["data"][d]["Polluant"] == "Particules PM2,5" && datapol["data"][d][getDateNow()] > 90)){
-                    document.getElementById("indicePollution").setAttribute('value', "Mauvais")
-                    document.getElementById("indicePollution").setAttribute('color', "#990000")
-                    setPollution((somme2/100))
+                    if(compare < 4){
+                      compare = 4;
+                    }
+                    
                   }else if((datapol["data"][d]["Polluant"] == "Dioxyde d'azote" && datapol["data"][d][getDateNow()] > 160) || (datapol["data"][d]["Polluant"] == "Ozone" && datapol["data"][d][getDateNow()] > 144) || (datapol["data"][d]["Polluant"] == "Particules PM10" && datapol["data"][d][getDateNow()] > 64) || (datapol["data"][d]["Polluant"] == "Particules PM2,5" && datapol["data"][d][getDateNow()] > 48)){
-                    document.getElementById("indicePollution").setAttribute('value', "Moyen")
-                    document.getElementById("indicePollution").setAttribute('color', "yellow")
-                    setPollution((somme2/500))
+                    if(compare < 3){
+                      compare = 3;
+                    }
+                    
                   }else if((datapol["data"][d]["Polluant"] == "Dioxyde d'azote" && datapol["data"][d][getDateNow()] > 80) || (datapol["data"][d]["Polluant"] == "Ozone" && datapol["data"][d][getDateNow()] > 72) || (datapol["data"][d]["Polluant"] == "Particules PM10" && datapol["data"][d][getDateNow()] > 32) || (datapol["data"][d]["Polluant"] == "Particules PM2,5" && datapol["data"][d][getDateNow()] > 24)){
-                    document.getElementById("indicePollution").setAttribute('value', "Mediocre")
-                    document.getElementById("indicePollution").setAttribute('color', "#ff9933")
-                    setPollution((somme2/400))
+                    if(compare < 2){
+                      compare = 2;
+                    }
+                    
                   }else if((datapol["data"][d]["Polluant"] == "Dioxyde d'azote" && datapol["data"][d][getDateNow()] <= 80) || (datapol["data"][d]["Polluant"] == "Ozone" && datapol["data"][d][getDateNow()] <= 72) || (datapol["data"][d]["Polluant"] == "Particules PM10" && datapol["data"][d][getDateNow()] <= 32) || (datapol["data"][d]["Polluant"] == "Particules PM2,5" && datapol["data"][d][getDateNow()] <= 24)){
+                    if(compare < 1){
+                      compare = 1;
+                    }
+                    
+                  } 
+                  if(compare == 1){
                     document.getElementById("indicePollution").setAttribute('value', "Bon")
                     document.getElementById("indicePollution").setAttribute('color', "#66ff33")
                     setPollution((somme2/1000))
-                  } 
+                  }else if(compare == 2){
+                    document.getElementById("indicePollution").setAttribute('value', "Moyen")
+                    document.getElementById("indicePollution").setAttribute('color', "yellow")
+                    setPollution((somme2/500))
+                  }else if(compare == 3){
+                    document.getElementById("indicePollution").setAttribute('value', "Mediocre")
+                    document.getElementById("indicePollution").setAttribute('color', "#ff9933")
+                    setPollution((somme2/400))
+                  }else if(compare == 4){
+                    document.getElementById("indicePollution").setAttribute('value', "Mauvais")
+                    document.getElementById("indicePollution").setAttribute('color', "#990000")
+                    setPollution((somme2/100))
+                  }
               }
               // if(somme2 <= 52){
               //   document.getElementById("indicePollution").setAttribute('value', "Bon")
