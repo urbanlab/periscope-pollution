@@ -37,14 +37,14 @@ var videos = [
   var positionAffichageDonnees = [
     {
       "id" : "donnees1",
-      //chemin vers votre fichier csv contenant vos données de pollution
-      "chemin" : "./donneeLyonCentre.csv",
+      //entrez le code INSEE de l'arrondissement dont vous voulez afficher les données'
+      "quartier" : "69383",
       //position de POI pour afficher les données
       "positionPOI" : "25 2.5 -44.666666666666",
       //Position du bloc de texte contenant les données
-      "positionDonneesX" : "0",
+      "positionDonneesX" : "-2",
       "positionDonneesZ" : "-1",
-      "rotation" :"0 0 0",
+      "rotation" :"0 10 0",
       "largeur" :"7.5",
       "hauteur" :"90",
     }
