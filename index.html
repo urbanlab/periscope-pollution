@@ -31,7 +31,7 @@
         <img id="start" crossorigin="anonymous" src="./img/play2.png" >
         <img id="viseurAsset" crossorigin="anonymous" src="./img/viseur.png">
         <img id="viseurAssetData" crossorigin="anonymous" src="./img/viseurData.png">
-        <img id="dataAsset" crossorigin="anonymous" src="./img/logoATMO.jpg">
+        <img id="dataAsset" crossorigin="anonymous" src="./img/logoatmo.png">
         <!--script pour récupérer l'ensemble des vidéos qui vont servir au projet'-->
         <script>
           var transformVideos = [
@@ -68,12 +68,12 @@
             var posX = positionAffichageDonnees[0]["positionDonneesX"];
             var posZ = positionAffichageDonnees[0]["positionDonneesZ"];
             var newposTitre = (Number(posX) - 2.2) + " 3.95 " + posZ;
-            var newposTitre1 = (Number(posX) + 0.1) + " 3.95 " + posZ;
+            var newposTitre1 = (Number(posX) - 0.3) + " 3.95 " + posZ;
             var newposTitre2 = (Number(posX) - 0.5) + " 3.9 " + posZ;
             var newposTitre3 = (Number(posX) - 2) + " 3.9 " + posZ;
-            var newposTitre4 = (Number(posX) + 0.6) + " 2.89 " + posZ;
-            var newposTitre5 = (Number(posX) - 1.3) + " 2.89 " + posZ;
-            var newposTitre6 = (Number(posX) - 2.2) + " 2 " + (Number(posZ) - 10);
+            var newposTitre4 = (Number(posX) + 0.6) + " 2.79 " + posZ;
+            var newposTitre5 = (Number(posX) - 1.6) + " 2.79 " + posZ;
+            var newposTitre6 = (Number(posX) - 2.2) + " 4 " + (Number(posZ) - 10);
             var newposTitre7 = (Number(posX) - 0.7) + " 3.9 " + posZ;
             
 
@@ -115,18 +115,18 @@
               indicepollenfull = datatompollen.indice +" - Tres Mauvais";
             }
             var transformTitre = [
-              {"<>":"a-text","color":"red","align":"center","baseline":"top","width":"6","position":newposTitre2,"rotataion":"${rotation}","font":"aileronsemibold","value":datatom.indices.date + " - " + datatom.commune,"html":""},
-              {"<>":"a-text","color":"red","align":"center","baseline":"top","width":"6","position":newposTitre4,"rotataion":"${rotation}","font":"aileronsemibold","value":datatompollen.date_fin,"html":""},
-              {"<>":"a-text","color":"red","align":"center","baseline":"top","width":"6","position":newposTitre5,"rotataion":"${rotation}","font":"aileronsemibold","value":datatompollen.date_debut,"html":""},
-              {"<>":"a-text","color":"red","align":"center","baseline":"top","width":"6","position":newposTitre7,"rotataion":"${rotation}","font":"aileronsemibold","value":"\n\n\n\nDu:                             Au:                        ","html":""},
-              {"<>":"a-text","color":"#66b3ff","align":"left","baseline":"top","width":"4","position":newposTitre,"rotataion":"${rotation}","font":"dejavu","value":"\n\nIndice de pollution : \n\nNiveau de pollution :\n\n\nIndice taux de pollen : \n\nTypes de pollen : ","html":""},
-              {"<>":"a-text","color":datatom.indices.couleur_html,"align":"left","baseline":"top","width":"4","position":newposTitre1,"rotataion":"${rotation}","font":"dejavu","value":"\n\n"+indicePol,"html":""},
-              {"<>":"a-text","color":datatom.indices.couleur_html,"align":"left","baseline":"top","width":"4","position":newposTitre1,"rotataion":"${rotation}","font":"dejavu","value":"\n\n\n\n"+datatom.indices.valeur.substring(0,5)+" microgramme/m3","html":""},
-              {"<>":"a-text","color":couleurpollen,"align":"left","baseline":"top","width":"4","position":newposTitre1,"rotataion":"${rotation}","font":"dejavu","value":"\n\n\n\n\n\n\n"+indicepollenfull,"html":""},
-              {"<>":"a-text","color":couleurpollen,"align":"left","baseline":"top","width":"4","position":newposTitre1,"rotataion":"${rotation}","font":"dejavu","value":"\n\n\n\n\n\n\n\n\n"+listepollen,"html":""},
-              {"<>":"a-text","color":"#cc5200","align":"left","baseline":"top","width":"4","position":newposTitre3,"rotataion":"${rotation}","font":"dejavu","value":"\n\n\n\n\n\n\n\n\n\n\n\n"+removeDiacritics(datatompollen.commentaire),"html":""},
-              {"<>":"a-plane","id":"toread","visible":"true","position":newposTitre6,"width":"20","height":"10","rotation":"${rotation}","transparent":"false","opacity":"0","html":[
-                  {"<>":"a-image","id":"imageDonnees","opacity":"0.25","position":"-2.5 -2 -5","src":"#dataAsset","width":"25.5","height":"19.5","rotation":"0 -10 0","trasnparent":"false","html":""}
+              {"<>":"a-text","color":"red","align":"center","baseline":"top","width":"6","position":newposTitre2,"rotataion":"${rotation}","font-family":"Lucida Sans Unicode","value":datatom.indices.date + " - " + datatom.commune,"html":""},
+              {"<>":"a-text","color":"red","align":"center","baseline":"top","width":"6","position":newposTitre4,"rotataion":"${rotation}","font-family":"Lucida Sans Unicode","value":datatompollen.date_fin,"html":""},
+              {"<>":"a-text","color":"red","align":"center","baseline":"top","width":"6","position":newposTitre5,"rotataion":"${rotation}","font-family":"Lucida Sans Unicode","value":datatompollen.date_debut,"html":""},
+              {"<>":"a-text","color":"red","align":"center","baseline":"top","width":"6","position":newposTitre7,"rotataion":"${rotation}","font-family":"Lucida Sans Unicode","value":"\n\n\n\nDu:                             Au:                        ","html":""},
+              {"<>":"a-text","color":"black","align":"left","baseline":"top","width":"4","position":newposTitre,"rotataion":"${rotation}","font-family":"Lucida Sans Unicode","value":"\n\nIndice de pollution : \n\nNiveau de pollution :\n\n\n\nIndice taux de pollen : \n\nTypes de pollen : ","html":""},
+              {"<>":"a-text","color":datatom.indices.couleur_html,"align":"left","baseline":"top","width":"4","position":newposTitre1,"rotataion":"${rotation}","font-family":"Lucida Sans Unicode","value":"\n\n"+indicePol,"html":""},
+              {"<>":"a-text","color":datatom.indices.couleur_html,"align":"left","baseline":"top","width":"4","position":newposTitre1,"rotataion":"${rotation}","font-family":"Lucida Sans Unicode","value":"\n\n\n\n"+datatom.indices.valeur.substring(0,5)+" microgramme/m3","html":""},
+              {"<>":"a-text","color":couleurpollen,"align":"left","baseline":"top","width":"4","position":newposTitre1,"rotataion":"${rotation}","font-family":"Lucida Sans Unicode","value":"\n\n\n\n\n\n\n\n"+indicepollenfull,"html":""},
+              {"<>":"a-text","color":couleurpollen,"align":"left","baseline":"top","width":"4","position":newposTitre1,"rotataion":"${rotation}","font-family":"Lucida Sans Unicode","value":"\n\n\n\n\n\n\n\n\n\n"+listepollen,"html":""},
+              {"<>":"a-text","color":"black","align":"left","baseline":"top","width":"4","position":newposTitre,"rotataion":"${rotation}","font-family":"Lucida Sans Unicode","value":"\n\n\n\n\n\n\n\n\n\n\n\n"+removeDiacritics(datatompollen.commentaire),"html":""},
+              {"<>":"a-plane","id":"toread","visible":"true","position":newposTitre6,"width":"19","height":"11","rotation":"${rotation}","transparent":"false","opacity":"1","html":[
+                  {"<>":"a-image","id":"imageDonnees","opacity":"1","position":"-2.5 -2.9 -5","src":"#dataAsset","width":"27.5","height":"23.5","rotation":"0 -10 0","trasnparent":"true","html":""}
                 ]},
             ];
             var html = json2html.transform(positionAffichageDonnees, transformTitre);
@@ -159,14 +159,14 @@
         <a-plane>
           <script>
             var transformQuestions = [
-              {"<>":"a-text","value":"${question}","position":"0 0 -8","align":"center","width":"7","height":"10","color":"white","font-family":"Lucida Sans Unicode","shader:":"","flat;":"","id":"${id}"+"Question","visible":"false","html":""}
+              {"<>":"a-text","value":"${question}","position":"0 0 -8","align":"center","width":"6","height":"10","color":"white","font-family":"Lucida Sans Unicode","shader:":"","flat;":"","id":"${id}"+"Question","visible":"false","html":""}
             ];
             var html = json2html.transform(scenarios, transformQuestions);
             document.write(removeDiacritics(html));
           </script>
           <script>
             var transformReponses = [
-              {"<>":"a-text","value":"${reponse}","position":"0 0 -8","align":"center","width":"7","height":"10","color":"white","font-family":"Lucida Sans Unicode","shader:":"","flat;":"","id":"${id}"+"Reponse","visible":"false","html":""}
+              {"<>":"a-text","value":"${reponse}","position":"0 0 -8","align":"center","width":"6","height":"10","color":"white","font-family":"Lucida Sans Unicode","shader:":"","flat;":"","id":"${id}"+"Reponse","visible":"false","html":""}
             ];
             var html = json2html.transform(scenariosPOI, transformReponses);
             document.write(removeDiacritics(html));

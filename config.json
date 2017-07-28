@@ -61,7 +61,7 @@ var videos = [
     },
     {
       "id" : "img2",
-      "chemin" :"./img/image2.jpg"
+      "chemin" :"./img/gdangle.jpg"
     }
   ]
   //Ici précisez les données concernant vos scénarios. Pour chaque scénario mettez dans la listePOI les id 
