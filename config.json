@@ -12,7 +12,7 @@
 var videos = [
     {
       "id" : "principale",
-      "chemin" : "./video/garibaldiCut1.mp4",
+      "chemin" : "./video/principaleDefinitif.mp4",
       "boucle" : "true"
     },
     {
@@ -22,12 +22,44 @@ var videos = [
     },
     {
       "id" : "video1",
-      "chemin" : "./video/room-before-action.mp4",
+      "chemin" : "./video/rueIsolee.mp4",
       "boucle" : "false"
     },
     {
       "id" : "video2",
-      "chemin" : "./video/room-after-action.mp4",
+      "chemin" : "./video/fondNoirCourt.mp4",
+      "boucle" : "false"
+    }
+    ,
+    {
+      "id" : "video3",
+      "chemin" : "./video/mairie.mp4",
+      "boucle" : "false"
+    },
+    {
+      "id" : "video4",
+      "chemin" : "./video/bluely1.mp4",
+      "boucle" : "false"
+    }
+    ,
+    {
+      "id" : "video5",
+      "chemin" : "./video/bluely2.mp4",
+      "boucle" : "false"
+    },
+    {
+      "id" : "video6",
+      "chemin" : "./video/bosquet.mp4",
+      "boucle" : "false"
+    },
+    {
+      "id" : "video7",
+      "chemin" : "./video/tramArrive.mp4",
+      "boucle" : "false"
+    },
+    {
+      "id" : "video8",
+      "chemin" : "./video/tramPart.mp4",
       "boucle" : "false"
     }
   ]
@@ -40,11 +72,12 @@ var videos = [
       //entrez le code INSEE de l'arrondissement dont vous voulez afficher les données'
       "quartier" : "69383",
       //position de POI pour afficher les données
-      "positionPOI" : "25 2.5 -44.666666666666",
+      "positionPOI" : "48 5 -40",
+      "rotation" :"0 -40 1",
       //Position du bloc de texte contenant les données
       "positionDonneesX" : "-2",
       "positionDonneesZ" : "-1",
-      "rotation" :"0 10 0",
+      "rotationDonnees" : "0 10 0",
       "largeur" :"7.5",
       "hauteur" :"90",
     }
@@ -74,7 +107,7 @@ var videos = [
       // type : image ou type : video
       "type" : "video",
       //question d'ouverture au lancement du scénario'
-      "question" : "Suis-je à l'abri a l'interieur de mon logement? ",
+      "question" : "Y a-t-il des rues moins exposées à la pollution en ville? ",
       //temps d'affichage de la question en millisecondes'
       "tempsAffichageQuestion" : "4000",
       //vidéo lancée au début du scénario (si scenario de type video)
@@ -82,7 +115,7 @@ var videos = [
       //image lancée au moment de l'immersion' (si scenario de type image)
       "imageImmersion" : "img2",
       //taux de pollution pour votre scénario (fixé inférieur à 3.0)
-      "tauxPollution" : "0.5",
+      "tauxPollution" : "0.03",
       //liste des points d'interet de votre scénario'
       "listePOI": [
         {"id" : "pointInteretScn1"}
@@ -90,20 +123,165 @@ var videos = [
         // {"id" : "pointInteretScn3"}
       ],
       //liste des données à afficher dans votre scénario
-      "listeDonnees": [
-        {"id" : "data1"},
-        {"id" : "data2"},
-        {"id" : "data3"},
-        {"id" : "data4"}
-      ]
+      // "listeDonnees": [
+      //   {"id" : "data1"},
+      //   {"id" : "data2"},
+      //   {"id" : "data3"},
+      //   {"id" : "data4"}
+      // ]
+    },
+    {
+      "id" : "scenario2",
+      //choisissez si votre scenario commence par une video ou une image
+      // type : image ou type : video
+      "type" : "video",
+      //question d'ouverture au lancement du scénario'
+      "question" : "La pollution de l'air a-t-elle un coût? ",
+      //temps d'affichage de la question en millisecondes'
+      "tempsAffichageQuestion" : "2000",
+      //vidéo lancée au début du scénario (si scenario de type video)
+      "videoImmersion" : "video3",
+      //image lancée au moment de l'immersion' (si scenario de type image)
+      "imageImmersion" : "img2",
+      //taux de pollution pour votre scénario (fixé inférieur à 3.0)
+      "tauxPollution" : "0.03",
+      //liste des points d'interet de votre scénario'
+      "listePOI": [
+        {"id" : "pointInteretScn2"}
+        // {"id" : "pointInteretScn2"},
+        // {"id" : "pointInteretScn3"}
+      ],
+      //liste des données à afficher dans votre scénario
+      // "listeDonnees": [
+      //   {"id" : "data1"},
+      //   {"id" : "data2"},
+      //   {"id" : "data3"},
+      //   {"id" : "data4"}
+      // ]
+    },
+    {
+      "id" : "scenario3",
+      //choisissez si votre scenario commence par une video ou une image
+      // type : image ou type : video
+      "type" : "video",
+      //question d'ouverture au lancement du scénario'
+      "question" : "Test scenario 3 ",
+      //temps d'affichage de la question en millisecondes'
+      "tempsAffichageQuestion" : "1000",
+      //vidéo lancée au début du scénario (si scenario de type video)
+      "videoImmersion" : "video1",
+      //image lancée au moment de l'immersion' (si scenario de type image)
+      "imageImmersion" : "img2",
+      //taux de pollution pour votre scénario (fixé inférieur à 3.0)
+      "tauxPollution" : "0.01",
+      //liste des points d'interet de votre scénario'
+      "listePOI": [
+        {"id" : "pointInteretScn3"}
+        // {"id" : "pointInteretScn2"},
+        // {"id" : "pointInteretScn3"}
+      ],
+      //liste des données à afficher dans votre scénario
+      // "listeDonnees": [
+      //   {"id" : "data1"},
+      //   {"id" : "data2"},
+      //   {"id" : "data3"},
+      //   {"id" : "data4"}
+      // ]
+    },
+    {
+      "id" : "scenario4",
+      //choisissez si votre scenario commence par une video ou une image
+      // type : image ou type : video
+      "type" : "video",
+      //question d'ouverture au lancement du scénario'
+      "question" : "La voiture est-elle une source majeure de pollution en ville ? ",
+      //temps d'affichage de la question en millisecondes'
+      "tempsAffichageQuestion" : "2500",
+      //vidéo lancée au début du scénario (si scenario de type video)
+      "videoImmersion" : "video4",
+      //image lancée au moment de l'immersion' (si scenario de type image)
+      "imageImmersion" : "img2",
+      //taux de pollution pour votre scénario (fixé inférieur à 3.0)
+      "tauxPollution" : "0.1",
+      //liste des points d'interet de votre scénario'
+      "listePOI": [
+        {"id" : "pointInteretScn4"}
+        // {"id" : "pointInteretScn2"},
+        // {"id" : "pointInteretScn3"}
+      ],
+      //liste des données à afficher dans votre scénario
+      // "listeDonnees": [
+      //   {"id" : "data1"},
+      //   {"id" : "data2"},
+      //   {"id" : "data3"},
+      //   {"id" : "data4"}
+      // ]
+    },
+    {
+      "id" : "scenario5",
+      //choisissez si votre scenario commence par une video ou une image
+      // type : image ou type : video
+      "type" : "video",
+      //question d'ouverture au lancement du scénario'
+      "question" : "Les pollens sont-ils aussi une source de pollution ? ",
+      //temps d'affichage de la question en millisecondes'
+      "tempsAffichageQuestion" : "2500",
+      //vidéo lancée au début du scénario (si scenario de type video)
+      "videoImmersion" : "video6",
+      //image lancée au moment de l'immersion' (si scenario de type image)
+      "imageImmersion" : "img2",
+      //taux de pollution pour votre scénario (fixé inférieur à 3.0)
+      "tauxPollution" : "0.3",
+      //liste des points d'interet de votre scénario'
+      "listePOI": [
+        {"id" : "pointInteretScn5"}
+        // {"id" : "pointInteretScn2"},
+        // {"id" : "pointInteretScn3"}
+      ],
+      //liste des données à afficher dans votre scénario
+      // "listeDonnees": [
+      //   {"id" : "data1"},
+      //   {"id" : "data2"},
+      //   {"id" : "data3"},
+      //   {"id" : "data4"}
+      // ]
+    },
+    {
+      "id" : "scenario6",
+      //choisissez si votre scenario commence par une video ou une image
+      // type : image ou type : video
+      "type" : "video",
+      //question d'ouverture au lancement du scénario'
+      "question" : "Les transports en commun sont-ils une solution pour améliorer la qualité de l'air en ville ? ",
+      //temps d'affichage de la question en millisecondes'
+      "tempsAffichageQuestion" : "3000",
+      //vidéo lancée au début du scénario (si scenario de type video)
+      "videoImmersion" : "video7",
+      //image lancée au moment de l'immersion' (si scenario de type image)
+      "imageImmersion" : "img2",
+      //taux de pollution pour votre scénario (fixé inférieur à 3.0)
+      "tauxPollution" : "0.1",
+      //liste des points d'interet de votre scénario'
+      "listePOI": [
+        {"id" : "pointInteretScn6"},
+        {"id" : "pointInteretScn7"}
+        // {"id" : "pointInteretScn3"}
+      ],
+      //liste des données à afficher dans votre scénario
+      // "listeDonnees": [
+      //   {"id" : "data1"},
+      //   {"id" : "data2"},
+      //   {"id" : "data3"},
+      //   {"id" : "data4"}
+      // ]
     }
   ]
   // Ici indiquez quels sont les points d'intérêt de la scène principale, et le scénario que chacun va lancer'
   var principauxPOI = [
     {
       "id" : "pointInteretPrincipal1",
-      "position" : "-13 6 -5.7",
-      "rotation" :"0 50 0",
+      "position" : "-4 2.5 -10.7",
+      "rotation" :"0 -10 0",
       "largeur" :"1.5",
       "hauteur" :"60",
       //id du scénario que vous voulez lancer depuis ce point d'interet'
@@ -111,19 +289,43 @@ var videos = [
     },
     {
       "id" : "pointInteretPrincipal2",
-      "position" : "-12 1.5 10",
-      "rotation" :"0 130 0",
+      "position" : "-6 5 -7.7",
+      "rotation" :"0 50 0",
       "largeur" :"1.5",
       "hauteur" :"90",
-      "idScenarioALancer" :"scenario1"
+      "idScenarioALancer" :"scenario2"
     },
     {
       "id" : "pointInteretPrincipal3",
-      "position" : "0 7 17",
-      "rotation" :"0 170 0",
+      "position" : "-6 0.1 15",
+      "rotation" :"20 150 0",
       "largeur" :"1.5",
       "hauteur" :"90",
-      "idScenarioALancer" :"scenario1"
+      "idScenarioALancer" :"scenario3"
+    },
+    {
+      "id" : "pointInteretPrincipal4",
+      "position" : "15 2.5 8",
+      "rotation" :"0 60 0",
+      "largeur" :"1.5",
+      "hauteur" :"90",
+      "idScenarioALancer" :"scenario4"
+    },
+    {
+      "id" : "pointInteretPrincipal5",
+      "position" : "5 4.1 15",
+      "rotation" :"0 10 0",
+      "largeur" :"1.5",
+      "hauteur" :"90",
+      "idScenarioALancer" :"scenario5"
+    },
+    {
+      "id" : "pointInteretPrincipal6",
+      "position" : "12 3 3",
+      "rotation" :"0 100 0",
+      "largeur" :"1.5",
+      "hauteur" :"90",
+      "idScenarioALancer" :"scenario6"
     }
   ]
   //Ici configurez les points d'intérêts des scénarios 
@@ -131,16 +333,94 @@ var videos = [
   var scenariosPOI = [
     {
       "id" : "pointInteretScn1",
-      "position" : "10 3 3.9",
+      "position" : "-15 1.8 1.8",
       "rotation" :"0 -90 0",
       "largeur" :"1.5",
       "hauteur" :"90",
       //choisissez la vidéo à lancer au click sur le point d'interet (suite du scenario)'
       "idVideoALancer" :"video2",
       //temps d'affichage de la réponse en millisecondes'
-      "tempsAffichageReponse" : "7000",
+      "tempsAffichageReponse" : "9000",
       //indiquez la réponse qui apparaitra en fin de scénario
-      "reponse" :"Notre habitat regorge de differentes sources de pollution: materiaux, activite humaine...Pensez a aerer votre logement en moyenne 15 minutes le matin ou en soiree"
+      "reponse" :"La pollution du traffic routier se concentre dans les 300m autour de l'axe routier. S'éloigner des axes principaux au traffic dense ou encaissés et privilégier des rues peu passantes permet donc d'améliorer son exposition."
+    },
+    {
+      "id" : "pointInteretScn2",
+      "position" : "13 4.5 3.9",
+      "rotation" :"0 -90 0",
+      "largeur" :"1.5",
+      "hauteur" :"90",
+      //choisissez la vidéo à lancer au click sur le point d'interet (suite du scenario)'
+      "idVideoALancer" :"video2",
+      //temps d'affichage de la réponse en millisecondes'
+      "tempsAffichageReponse" : "12000",
+      //indiquez la réponse qui apparaitra en fin de scénario
+      "reponse" :"Les couts sanitaires et socio-économiques de la pollution de l'air sont considérables, ils sont évalués en France à environ 1400€ par an et par habitant. Il s'agit des couts de santé, de l'impact sur les rendements agricoles et la biodiversité, l'érosion des batiments et la dégradation du patrimoine bâti."
+    },
+    {
+      "id" : "pointInteretScn3",
+      "position" : "-15 1.8 1.8",
+      "rotation" :"0 -90 0",
+      "largeur" :"1.5",
+      "hauteur" :"90",
+      //choisissez la vidéo à lancer au click sur le point d'interet (suite du scenario)'
+      "idVideoALancer" :"video2",
+      //temps d'affichage de la réponse en millisecondes'
+      "tempsAffichageReponse" : "1000",
+      //indiquez la réponse qui apparaitra en fin de scénario
+      "reponse" :"Fin test scenario 3"
+    },
+    {
+      "id" : "pointInteretScn4",
+      "position" : "-10 0 -1.4",
+      "rotation" :"50 -130 -4",
+      "largeur" :"1.5",
+      "hauteur" :"90",
+      //choisissez la vidéo à lancer au click sur le point d'interet (suite du scenario)'
+      "idVideoALancer" :"video5",
+      //temps d'affichage de la réponse en millisecondes'
+      "tempsAffichageReponse" : "13000",
+      //indiquez la réponse qui apparaitra en fin de scénario
+      "reponse" :"Dans le Grand Lyon 60% des émissions d'oxydes d'azote et 33% des particules PM10 proviennent du trafic routier.  Agir principalement sur les transports routier permet donc d'améliorer la qualité de l'air en ville. Par exemple, en co-voiturant pour aller au travail, vous réduisez de 15% votre impact sur la pollution. "
+    },
+    {
+      "id" : "pointInteretScn5",
+      "position" : "7 5 -1.4",
+      "rotation" :"0 -50 0",
+      "largeur" :"1.5",
+      "hauteur" :"90",
+      //choisissez la vidéo à lancer au click sur le point d'interet (suite du scenario)'
+      "idVideoALancer" :"video2",
+      //temps d'affichage de la réponse en millisecondes'
+      "tempsAffichageReponse" : "12500",
+      //indiquez la réponse qui apparaitra en fin de scénario
+      "reponse" :"La flore peut également être une source de pollution biologique de l'air. Les pollens de graminées ou d'arbres tels que le bouleau sont à l'origine d'allergies importantes. De plus, les polluants de l'air aggravent les réactions allergiques en dégradant les grains de pollens. "
+    },
+    {
+      "id" : "pointInteretScn6",
+      "position" : "8 2.5 7",
+      "rotation" :"0 -50 0",
+      "largeur" :"1.5",
+      "hauteur" :"90",
+      //choisissez la vidéo à lancer au click sur le point d'interet (suite du scenario)'
+      "idVideoALancer" :"video8",
+      //temps d'affichage de la réponse en millisecondes'
+      "tempsAffichageReponse" : "13500",
+      //indiquez la réponse qui apparaitra en fin de scénario
+      "reponse" :"Les transports en commun sont une alternative moins polluante que la voiture individuelle en ville. En transportant plus de personnes pour un un même trajet ce mode de transport réduit considérablement les émission de polluants. Par exemple sur un trajet de 20 km en centre-ville, prendre le tramway  plutôt que la voiture réduit d'au moins 1200% votre impact sur la qualité de l'air ! "
+    },
+    {
+      "id" : "pointInteretScn7",
+      "position" : "-4.5 2 14",
+      "rotation" :"0 130 0",
+      "largeur" :"1.5",
+      "hauteur" :"90",
+      //choisissez la vidéo à lancer au click sur le point d'interet (suite du scenario)'
+      "idVideoALancer" :"video2",
+      //temps d'affichage de la réponse en millisecondes'
+      "tempsAffichageReponse" : "13500",
+      //indiquez la réponse qui apparaitra en fin de scénario
+      "reponse" :"Les transports en commun sont une alternative moins polluante que la voiture individuelle en ville. En transportant plus de personnes pour un un même trajet ce mode de transport réduit considérablement les émission de polluants. Par exemple sur un trajet de 20 km en centre-ville, prendre le tramway  plutôt que la voiture réduit d'au moins 1200% votre impact sur la qualité de l'air ! "
     }
   ]
   //Ici se trouvent les données (texte) à afficher dans votre scénario

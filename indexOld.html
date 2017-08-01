@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Periscope - Pollution de l'air - Urban LAB</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="description" content="Periscope - Pollution de l'air - Urban LAB Workshop DSAA Villefontaine">
+    <script src="https://aframe.io/releases/0.5.0/aframe.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aframe-text-component/0.4.2/aframe-text-component.js"></script>
+    <script src="https://rawgit.com/squarefeet/ShaderParticleEngine/master/build/SPE.js"></script>
+    <script src="./js/aframe-animation-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-particle-system-component@1.0.9/dist/aframe-particle-system-component.min.js"></script>
+
+    <script src='./js/pollution.js'></script>
+    <script src='./js/gestionAccents.js'></script>
+    <script type="text/javascript" src='config.json'></script>
+
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    
+    <!-- Json2html -->
+    <script src="./js/json2html.js"></script>
+    <script src="./js/jquery.json2html.js"></script>
+    
+  </head>
+  <body>
+    <a-scene >
+
+      <a-assets>
+        <!--Images du bouton start (cruseur) et du viseur pour les points d'intéret'-->
+        <img id="start" crossorigin="anonymous" src="./img/play2.png" >
+        <img id="viseurAsset" crossorigin="anonymous" src="./img/viseur.png">
+        <img id="viseurAssetData" crossorigin="anonymous" src="./img/viseurData.png">
+        <img id="dataAsset" crossorigin="anonymous" src="./img/logoatmo.png">
+        <!--script pour récupérer l'ensemble des vidéos qui vont servir au projet'-->
+        <script>
+          var transformVideos = [
+            {"<>":"video", "id":"${id}", "html":"", "preload":"auto", "controls":"controls", "src":"${chemin}", "loop": "${boucle}"},
+          ];  
+          var html = json2html.transform(videos, transformVideos);
+          document.write(html);
+        </script>
+
+      </a-assets>
+      <!--La pollution (les particules)  -->
+      <a-entity
+        id="pollution"
+        pollution="count:10000;multiplier:0.1;speed:0.05"
+        >
+      </a-entity>
+      
+
+      <!--Ici le point d'interet vers les données et le petit champ :) '-->
+      <a-entity id="pointInteretData">
+      </a-entity>
+
+      <a-entity id="pointInteretDataBack" visible="false">
+      </a-entity>
+      
+      <!--génération des points d'interet de la scene principale'-->
+      <a-entity id="iciPrincipauxPOI"></a-entity>
+      <!--génération des points d'interet des scenarios'-->
+      <a-entity id="iciScenariosPOI"></a-entity>
+      <!--génération des textes de donnée dans les scnéarios-->
+      <a-entity id="iciTextesScenario"></a-entity>
+      <a-entity id="donneesPollution" visible="false">
+          <script>
+            var posX = positionAffichageDonnees[0]["positionDonneesX"];
+            var posZ = positionAffichageDonnees[0]["positionDonneesZ"];
+            var newposTitre = (Number(posX) - 2.2) + " 3.95 " + posZ;
+            var newposTitre1 = (Number(posX) - 0.3) + " 3.95 " + posZ;
+            var newposTitre2 = (Number(posX) - 0.5) + " 3.9 " + posZ;
+            var newposTitre3 = (Number(posX) - 2) + " 3.9 " + posZ;
+            var newposTitre4 = (Number(posX) + 0.6) + " 2.79 " + posZ;
+            var newposTitre5 = (Number(posX) - 1.6) + " 2.79 " + posZ;
+            var newposTitre6 = (Number(posX) - 2.2) + " 4 " + (Number(posZ) - 10);
+            var newposTitre7 = (Number(posX) - 0.7) + " 3.9 " + posZ;
+            
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", " http://api.atmo-aura.fr/communes/"+positionAffichageDonnees[0]["quartier"]+"/indices?date=now&api_token=08cbc79e8390968b33dd400fd785ad9f", false);
+            xhr.send();
+            var datatom = JSON.parse(xhr.response);
+            var xhr2 = new XMLHttpRequest();
+            xhr2.open("GET", " http://api.atmo-aura.fr/pollens/zones/3997?date=now&api_token=08cbc79e8390968b33dd400fd785ad9f", false);
+            xhr2.send();
+            var datatompollen = JSON.parse(xhr2.response);
+            var listepollen = "";
+            for(m in datatompollen.taxons){
+              listepollen = listepollen + datatompollen.taxons[m].taxon +", ";
+            }
+            listepollen = listepollen.slice(0, -2);
+            listepollen = removeDiacritics(listepollen);
+            var indicePol = (datatom.indices.qualificatif).replace(new RegExp(/[èéêë]/g),"e");
+            //Ecrit le titre
+            var couleurpollen = "";
+            var indicepollenfull = "";
+            if(datatompollen.indice == 0){
+              couleurpollen = "#5CCB60";
+              indicepollenfull = datatompollen.indice +" - Minimum";
+            }else if(datatompollen.indice == 1){
+              couleurpollen = "#5CCB60";
+              indicepollenfull = datatompollen.indice +" - Tres faible";
+            }else if(datatompollen.indice == 2){
+              couleurpollen = "#FFFF00";
+              indicepollenfull = datatompollen.indice +" - Faible";
+            }else if(datatompollen.indice == 3){
+              couleurpollen = "#FFFF00";
+              indicepollenfull = datatompollen.indice +" - Moyen";
+            }else if(datatompollen.indice == 4){
+              couleurpollen ="#FFAA00";
+              indicepollenfull = datatompollen.indice +" - Mauvais";
+            }else if(datatompollen.indice == 5){
+              couleurpollen = "#FF0000";
+              indicepollenfull = datatompollen.indice +" - Tres Mauvais";
+            }
+            var transformTitre = [
+              {"<>":"a-text","color":"red","align":"center","baseline":"top","width":"6","position":newposTitre2,"rotataion":"${rotation}","font-family":"Lucida Sans Unicode","value":datatom.indices.date + " - " + datatom.commune,"html":""},
+              {"<>":"a-text","color":"red","align":"center","baseline":"top","width":"6","position":newposTitre4,"rotataion":"${rotation}","font-family":"Lucida Sans Unicode","value":datatompollen.date_fin,"html":""},
+              {"<>":"a-text","color":"red","align":"center","baseline":"top","width":"6","position":newposTitre5,"rotataion":"${rotation}","font-family":"Lucida Sans Unicode","value":datatompollen.date_debut,"html":""},
+              {"<>":"a-text","color":"red","align":"center","baseline":"top","width":"6","position":newposTitre7,"rotataion":"${rotation}","font-family":"Lucida Sans Unicode","value":"\n\n\n\nDu:                             Au:                        ","html":""},
+              {"<>":"a-text","color":"black","align":"left","baseline":"top","width":"4","position":newposTitre,"rotataion":"${rotation}","font-family":"Lucida Sans Unicode","value":"\n\nIndice de pollution : \n\nNiveau de pollution :\n\n\n\nIndice taux de pollen : \n\nTypes de pollen : ","html":""},
+              {"<>":"a-text","color":datatom.indices.couleur_html,"align":"left","baseline":"top","width":"4","position":newposTitre1,"rotataion":"${rotation}","font-family":"Lucida Sans Unicode","value":"\n\n"+indicePol,"html":""},
+              {"<>":"a-text","color":datatom.indices.couleur_html,"align":"left","baseline":"top","width":"4","position":newposTitre1,"rotataion":"${rotation}","font-family":"Lucida Sans Unicode","value":"\n\n\n\n"+datatom.indices.valeur.substring(0,5)+" microgramme/m3","html":""},
+              {"<>":"a-text","color":couleurpollen,"align":"left","baseline":"top","width":"4","position":newposTitre1,"rotataion":"${rotation}","font-family":"Lucida Sans Unicode","value":"\n\n\n\n\n\n\n\n"+indicepollenfull,"html":""},
+              {"<>":"a-text","color":couleurpollen,"align":"left","baseline":"top","width":"4","position":newposTitre1,"rotataion":"${rotation}","font-family":"Lucida Sans Unicode","value":"\n\n\n\n\n\n\n\n\n\n"+listepollen,"html":""},
+              {"<>":"a-text","color":"black","align":"left","baseline":"top","width":"4","position":newposTitre,"rotataion":"${rotation}","font-family":"Lucida Sans Unicode","value":"\n\n\n\n\n\n\n\n\n\n\n\n"+removeDiacritics(datatompollen.commentaire),"html":""},
+              {"<>":"a-plane","id":"toread","visible":"true","position":newposTitre6,"width":"19","height":"11","rotation":"${rotation}","transparent":"false","opacity":"1","html":[
+                  {"<>":"a-image","id":"imageDonnees","opacity":"1","position":"-2.5 -2.9 -5","src":"#dataAsset","width":"27.5","height":"23.5","rotation":"0 -10 0","trasnparent":"true","html":""}
+                ]},
+            ];
+            var html = json2html.transform(positionAffichageDonnees, transformTitre);
+            document.write(html);
+            setTimeout(function(){
+            }, 3000);
+          </script>
+        </a-entity>
+
+
+      <!-- START button : play videos -->
+      <a-entity position="0 2.2 4" camera look-controls wasd-controls >
+        <a-plane
+           position="0 0 -3"
+           width="1"
+           height="1"
+           color="#FFF"
+           shader: flat;
+           cursor="fuse: true; fuse-timeout: 3000"
+           src="#start"
+           id="playVideos"
+           transparent="true"
+           visible="true"
+          >
+          <a-animation easing="ease-in" attribute="scale" begin="cursor-fusing"
+          fill="backwards" repeat="indefinite" from="1 1 1" to="0 0 0" dur="3000"></a-animation>
+        </a-plane>
+        
+        <!--Futures questions/Reponses des scenarios-->
+        <a-plane>
+          <script>
+            var transformQuestions = [
+              {"<>":"a-text","value":"${question}","position":"0 0 -8","align":"center","width":"6","height":"10","color":"white","font-family":"Lucida Sans Unicode","shader:":"","flat;":"","id":"${id}"+"Question","visible":"false","html":""}
+            ];
+            var html = json2html.transform(scenarios, transformQuestions);
+            document.write(removeDiacritics(html));
+          </script>
+          <script>
+            var transformReponses = [
+              {"<>":"a-text","value":"${reponse}","position":"0 0 -8","align":"center","width":"6","height":"10","color":"white","font-family":"Lucida Sans Unicode","shader:":"","flat;":"","id":"${id}"+"Reponse","visible":"false","html":""}
+            ];
+            var html = json2html.transform(scenariosPOI, transformReponses);
+            document.write(removeDiacritics(html));
+          </script>
+          <!--TODO: que indiquer ici? Où le placer?-->
+          <a-text 
+          value="Indice qualite de l'air:"
+          position="0 -2.0 -8"
+          align="center"
+          width="10"
+          height="10"
+          font-family="Lucida Sans Unicode"
+          color="#FF0000"
+          shader: flat;
+          id="niveauPollution"
+          visible="true"
+          >
+          </a-text>
+          <a-text 
+          position="0 -2.5 -8"
+          align="center"
+          width="10"
+          height="10"
+          font-family="Lucida Sans Unicode"
+          value="Moyen"
+          color="yellow"
+          shader: flat;
+          id="indicePollution"
+          visible="true"
+          >
+          </a-text>
+          
+        </a-entity>
+
+      <!--Les videospheres-->
+      <script>
+            var transformVideoSpheres = [
+              {"<>":"a-videosphere","id":"${id}"+"Video","src":"#${id}","rotation":"0 0 0","autoplay":"false","class":"playable", "visible":"false", "html":""}
+            ];  
+            var html = json2html.transform(videos, transformVideoSpheres);
+            document.write(html);
+            document.getElementById('principaleVideo').setAttribute('visible', true);
+        </script>
+        <!--Les images a-sky-->
+        <script>
+            var transformSky = [
+              {"<>":"a-sky","id":"${id}","src":"${chemin}","visible":"false", "html":""}
+            ];  
+            var html = json2html.transform(images, transformSky);
+            document.write(html);
+        </script>
+
+        <!--<a-sky src="./img/image3.jpg" id="img1"  visible="false"></a-sky>
+        <a-sky src="./img/image2.jpg" id="img2"  visible="false"></a-sky>-->
+        
+
+      <script type="text/javascript">
+      var tauxPollution = 0.1;
+
+        //change la valeur du nombre de particule de pollution
+        function setPollution(x) {
+          var pollution1 = document.getElementById("pollution")
+          pollution1.setAttribute("pollution", {"multiplier" : x})
+        }
+        
+        function showDataPollution(){
+          document.getElementById('principaleVideo').setAttribute('visible', true);
+          document.getElementById('pointInteretData').setAttribute('visible', false);
+          document.getElementById('playVideos').setAttribute('width', 0.2);
+          document.getElementById('playVideos').setAttribute('height', 0.2);
+          for(var k=1;k<=principauxPOI.length; k++){
+            document.getElementById('pointInteretPrincipal'+k+"hidden").setAttribute('visible', false);
+            document.getElementById('pointInteretPrincipal'+k+"image").setAttribute('visible', false);
+          }
+          document.getElementById('niveauPollution').setAttribute('visible', false);
+          document.getElementById('indicePollution').setAttribute('visible', false);
+          document.getElementById('principaleImage').setAttribute('visible', false);
+          document.getElementById('pointInteretDataBack').setAttribute('visible', true);
+          document.getElementById('donneesPollution').setAttribute('visible', true);
+        }
+
+        function hideDataPollution() {
+          document.getElementById('principaleVideo').setAttribute('visible', true);
+          document.getElementById('pointInteretData').setAttribute('visible', true);
+          document.getElementById('playVideos').setAttribute('width', 1);
+          document.getElementById('playVideos').setAttribute('height', 1);
+          for(var k=1;k<=principauxPOI.length; k++){
+            document.getElementById('pointInteretPrincipal'+k+"hidden").setAttribute('visible', true);
+            document.getElementById('pointInteretPrincipal'+k+"image").setAttribute('visible', true);
+          }
+          document.getElementById('niveauPollution').setAttribute('visible', true);
+          document.getElementById('indicePollution').setAttribute('visible', true);
+          document.getElementById('principaleImage').setAttribute('visible', false);
+          document.getElementById('pointInteretDataBack').setAttribute('visible', false);
+          document.getElementById('donneesPollution').setAttribute('visible', false);
+        }
+
+        function getDateNow() {
+          var d = new Date();
+          var n = d.getDate().toString();
+          var m = (d.getMonth()+1).toString();
+          var y = (d.getFullYear()-1).toString();
+          if(m.length == 1 ){
+            m = "0"+m
+          }
+          if(n.length == 1 ){
+            n = "0"+n
+          }
+          var date = n+"/"+m+"/"+y;
+          return date;
+        }
+
+        function getIndicePollution() {
+          var xhr = new XMLHttpRequest();
+          //exemple Bon : 2017-06-29
+          //exemple Moyen : 2017-06-27
+          //exemple Mediocre : 2017-06-22
+          //exemple Mauvais : 2017-06-23
+          xhr.open("GET", " http://api.atmo-aura.fr/communes/"+positionAffichageDonnees[0]["quartier"]+"/indices?date=now&api_token=08cbc79e8390968b33dd400fd785ad9f", false);
+          xhr.send();
+          var datatom = JSON.parse(xhr.response);
+          setTimeout(function(){
+              var indicePol = (datatom.indices.qualificatif).replace(new RegExp(/[èéêë]/g),"e")
+              var valeurPol = (datatom.indices.valeur).substring(0,5)
+              // document.getElementById("indicePollution").setAttribute('value', valeurPol +" - " +indicePol)
+              document.getElementById("indicePollution").setAttribute('value', indicePol)
+              document.getElementById("indicePollution").setAttribute('color', datatom.indices.couleur_html)
+              if(indicePol == "Bon"){
+                setPollution(0.05)
+              }else if(indicePol == "Moyen"){
+                setPollution(0.2)
+              }else if(indicePol == "Mediocre"){
+                setPollution(0.3)
+              }else if(indicePol == "Mauvais"){
+                setPollution(0.4)
+              }
+          }
+        , 1000);
+        }
+
+          //  debut d'un scenario a image'
+        function startScenarioImage(elem) {
+          // getIndicePollution();
+          document.getElementById('principaleVideo').setAttribute('visible', false);
+          document.getElementById('pointInteretData').setAttribute('visible', false);
+          var scenario = $(elem).attr("idScenarioALancer")
+          setPollution(0.0)
+          for(var l in scenarios){
+            if(scenarios[l].id == scenario){
+              var tempsquestion = scenarios[l].tempsAffichageQuestion;
+            }
+          }
+          document.getElementById('videoNoir').currentTime = 0
+          launchQuestion(scenario)
+          var sceneEl = document.getElementById("videoNoirVideo")
+          sceneEl.setAttribute('visible', 'true')
+          setTimeout(function(){
+          console.log("scenario image")
+          for(var q in scenarios){
+            if(scenarios[q].id == scenario){
+              document.getElementById(scenarios[q].imageImmersion).setAttribute('visible', true)
+              if(scenarios[q].tauxPollution > 3){
+                setPollution(3.0)
+              } else{
+                setPollution(scenarios[q].tauxPollution)
+              }
+            }
+          }
+          sceneEl.setAttribute('visible', 'false')
+          
+          hideQuestion(scenario)    
+          }, tempsquestion)
+        }
+        //déclenche le début d'un scénario'
+        function startScenario(elem) {
+          var scenario = $(elem).attr("idScenarioALancer")
+          for(var l in scenarios){
+            if(scenarios[l].id == scenario){
+              var videolancer = scenarios[l].videoImmersion;
+              var tempsquestion = scenarios[l].tempsAffichageQuestion;
+            }
+          }
+          setPollution(0.0)
+          document.getElementById('principaleVideo').setAttribute('visible', false);
+          document.getElementById('pointInteretData').setAttribute('visible', false);
+          document.getElementById('videoNoir').currentTime = 0
+          launchQuestion(scenario)
+          var sceneEl = document.getElementById("videoNoirVideo")
+          sceneEl.setAttribute('visible', 'true')
+          setTimeout(function(){
+              document.getElementById(videolancer).currentTime = 0
+              document.getElementById(videolancer).play()
+              //LIMITE MAX POLLUTION
+              
+              setTimeout(function(){
+                for(var q in scenarios){
+                  if(scenarios[q].id == scenario){
+                    if(scenarios[q].tauxPollution > 3){
+                      setPollution(3.0)
+                    } else{
+                      setPollution(scenarios[q].tauxPollution)
+                    }
+                  }
+                }
+                sceneEl.setAttribute('visible', 'false')
+                hideQuestion(scenario)
+                var sceneE2 = document.getElementById(videolancer+"Video")
+                sceneE2.setAttribute('visible', 'true')
+              }, 700);
+              
+          }, tempsquestion);
+        }
+
+        // déclenche la suite d'un scénario (après click sur POI d'un scenario)'
+        function continueScenario(elem) { 
+          document.getElementById('playVideos').setAttribute('visible', false);
+          var videolance = $(elem).attr("idVideoALancer") 
+          document.getElementById(videolance).currentTime=0.1;
+          for(var k=1;k<=scenariosPOI.length; k++){
+              document.getElementById('pointInteretScn'+k+"hidden").setAttribute('visible', false);
+              document.getElementById('pointInteretScn'+k+"image").setAttribute('visible', false);
+            }
+          for(var txt in scenariosDonnees){
+            document.getElementById(scenariosDonnees[txt]["id"]).setAttribute('visible', false);
+          }
+          document.getElementById(videolance).play()
+          setTimeout(function(){
+            var longueurvideo = document.getElementById($(elem).attr("idVideoALancer")).duration*1000
+            for(var u in videos){
+              document.getElementById(videos[u].id+'Video').setAttribute('visible', 'false')
+            }    
+            for(var v in images){
+              document.getElementById(images[v].id).setAttribute('visible', 'false')
+            } 
+            document.getElementById('img1').setAttribute('visible', false);
+            document.getElementById(videolance+'Video').setAttribute('visible', 'true')  
+            setTimeout(function(){
+              finishScenario(elem)
+            }, (longueurvideo-800));
+          }, 1000);   
+        }
+
+        // Fin du scenario et retour a la scene principale
+        function finishScenario(element) {
+          setPollution(0.0)
+          document.getElementById('principaleVideo').setAttribute('visible', true);
+          var tempsreponse = $(element).attr("tempsAffichageReponse")
+          document.getElementById( $(element).attr("idVideoALancer")+'Video').setAttribute('visible', 'false')
+          document.getElementById('videoNoir').currentTime = 0
+          launchReponse($(element).attr("id").slice(0, -6))
+          var sceneEl = document.getElementById("videoNoirVideo")
+          sceneEl.setAttribute('visible', 'true')
+          setTimeout(function(){
+              sceneEl.setAttribute('visible', 'false')
+              document.getElementById('principale').currentTime = 0
+              hideReponse($(element).attr("id").slice(0, -6)) //remet aussi les points d'intéret de départ'
+              var sceneE2 = document.getElementById("principaleVideo")
+              sceneE2.setAttribute('visible', 'true')
+              document.getElementById('pointInteretData').setAttribute('visible', true);
+              document.getElementById('principale').play()
+              getIndicePollution()
+          }, tempsreponse);
+        }
+
+        function launchQuestion(scenario) { 
+          //cache tous les points d'interet'
+          for(var k=1;k<=principauxPOI.length; k++){
+            document.getElementById('pointInteretPrincipal'+k+"hidden").setAttribute('visible', false);
+            document.getElementById('pointInteretPrincipal'+k+"image").setAttribute('visible', false);
+          }
+          document.getElementById('playVideos').setAttribute('visible', false);
+          document.getElementById('niveauPollution').setAttribute('visible', false);
+          document.getElementById('indicePollution').setAttribute('visible', false);
+          document.getElementById(scenario+'Question').setAttribute('visible', true);
+        }
+
+        function launchReponse(idRep) { 
+          document.getElementById('playVideos').setAttribute('visible', false);
+          document.getElementById(idRep+'Reponse').setAttribute('visible', true);
+        }
+
+        function hideQuestion(scenario) { 
+          //parcourir la listePOI
+          for(var s in scenarios){
+            if(scenarios[s].id == scenario){
+              for(var poi in scenarios[s]["listePOI"]){
+                document.getElementById(scenarios[s]["listePOI"][poi]["id"]+'hidden').setAttribute('visible', true);
+                document.getElementById(scenarios[s]["listePOI"][poi]["id"]+'image').setAttribute('visible', true); 
+              }
+              for(var poi2 in scenarios[s]["listeDonnees"]){
+                document.getElementById(scenarios[s]["listeDonnees"][poi2]["id"]).setAttribute('visible', true);
+              }
+            }
+          }
+          document.getElementById('playVideos').setAttribute('visible', true);
+          document.getElementById(scenario+'Question').setAttribute('visible', false);
+        }
+
+        function hideReponse(idRep) { 
+          for(var k=1;k<=principauxPOI.length; k++){
+            document.getElementById('pointInteretPrincipal'+k+"hidden").setAttribute('visible', true);
+            document.getElementById('pointInteretPrincipal'+k+"image").setAttribute('visible', true);
+          }
+          document.getElementById('playVideos').setAttribute('visible', true);
+          document.getElementById('niveauPollution').setAttribute('visible', true);
+          document.getElementById('indicePollution').setAttribute('visible', true);
+          document.getElementById(idRep+'Reponse').setAttribute('visible', false);
+        }
+      </script>
+    </a-scene>
+  </body>
+  <!--Ici on genere les points d'interet (principaux puis scenario)'-->
+  <script type="text/javascript">
+    getIndicePollution();
+
+      var transformPrincipauxPOI = [
+            {"<>":"a-entity","id":"${id}","html":[
+              {"<>":"a-plane","id":"${id}"+"hidden", "idScenarioALancer":"${idScenarioALancer}", "visible":"true","onclick":function(e){
+              for(var b in scenarios){
+                    if(scenarios[b].id == (this.attr("idScenarioALancer"))){
+                      if(scenarios[b].type == "video"){
+                        startScenario(this);
+                      } else{
+                        startScenarioImage(this);
+                      }
+                    }
+                  }
+          }, "position":"${position}","rotation":"${rotation}","width":"${largeur}","height":"${hauteur}","transparent":"true","opacity":"0","html":[
+                  {"<>":"a-image","id":"${id}"+"image","position":"-0.05 -0.05 -0.05","src":"#viseurAsset","width":"2.5","height":"2.5","html":""}
+                  // {"<>":"a-animation","attribute":"scale","fill":"backwards","begin":"fusing","end":"mouseleave", "repeat":"indefinite","from":"1 1 1", "to":"1 0.1 0.1","dur":"3000","html":""}
+                  // {"<>":"a-animation","attribute":"position","fill":"backwards","begin":"fusing","end":"mouseleave","direction":"alternate","repeat":"indefinite","to":"${hauteurAnimation}","dur":"600","html":""}
+                ]}
+            ]}
+          ];	
+      $(function(){
+          console.log("generePOIprincipaux");
+          $('#iciPrincipauxPOI').json2html(principauxPOI,transformPrincipauxPOI);
+      });
+  </script>
+
+  <script type="text/javascript">
+  // for(var poi in scenarios[s]["listePOI"]){
+  //   document.getElementById(scenarios[s]["listePOI"][poi]["id"]+'hidden').setAttribute('visible', true);
+               
+    var transformTestText = [
+      {"<>":"a-entity","id":"${id}","visible":"false" ,"html":[
+        {"<>":"a-plane","id":"${id}"+"hidden","visible":"true","position":"${position}","width":"0.01","height":"0.01","rotation":"${rotation}","transparent":"true","opacity":"1","html":[
+           {"<>":"a-text","value":"${texte}","color":"${couleur}","align":"center","baseline":"top","width":"${taille}","font":"aileronsemibold","position":"0 0 0","html":[
+            {"<>":"a-animation","easing":"ease-in","attribute":"opacity","repeat":"indefinite","direction":"alternate","from":"0","to":"1","dur":"4000","html":""}
+          ]}
+        ]}
+      ]}
+    ];
+    $(function(){
+        console.log("generateTextes");
+        $('#iciTextesScenario').json2html(scenariosDonnees,transformTestText);
+    });
+  </script>
+
+  <script type="text/javascript">
+
+    var transformPrincipalData = [
+      {"<>":"a-entity","id":"pointInteretData","html":[
+        {"<>":"a-plane","id":"pointInteretDatahidden","visible":"true", "onclick":function(e){
+            
+            showDataPollution();
+            
+        },"position":"${positionPOI}","width":"${largeur}","height":"${hauteur}","rotation":"${rotation}","transparent":"true","opacity":"0","html":[
+          {"<>":"a-image","id":"pointInteretDataimage","position":"-0.05 -0.05 -0.05","src":"#viseurAssetData","width":"12.5","height":"12.5","html":""}
+        ]}
+      ]}
+    ];
+    $(function(){
+        console.log("generatePrincipalPOIData");
+        $('#pointInteretData').json2html(positionAffichageDonnees,transformPrincipalData);
+    });
+  </script>
+
+  <script type="text/javascript">
+  
+    var transformPrincipalDataBack = [
+      {"<>":"a-entity","id":"pointInteretDataBack","html":[
+        {"<>":"a-plane","id":"pointInteretDatahiddenBack","visible":"true","onclick":function(e){
+            
+            hideDataPollution();
+            
+        },"position":"${positionPOI}","width":"${largeur}","height":"${hauteur}","rotation":"${rotation}","transparent":"true","opacity":"0","html":[
+            {"<>":"a-image","id":"pointInteretDataimageBack","position":"-0.05 -0.05 -0.05","src":"#viseurAsset","width":"12.5","height":"12.5","html":""},
+            {"<>":"a-text","color":"#000099","align":"center","baseline":"top","width":"13","position":"-0.3 -1.4 1","font":"aileronsemibold","value":"OK","html":""}
+          ]}
+     ]}
+    ];
+    $(function(){
+        // console.log("generatePrincipalPOIData");
+        $('#pointInteretDataBack').json2html(positionAffichageDonnees,transformPrincipalDataBack);
+    });
+  </script>
+  
+  <script type="text/javascript">
+    var transformScenariosPOI = [
+          {"<>":"a-entity","id":"${id}","html":[
+            {"<>":"a-plane","id":"${id}"+"hidden", "idVideoALancer":"${idVideoALancer}", "tempsAffichageReponse":"${tempsAffichageReponse}", "onclick":function(e){
+            
+            continueScenario(this);
+            
+        },"visible":"false","position":"${position}","rotation":"${rotation}","width":"${largeur}","height":"${hauteur}", "transparent":"true","opacity":"0","html":[
+                {"<>":"a-image","id":"${id}"+"image","position":"-0.05 -0.05 -0.05","src":"#viseurAsset","width":"2.5","height":"2.5","html":""}
+              ]}
+          ]}
+        ];
+
+    $(function(){
+        console.log("generatePOIscenario");
+        $('#iciScenariosPOI').json2html(scenariosPOI,transformScenariosPOI);
+    });
+    //pause toutes les vidéos sauf la principale 
+    for(var p in videos){
+      if(videos[p].id != "principale"){
+        document.getElementById(videos[p].id).pause()
+        document.getElementById(videos[p].id).load()
+        //Bon sur l'ordi'
+        setTimeout(function(){
+          document.getElementById(videos[p].id).currentTime=0.1 //SI BUG REMETTRE A 0
+          document.getElementById(videos[p].id).pause()
+          console.log("videos chargées dans le cache!")
+          }, 20000);
+      }
+    }   
+</script>
+</html>
