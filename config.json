@@ -355,7 +355,7 @@ var videos = [
       //temps d'affichage de la réponse en millisecondes'
       "tempsAffichageReponse" : "12000",
       //indiquez la réponse qui apparaitra en fin de scénario
-      "reponse" :"Les couts sanitaires et socio-économiques de la pollution de l'air sont considérables, ils sont évalués en France à environ 1400€ par an et par habitant. Il s'agit des couts de santé, de l'impact sur les rendements agricoles et la biodiversité, l'érosion des batiments et la dégradation du patrimoine bâti."
+      "reponse" :"Les couts sanitaires et socio-économiques de la pollution de l'air sont considérables, ils sont évalués en France à environ 1400 euros par an et par habitant. Il s'agit des couts de santé, de l'impact sur les rendements agricoles et la biodiversité, l'érosion des batiments et la dégradation du patrimoine bâti."
     },
     {
       "id" : "pointInteretScn3",
