@@ -47,6 +47,7 @@ var videos = [
       "rotation" :"0 10 0",
       "largeur" :"7.5",
       "hauteur" :"90",
+      "rotationDonnees" : "0 10 0",
     }
   ]
 //Ici ajoutez les images que vous allez utiliser dans votre projet, pour vos scénarios
