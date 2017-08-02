@@ -123,12 +123,12 @@ var videos = [
         // {"id" : "pointInteretScn3"}
       ],
       //liste des données à afficher dans votre scénario
-      // "listeDonnees": [
-      //   {"id" : "data1"},
-      //   {"id" : "data2"},
-      //   {"id" : "data3"},
-      //   {"id" : "data4"}
-      // ]
+      "listeDonnees": [
+        {"id" : "data1"},
+        {"id" : "data2"},
+        {"id" : "data3"},
+        {"id" : "data4"}
+      ]
     },
     {
       "id" : "scenario2",
@@ -430,33 +430,29 @@ var videos = [
         "id" : "data1",
         "position" : "2 3.8 -1",
         "rotation" : "0 0 0",
-        "taille" : "10",
-        "texte" : "Formaldehyde: 10%",
-        "couleur" : "red"
+        "taille" : "6",
+        "texte" : "Marche à pied, trottinette, skate… C'est bon la qualité de l'air, puisque c'est 0 émission de polluants ! ",
       },
       {
         "id" : "data2",
         "position" : "-0.8 3.7 12",
         "rotation" : "0 -180 0",
-        "taille" : "10",
-        "texte" : "Monoxyde de carbone: 25%",
-        "couleur" : "yellow"
+        "taille" : "6",
+        "texte" : "La flore est aussi sensible à la pollution de l'air. A long terme la pollution affaiblit la croissance des plantes, provoquant une perte de bidiversité ",
       },
       {
         "id" : "data3",
         "position" : "-5 4 5",
         "rotation" : "0 90 0",
-        "taille" : "8",
-        "texte" : "Benzene: 15%",
-        "couleur" : "green"
+        "taille" : "6",
+        "texte" : "Pour les petits trajets urbains, utiliser une voiture électrique réduit de 38% les émissions d'oxydes d'azote et de 19% les émissions de particules ",
       },
       {
         "id" : "data4",
         "position" : "10 3 11",
         "rotation" : "0 -100 0",
-        "taille" : "13",
+        "taille" : "6",
         "texte" : "Particules PM10: 5%",
-        "couleur" : "green"
       }
   ]
 

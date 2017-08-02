@@ -32,6 +32,7 @@
         <img id="viseurAsset" crossorigin="anonymous" src="./img/viseur.png">
         <img id="viseurAssetData" crossorigin="anonymous" src="./img/viseurData.png">
         <img id="dataAsset" crossorigin="anonymous" src="./img/logoatmo.png">
+        <img id="dataAssetAnnexe" crossorigin="anonymous" src="./img/fondBlanc.png">
         <!--script pour récupérer l'ensemble des vidéos qui vont servir au projet'-->
         <script>
           var transformVideos = [
@@ -510,16 +511,21 @@
   <script type="text/javascript">
   // for(var poi in scenarios[s]["listePOI"]){
   //   document.getElementById(scenarios[s]["listePOI"][poi]["id"]+'hidden').setAttribute('visible', true);
-               
+
     var transformTestText = [
       {"<>":"a-entity","id":"${id}","visible":"false" ,"html":[
-        {"<>":"a-plane","id":"${id}"+"hidden","visible":"true","position":"${position}","width":"0.01","height":"0.01","rotation":"${rotation}","transparent":"true","opacity":"1","html":[
-           {"<>":"a-text","value":"${texte}","color":"${couleur}","align":"center","baseline":"top","width":"${taille}","font":"aileronsemibold","position":"0 0 0","html":[
-            {"<>":"a-animation","easing":"ease-in","attribute":"opacity","repeat":"indefinite","direction":"alternate","from":"0","to":"1","dur":"4000","html":""}
-          ]}
-        ]}
-      ]}
-    ];
+      {"<>":"a-text","color":"black","align":"center","baseline":"center","width":"${taille}","position":"${position}","rotation":"${rotation}","font-family":"Lucida Sans Unicode","value":"${texte}","html":""},
+      {"<>":"a-plane","id":"toread2","visible":"true","position":"${position}","width":"6","height":"1.4","rotation":"${rotation}","transparent":"false","opacity":"1","html":[
+                  // {"<>":"a-image","id":"imageDonnees2","opacity":"1","position":"0 0 -1","src":"#dataAssetAnnexe","width":"5.5","height":"5.5","rotation":"0 -10 0","transparent":"true","html":""}
+                ]},
+      // {"<>":"a-entity","id":"${id}","visible":"false" ,"html":[
+      //   {"<>":"a-plane","id":"${id}"+"hidden","visible":"true","position":"${position}","width":"0.01","height":"0.01","rotation":"${rotation}","transparent":"true","opacity":"1","html":[
+      //      {"<>":"a-text","value":"${texte}","color":"${couleur}","align":"center","baseline":"top","width":"${taille}","font":"aileronsemibold","position":"0 0 0","html":[
+      //       {"<>":"a-animation","easing":"ease-in","attribute":"opacity","repeat":"indefinite","direction":"alternate","from":"0","to":"1","dur":"4000","html":""}
+      //     ]}
+      //   ]}
+      // ]}
+    ]}];
     $(function(){
         console.log("generateTextes");
         $('#iciTextesScenario').json2html(scenariosDonnees,transformTestText);
@@ -582,6 +588,10 @@
         console.log("generatePOIscenario");
         $('#iciScenariosPOI').json2html(scenariosPOI,transformScenariosPOI);
     });
+    //enlève les accents des données annexes
+    for(var txtxt in scenariosDonnees){
+      scenariosDonnees[txtxt]["texte"] = removeDiacritics(scenariosDonnees[txtxt]["texte"]);
+    }
     //pause toutes les vidéos sauf la principale 
     for(var p in videos){
       if(videos[p].id != "principale"){
