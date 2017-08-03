@@ -21,15 +21,31 @@ Downsize video and remove sound
 
 ## Still need Help?
 
-### Installation
+### Guide d'installation du Polluscope
 
-First make sure you have Node installed.
+Installer nodejs depuis le site officiel : https://nodejs.org/
 
-To install the Node dependencies:
+L'assistant d'installation installera également npm
+
+Après avoir cloné le dépôt ou téléchargé l'archive du Polluscope, ouvrir un terminal dans le dossier polluscope
+
+Lancer la commande 
 
     npm install
 
+Tout est désormais prêt pour lancer le polluscope
 
+Toujours dans le dossier polluscope, lancer la commande 
+
+    npm start
+
+Une page de votre navigateur va s'ouvrir en lançant l'application. Copiez l'url de cette page.Vous pouvez ensuite la fermer si vous le désirez.
+
+Sur votre smartphone récent, installez le navigateur yandex browser (depuis le play store par exemple).
+
+Sur ce navigateur, collez l'url précédemment copié. 
+
+Passez en mode VR et placez votre smartphone dans un cardboard, et profitez de l'expérience Polluscope.
 ### Local Development
 
 To serve the site from a simple Node development server:
