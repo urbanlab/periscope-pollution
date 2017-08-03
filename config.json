@@ -123,12 +123,12 @@ var videos = [
         // {"id" : "pointInteretScn3"}
       ],
       //liste des données à afficher dans votre scénario
-      "listeDonnees": [
-        {"id" : "data1"},
-        {"id" : "data2"},
-        {"id" : "data3"},
-        {"id" : "data4"}
-      ]
+      // "listeDonnees": [
+      //   {"id" : "data1"},
+      //   {"id" : "data2"},
+      //   {"id" : "data3"},
+      //   {"id" : "data4"}
+      // ]
     },
     {
       "id" : "scenario2",
@@ -210,12 +210,12 @@ var videos = [
         // {"id" : "pointInteretScn3"}
       ],
       //liste des données à afficher dans votre scénario
-      // "listeDonnees": [
-      //   {"id" : "data1"},
-      //   {"id" : "data2"},
-      //   {"id" : "data3"},
-      //   {"id" : "data4"}
-      // ]
+      "listeDonnees": [
+        {"id" : "data3"},
+        // {"id" : "data2"},
+        // {"id" : "data3"},
+        // {"id" : "data4"}
+      ]
     },
     {
       "id" : "scenario5",
@@ -268,12 +268,10 @@ var videos = [
         // {"id" : "pointInteretScn3"}
       ],
       //liste des données à afficher dans votre scénario
-      // "listeDonnees": [
-      //   {"id" : "data1"},
-      //   {"id" : "data2"},
-      //   {"id" : "data3"},
-      //   {"id" : "data4"}
-      // ]
+      "listeDonnees": [
+        {"id" : "data5"},
+        {"id" : "data4"}
+      ]
     }
   ]
   // Ici indiquez quels sont les points d'intérêt de la scène principale, et le scénario que chacun va lancer'
@@ -431,7 +429,7 @@ var videos = [
         "position" : "2 3.8 -1",
         "rotation" : "0 0 0",
         "taille" : "6",
-        "texte" : "Marche à pied, trottinette, skate… C'est bon la qualité de l'air, puisque c'est 0 émission de polluants ! ",
+        "texte" : "Marche à pied, trottinette, skate… C'est bon pour la qualité de l'air, puisque c'est 0 émission de polluants ! ",
       },
       {
         "id" : "data2",
@@ -442,17 +440,24 @@ var videos = [
       },
       {
         "id" : "data3",
-        "position" : "-5 4 5",
-        "rotation" : "0 90 0",
+        "position" : "-7 4 1",
+        "rotation" : "0 40 0",
         "taille" : "6",
         "texte" : "Pour les petits trajets urbains, utiliser une voiture électrique réduit de 38% les émissions d'oxydes d'azote et de 19% les émissions de particules ",
       },
       {
         "id" : "data4",
-        "position" : "10 3 11",
-        "rotation" : "0 -100 0",
+        "position" : "-5 4.5 13",
+        "rotation" : "0 170 0",
         "taille" : "6",
-        "texte" : "Particules PM10: 5%",
+        "texte" : "Un bus peut transporter en passagers l'équivalent de 40 à 50 voitures", 
+      },
+      {
+        "id" : "data5",
+        "position" : "3 4 11",
+        "rotation" : "0 210 0",
+        "taille" : "6",
+        "texte" : "En ville, la voiture est le mode de transport le plus cher : 30 centimes d'euros du km et elle est la plupart du temps la moins rapide. ",
       }
   ]
 
