@@ -61,6 +61,16 @@ var videos = [
       "id" : "video8",
       "chemin" : "./video/tramPart.mp4",
       "boucle" : "false"
+    },
+    {
+      "id" : "video9",
+      "chemin" : "./video/velo1.mp4",
+      "boucle" : "false"
+    },
+    {
+      "id" : "video10",
+      "chemin" : "./video/parc.mp4",
+      "boucle" : "false"
     }
   ]
 
@@ -165,28 +175,28 @@ var videos = [
       // type : image ou type : video
       "type" : "video",
       //question d'ouverture au lancement du scénario'
-      "question" : "Test scenario 3 ",
+      "question" : "Ai-je intérêt à faire du vélo en ville ? ",
       //temps d'affichage de la question en millisecondes'
-      "tempsAffichageQuestion" : "1000",
+      "tempsAffichageQuestion" : "2000",
       //vidéo lancée au début du scénario (si scenario de type video)
-      "videoImmersion" : "video1",
+      "videoImmersion" : "video9",
       //image lancée au moment de l'immersion' (si scenario de type image)
       "imageImmersion" : "img2",
       //taux de pollution pour votre scénario (fixé inférieur à 3.0)
       "tauxPollution" : "0.01",
       //liste des points d'interet de votre scénario'
       "listePOI": [
-        {"id" : "pointInteretScn3"}
+        {"id" : "pointInteretScn8"}
         // {"id" : "pointInteretScn2"},
         // {"id" : "pointInteretScn3"}
       ],
       //liste des données à afficher dans votre scénario
-      // "listeDonnees": [
-      //   {"id" : "data1"},
-      //   {"id" : "data2"},
-      //   {"id" : "data3"},
-      //   {"id" : "data4"}
-      // ]
+      "listeDonnees": [
+        {"id" : "data1"}
+        // {"id" : "data2"},
+        // {"id" : "data3"},
+        // {"id" : "data4"}
+      ]
     },
     {
       "id" : "scenario4",
@@ -272,6 +282,32 @@ var videos = [
         {"id" : "data5"},
         {"id" : "data4"}
       ]
+    },
+    {
+      "id" : "scenario7",
+      //choisissez si votre scenario commence par une video ou une image
+      // type : image ou type : video
+      "type" : "video",
+      //question d'ouverture au lancement du scénario'
+      "question" : "Quels sont les espaces à privilégier pour les activités de plein air ?",
+      //temps d'affichage de la question en millisecondes'
+      "tempsAffichageQuestion" : "2000",
+      //vidéo lancée au début du scénario (si scenario de type video)
+      "videoImmersion" : "video10",
+      //image lancée au moment de l'immersion' (si scenario de type image)
+      "imageImmersion" : "img2",
+      //taux de pollution pour votre scénario (fixé inférieur à 3.0)
+      "tauxPollution" : "0.1",
+      //liste des points d'interet de votre scénario'
+      "listePOI": [
+        {"id" : "pointInteretScn9"}
+        // {"id" : "pointInteretScn3"}
+      ],
+      //liste des données à afficher dans votre scénario
+      "listeDonnees": [
+        {"id" : "data2"},
+        {"id" : "data6"}
+      ]
     }
   ]
   // Ici indiquez quels sont les points d'intérêt de la scène principale, et le scénario que chacun va lancer'
@@ -324,6 +360,14 @@ var videos = [
       "largeur" :"1.5",
       "hauteur" :"90",
       "idScenarioALancer" :"scenario6"
+    },
+    {
+      "id" : "pointInteretPrincipal7",
+      "position" : "13 5 -1.2",
+      "rotation" :"0 300 0",
+      "largeur" :"1.5",
+      "hauteur" :"90",
+      "idScenarioALancer" :"scenario7"
     }
   ]
   //Ici configurez les points d'intérêts des scénarios 
@@ -419,6 +463,32 @@ var videos = [
       "tempsAffichageReponse" : "13500",
       //indiquez la réponse qui apparaitra en fin de scénario
       "reponse" :"Les transports en commun sont une alternative moins polluante que la voiture individuelle en ville. En transportant plus de personnes pour un un même trajet ce mode de transport réduit considérablement les émission de polluants. Par exemple sur un trajet de 20 km en centre-ville, prendre le tramway  plutôt que la voiture réduit d'au moins 1200% votre impact sur la qualité de l'air ! "
+    },
+    {
+      "id" : "pointInteretScn8",
+      "position" : "12.5 2.5 1",
+      "rotation" :"0 265 0",
+      "largeur" :"1.5",
+      "hauteur" :"90",
+      //choisissez la vidéo à lancer au click sur le point d'interet (suite du scenario)'
+      "idVideoALancer" :"video2",
+      //temps d'affichage de la réponse en millisecondes'
+      "tempsAffichageReponse" : "13500",
+      //indiquez la réponse qui apparaitra en fin de scénario
+      "reponse" :"Même si en pédalant, on inhale plus d'air potentiellement pollué, les bénéfices d'une activité physique comme le vélo sur la santé restent supérieurs aux risques ! A l'inverse nous sommes beaucoup plus exposés à l'intérieur d'une voiture : la pollution peut être jusqu'à 10 fois supérieure dans une voiture que sur une piste cyclable ! "
+    },
+    {
+      "id" : "pointInteretScn9",
+      "position" : "12.5 2.5 1",
+      "rotation" :"0 265 0",
+      "largeur" :"1.5",
+      "hauteur" :"90",
+      //choisissez la vidéo à lancer au click sur le point d'interet (suite du scenario)'
+      "idVideoALancer" :"video2",
+      //temps d'affichage de la réponse en millisecondes'
+      "tempsAffichageReponse" : "13500",
+      //indiquez la réponse qui apparaitra en fin de scénario
+      "reponse" :"Les espaces ouverts (espaces naturels, parcs, jardins, grandes voies piétonnes, etc.) constituent des espaces de respiration, permettant la circulation de l'air et la dispersion des polluants. C'est le type d'endroit idéal pour les activités de plein air. "
     }
   ]
   //Ici se trouvent les données (texte) à afficher dans votre scénario
@@ -436,7 +506,7 @@ var videos = [
         "position" : "-0.8 3.7 12",
         "rotation" : "0 -180 0",
         "taille" : "6",
-        "texte" : "La flore est aussi sensible à la pollution de l'air. A long terme la pollution affaiblit la croissance des plantes, provoquant une perte de bidiversité ",
+        "texte" : "La flore est aussi sensible à la pollution de l'air. A long terme la pollution affaiblit la croissance des plantes, provoquant une perte de biodiversité ",
       },
       {
         "id" : "data3",
@@ -458,6 +528,13 @@ var videos = [
         "rotation" : "0 210 0",
         "taille" : "6",
         "texte" : "En ville, la voiture est le mode de transport le plus cher : 30 centimes d'euros du km et elle est la plupart du temps la moins rapide. ",
-      }
+      },
+      {
+        "id" : "data6",
+        "position" : "6 3.8 -1",
+        "rotation" : "0 -60 0",
+        "taille" : "6",
+        "texte" : "Les animaux subissent également la pollution ! Tout comme les humains, une exposition prolongée affaiblit leur organisme.",
+      },
   ]
 
